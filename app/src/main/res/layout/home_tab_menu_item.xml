@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="10.0dip"
+    android:paddingRight="10.0dip">
+
+    <ImageView
+        android:id="@+id/list_view_item_menu_tab_image"
+        android:layout_width="20.0dip"
+        android:layout_height="20.0dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10.0dip"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/list_view_item_menu_tab_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@id/list_view_item_menu_tab_image"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="10.0dip"
+        android:paddingTop="10.0dip"
+        android:textColor="#ff000000"
+        android:textSize="@dimen/text_size_small" />
+
+    <ImageView
+        android:id="@+id/list_view_item_menu_tab_is_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon_stick"
+        android:visibility="gone" />
+</RelativeLayout>

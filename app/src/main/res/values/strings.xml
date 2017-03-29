@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">MyFoody</string>
+    <string name="content_desc_imgView"></string>
+
+    <string name="TEXT_TITLE_TOOLBAR_DOMAIN">Danh mục</string>
+
+    <string name="TEXT_NEWEST">Mới nhất</string>
+    <string name="TEXT_CATEGORY">Danh mục</string>
+    <string name="TEXT_AREAS">Khu vực</string>
+    <string name="TEXT_WHERE2GO">Ở đâu</string>
+    <string name="TEXT_WHAT2DO">Ăn gì</string>
+
+    <string name="TEXT_PLUS_MENU_COUPON">Quét mã Coupon</string>
+    <string name="TEXT_PLUS_MENU_UPLOAD_IMAGE">Đăng ảnh</string>
+    <string name="TEXT_PLUS_MENU_CHECK_IN">Check-in</string>
+    <string name="TEXT_PLUS_MENU_WRITE_REVIEW">Viết bình luận</string>
+    <string name="TEXT_PLUS_MENU_ADD_PLACE">Thêm địa điểm</string>
+
+    <string name="TEXT_ACTION_CANCEL">Huỷ</string>
+
+    <string name="TEXT_BOOK_AND_DELIVERY">Giao hàng và đặt chỗ</string>
+    <string name="TEXT_DELIVERY">Giao hàng</string>
+    <string name="TEXT_BOOK">Đặt chỗ</string>
+
+    <string name="TEXT_DOMAIN_FOOD">Ăn uống</string>
+    <string name="TEXT_DOMAIN_TRAVEL">Du lịch</string>
+    <string name="TEXT_DOMAIN_WEDDING">Cưới hỏi</string>
+    <string name="TEXT_DOMAIN_HEALTHY">Đẹp khoẻ</string>
+    <string name="TEXT_DOMAIN_RELAX">Giải trí</string>
+    <string name="TEXT_DOMAIN_SHOPPING">Mua sắm</string>
+    <string name="TEXT_DOMAIN_EDU">Giáo dục</string>
+    <string name="TEXT_DOMAIN_SERVICE">Dịch vụ</string>
+
+</resources>

@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="style_textView_tab_menu" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="view_match">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <style name="bottom_bar" parent="@style/view_match_width">
+        <item name="android:gravity">left</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/line_gray</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/height_bottom_bar</item>
+    </style>
+
+    <style name="view_match_width" parent="@style/view_wrap">
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="view_wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

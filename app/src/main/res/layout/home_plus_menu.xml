@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_parent_plus_menu"
+    style="@style/view_match"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/view_match_width"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:clickable="true"
+        android:orientation="vertical"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_ecoupon_plus_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/content_desc_imgView"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_ecoupon" />
+
+            <TextView
+                style="@style/view_match"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="@string/TEXT_PLUS_MENU_COUPON"
+                android:textColor="@color/color_tittle_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_upload_image_plus_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/content_desc_imgView"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_upload_image" />
+
+            <TextView
+                style="@style/view_match"
+                android:contentDescription="@string/content_desc_imgView"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="@string/TEXT_PLUS_MENU_UPLOAD_IMAGE"
+                android:textColor="@color/color_tittle_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_checkin_plus_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/content_desc_imgView"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_checkin" />
+
+            <TextView
+                style="@style/view_match"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="@string/TEXT_PLUS_MENU_CHECK_IN"
+                android:textColor="@color/color_tittle_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_review_plus_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/content_desc_imgView"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_review" />
+
+            <TextView
+                style="@style/view_match"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="@string/TEXT_PLUS_MENU_WRITE_REVIEW"
+                android:textColor="@color/color_tittle_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_add_place_plus_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/content_desc_imgView"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_add_place" />
+
+            <TextView
+                style="@style/view_match"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="@string/TEXT_PLUS_MENU_ADD_PLACE"
+                android:textColor="@color/color_tittle_item_plus_menu" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

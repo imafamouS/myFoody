@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout_parent_where2go_tab_menu"
+    style="@style/view_match"
+    android:layout_marginTop="45dip"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        style="@style/bottom_bar"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#55aaaaaa" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/transparent_white_95"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_where2go_tab_menu_1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="3.0dip">
+
+                <TextView
+                    style="@style/style_textView_tab_menu"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:text="@string/TEXT_NEWEST"
+                    android:textColor="@color/home_new_filter_text"
+                    android:textSize="13.0sp" />
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/content_desc_imgView"
+                    android:src="@drawable/icon_arrow_down_filter" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_layout_where2go_tab_menu_2"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="3.0dip">
+
+                <TextView
+                    style="@style/style_textView_tab_menu"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:text="@string/TEXT_CATEGORY"
+                    android:textColor="@color/home_new_filter_text"
+                    android:textSize="13.0sp" />
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/content_desc_imgView"
+                    android:src="@drawable/icon_arrow_down_filter" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_layout_where2go_tab_menu_3"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="3.0dip">
+
+                <TextView
+                    style="@style/style_textView_tab_menu"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:text="@string/TEXT_AREAS"
+                    android:textColor="@color/home_new_filter_text"
+                    android:textSize="13.0sp" />
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/content_desc_imgView"
+                    android:src="@drawable/icon_arrow_down_filter" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_show_item_tab_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/list_view_where2go_tab_menu"
+            style="@style/view_match"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/height_bottom_bar"
+            android:layout_weight="1.0"
+            android:background="@color/home_menu_background_color_pressed"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@color/home_new_list_view_line"
+            android:dividerHeight="1.0dip"
+            android:listSelector="@android:color/transparent" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.100000024dip"
+            android:background="#ffdddddd" />
+
+        <TextView
+            android:id="@+id/text_view_where2go_tab_menu_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:padding="10.0dip"
+            android:text="@string/TEXT_ACTION_CANCEL"
+            android:textColor="@color/micro_site_title_sub"
+            android:textSize="@dimen/text_size_title" />
+    </LinearLayout>
+
+</LinearLayout>
