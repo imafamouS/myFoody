@@ -13,18 +13,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.menu.views.SlideShowBanner;
-import com.fdsa.infamous.myfoody.ui.menu.views.TopMenuBar;
 
 public class WhereToGoFragment extends Fragment implements View.OnClickListener {
 
-    TopMenuBar mTopMenuBar;
+    TopMenuBarFragment mTopMenuBarFragment;
     Context context;
     LinearLayout linear_layout_parent_tab_menu;
     LinearLayout linear_layout_tab_menu_1;
     LinearLayout linear_layout_tab_menu_2;
     LinearLayout linear_layout_tab_menu_3;
-    SlideShowBanner slideShowBanner;
 
     public WhereToGoFragment(){
         super();
@@ -39,8 +36,8 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public void setmTopMenuBar(TopMenuBar topMenuBar){
-        this.mTopMenuBar=topMenuBar;
+    public void setmTopMenuBarFragment(TopMenuBarFragment topMenuBarFragment) {
+        this.mTopMenuBarFragment = topMenuBarFragment;
     }
     @Nullable
     @Override
@@ -55,7 +52,10 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener 
         linear_layout_tab_menu_1=(LinearLayout)view.findViewById(R.id.linear_layout_where2go_tab_menu_1);
         linear_layout_tab_menu_2=(LinearLayout)view.findViewById(R.id.linear_layout_where2go_tab_menu_2);
         linear_layout_tab_menu_3=(LinearLayout)view.findViewById(R.id.linear_layout_where2go_tab_menu_3);
-        //slideShowBanner=new SlideShowBanner(getActivity().getApplicationContext());
-        //linear_layout_parent_tab_menu.addView(slideShowBanner);
+
+        //linear_layout_parent_banner = (LinearLayout) view.findViewById(R.id.linear_layout_parent_banner);
+
+        // slideShowBanner=new SlideShowBanner(getActivity().getApplicationContext());
+        //linear_layout_parent_banner.addView(slideShowBanner);
     }
 }

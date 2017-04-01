@@ -9,4 +9,5 @@
     <dimen name="tab_height">45.0dip</dimen>
     <dimen name="text_size_title">14.0sp</dimen>
     <dimen name="text_size_small">12.0sp</dimen>
+    <dimen name="text_size_more_item">13.0sp</dimen>
 </resources>

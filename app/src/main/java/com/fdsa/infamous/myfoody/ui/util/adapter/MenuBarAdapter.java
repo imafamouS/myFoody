@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.util;
+package com.fdsa.infamous.myfoody.ui.util.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.ui.util.Type;
+import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
 
 import java.util.List;
 
@@ -27,6 +29,11 @@ public class MenuBarAdapter extends BaseAdapter {
         this.menuBarItems = listData;
         this.context = aContext;
         this.type = type;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
     }
 
     @Override

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linear_layout_parent_what2do_tab_menu"
     style="@style/view_match"
     android:layout_marginTop="45dip"
@@ -38,7 +36,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1.0"
-                    android:text="dfsadfsadfsdfasd"
+                    android:text="test1"
                     android:textColor="@color/home_new_filter_text"
                     android:textSize="13.0sp" />
 
@@ -105,9 +103,36 @@
                     android:src="@drawable/icon_arrow_down_filter" />
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout_home_new_ui"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
+        <!--<LinearLayout
+            android:id="@+id/linear_layout_parent_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+        </LinearLayout>-->
+        <ListView
+            android:id="@+id/list_view_main_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:animationCache="false"
+            android:background="@color/back_ground_color"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/linear_layout_show_item_tab_menu"
@@ -144,5 +169,6 @@
             android:textColor="@color/micro_site_title_sub"
             android:textSize="@dimen/text_size_title" />
     </LinearLayout>
+
 
 </LinearLayout>

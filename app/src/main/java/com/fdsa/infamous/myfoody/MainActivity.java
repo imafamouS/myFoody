@@ -1,28 +1,25 @@
 package com.fdsa.infamous.myfoody;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fdsa.infamous.myfoody.ui.util.MenuBarAdapter;
-import com.fdsa.infamous.myfoody.ui.util.MenuBarItem;
-import com.fdsa.infamous.myfoody.ui.util.Type;
 import com.fdsa.infamous.myfoody.ui.menu.views.BottomNavigationViewEx;
+import com.fdsa.infamous.myfoody.ui.util.Type;
+import com.fdsa.infamous.myfoody.ui.util.adapter.MenuBarAdapter;
+import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.fdsa.infamous.myfoody.R.id.tab_layout_top_menu;
 
 /**
  * Created by FDSA on 3/18/2017.
@@ -44,27 +41,50 @@ public class MainActivity extends AppCompatActivity {
     TextView text_view_where2go_top_menu;
     TextView text_view_what2do_top_menu;
 
+
+    RelativeLayout relative_main_layout;
+    ListView test_list_view;
+    ViewGroup slideShowBanner;
+    List<Integer> mResources;
+    LinearLayout test_aa;
+
+    public void intitImage() {
+        this.mResources = new ArrayList<>();
+
+        mResources.add(R.drawable.icon_foody);
+        mResources.add(R.drawable.icon_bottom_menu_user_selected);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.home_layout);
-        setContentView(R.layout.home_top_menu);
+        setContentView(R.layout.home_layout);
 
-        tab_layout_top_menu=(TabLayout)findViewById(R.id.tab_layout_top_menu);
+        /*relative_main_layout=(RelativeLayout)findViewById(R.id.relative_main_layout);
+        test_list_view=(ListView) findViewById(R.id.test_list_view);
 
-       /* text_view_where2go_top_menu = (TextView) findViewById(R.id.text_view_where2go_top_menu);
-        text_view_what2do_top_menu = (TextView) findViewById(R.id.text_view_what2do_top_menu);*/
+        View fragment=(ViewGroup)getLayoutInflater().inflate(R.layout.test2,test_list_view,false);
+        test_aa=new LinearLayout(getApplicationContext());
+        //slideShowBanner.initView();
+        //slideShowBanner.view_pager_slide_show.setAdapter(new MySlideShowBannerAdapter(getApplicationContext(),mResources));
 
-        tab_layout_top_menu.addTab(tab_layout_top_menu.newTab());
-        tab_layout_top_menu.addTab(tab_layout_top_menu.newTab());
+        test_aa.addView(fragment);
+        test_list_view.addHeaderView(test_aa);
+        test_list_view.setAdapter(new MenuBarAdapter(getApplicationContext(),getListItem(Type.LASTEST),Type.LASTEST));*/
 
-        tab_layout_top_menu.getTabAt(0).setCustomView((TextView)findViewById(R.id.text_view_where2go_top_menu));
-        tab_layout_top_menu.getTabAt(1).setCustomView((TextView)findViewById(R.id.text_view_what2do_top_menu));
+        //  tab_layout_top_menu.addTab(tab_layout_top_menu.newTab());
+        // tab_layout_top_menu.addTab(tab_layout_top_menu.newTab());
+
+      /* createTabView(getApplicationContext());
+
+        tab_layout_top_menu.getTabAt(0).setCustomView(text_view_where2go_top_menu);
+        tab_layout_top_menu.getTabAt(1).setCustomView(text_view_what2do_top_menu);*/
 
 
-        /*// bottomSheetBehavior=BottomSheetBehavior.from(findViewById(R.id.layout_parent_plus_menu));
+        // bottomSheetBehavior= BottomSheetBehavior.from(findViewById(R.id.layout_parent_plus_menu));
 
-        image_view_top_menu_plus_menu = (ImageView) findViewById(R.id.image_view_top_menu_plus_menu);
+       /* image_view_top_menu_plus_menu = (ImageView) findViewById(R.id.image_view_top_menu_plus_menu);
 
         image_view_top_menu_plus_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         linear_layout_show_item_tab_menu = (LinearLayout) findViewById(R.id.linear_layout_show_item_tab_menu);
-        listView = (ListView) findViewById(R.id.list_view_what2do_tab_menu);*/
-
+        listView = (ListView) findViewById(R.id.list_view_what2do_tab_menu);
+*/
 
         /*linear_layout_tab_menu_1=(LinearLayout)findViewById(R.id.linear_layout_what2do_tab_menu_1);
         linear_layout_tab_menu_1.setOnClickListener(new View.OnClickListener() {
@@ -107,11 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
         /*bottomNavigationMenu = (BottomNavigationViewEx) findViewById(R.id.bottom_menu);
 
+        bottomNavigationMenu.setTextVisibility(false);
         bottomNavigationMenu.enableAnimation(false);
         bottomNavigationMenu.enableShiftingMode(false);
         bottomNavigationMenu.enableItemShiftingMode(false);
         bottomNavigationMenu.setCurrentItem(0);
-
 
         menu = bottomNavigationMenu.getMenu();
         setTab(0);
@@ -123,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.menu_bottom_bar_home:
                                 //change the icon
                                 setTab(0);
+
                                 break;
                             case R.id.menu_bottom_bar_gallery:
                                 //change the icon

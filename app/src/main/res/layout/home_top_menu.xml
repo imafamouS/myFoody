@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionBarSize"
     android:layout_alignParentTop="true"
     android:background="@color/colorPrimary">
 
-
-    <!--  android:id="@+id/linear_layout_parent_top_menu"-->
-    <LinearLayout
-        android:id="@+id/tab_layout_top_menu"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_parent_top_menu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_centerInParent="true"
-        android:orientation="horizontal"
+        app:tabIndicatorHeight="0dp"
+        app:tabBackground="@drawable/top_menu_selector"
+        app:tabSelectedTextColor="@color/dark_grey"
+        app:tabTextColor="@color/colorWhite"
+        app:tabTextAppearance="@style/MyCustomTabText"
         android:background="@drawable/frame_o_dau_an_gi">
 
-        <TextView
-            android:id="@+id/text_view_where2go_top_menu"
+        <android.support.design.widget.TabItem
+            android:id="@+id/tab_where2go_top_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/home_item_right"
             android:paddingBottom="4.0dip"
             android:paddingLeft="6.0dip"
             android:paddingRight="8.0dip"
             android:paddingTop="4.0dip"
             android:text="@string/TEXT_WHERE2GO"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            />
 
-        <TextView
-            android:id="@+id/text_view_what2do_top_menu"
+        <android.support.design.widget.TabItem
+            android:id="@+id/tab_what2do_top_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="4.0dip"
@@ -38,9 +39,8 @@
             android:paddingRight="8.0dip"
             android:paddingTop="4.0dip"
             android:text="@string/TEXT_WHAT2DO"
-            android:textColor="@color/dark_grey"
-            android:textSize="15sp" />
-    </LinearLayout>
+            android:textSize="15sp"/>
+    </android.support.design.widget.TabLayout>
 
 
     <ImageView
@@ -71,6 +71,7 @@
             android:layout_height="30.0dip"
             android:layout_gravity="center"
             android:padding="5.0dip"
+
             android:src="@drawable/icon_foody_domain" />
     </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.util;
+package com.fdsa.infamous.myfoody.ui.util.bean;
 
 /**
  * Created by FDSA on 3/22/2017.
