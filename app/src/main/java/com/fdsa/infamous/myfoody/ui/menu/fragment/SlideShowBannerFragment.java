@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.menu.views.AutoScrollViewPager;
 import com.fdsa.infamous.myfoody.ui.util.adapter.MySlideShowBannerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -41,18 +41,11 @@ public class SlideShowBannerFragment extends Fragment {
         this.context = context;
     }
 
-    private void intitImage() {
-        this.mResources = new ArrayList<>();
+    public void setResourcesSlideShow(List<Integer> resources) {
+        if (resources != null)
+            mResources = resources;
 
-        mResources.add(R.drawable.icon_foody);
-        mResources.add(R.drawable.icon_bottom_menu_user_selected);
-    }
-
-    public void setResources(List<Integer> resources) {
-        mResources = resources;
-
-        adapter = new MySlideShowBannerAdapter(getContext(), mResources);
-        view_pager_slide_show.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Nullable
@@ -66,14 +59,15 @@ public class SlideShowBannerFragment extends Fragment {
     public void initView(View view) {
 
         frame_layout_banner_image_parent = (FrameLayout) view.findViewById(R.id.frame_layout_banner_image_parent);
-        intitImage();
+        mResources = GlobalStaticData.getDefaultImageSlideShow();
         view_pager_slide_show = (AutoScrollViewPager) view.findViewById(R.id.view_pager_slide_show);
         adapter = new MySlideShowBannerAdapter(getContext(), mResources);
         indicator = (CircleIndicator) view.findViewById(R.id.indicator);
 
         view_pager_slide_show.setAdapter(adapter);
 
-        view_pager_slide_show.setInterval(3500);
+        view_pager_slide_show.setInterval(1500);
+        view_pager_slide_show.setStopScrollWhenTouch(false);
         view_pager_slide_show.setBorderAnimation(false);
         view_pager_slide_show.setCycle(true);
         view_pager_slide_show.startAutoScroll();

@@ -5,7 +5,7 @@ package com.fdsa.infamous.myfoody.ui.util;
  */
 
 public enum Type {
-    LASTEST,
+    LATEST,
     CATEGORY,
     AREA
 }

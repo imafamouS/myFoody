@@ -7,7 +7,7 @@
         android:layout_height="35dip"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="3dp"
         android:background="@drawable/border_more_item"
         android:gravity="center"
         android:orientation="horizontal"

@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     Menu menu;
     LinearLayout linear_layout_top_menu_change_domain;
     LinearLayout linear_layout_show_item_tab_menu;
-    LinearLayout linear_layout_tab_menu_1;
     LinearLayout linear_layout_tab_menu_2;
     ListView listView;
     MenuBarAdapter menuBarAdapter;
@@ -55,12 +54,27 @@ public class MainActivity extends AppCompatActivity {
         mResources.add(R.drawable.icon_bottom_menu_user_selected);
     }
 
+    LinearLayout linear_layout_what2do_show_item_tab_menu;
+    ListView list_view_what2do_tab_menu;
+    LinearLayout linear_layout_tab_menu_1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.home_layout);
         setContentView(R.layout.home_layout);
-
+       /* linear_layout_what2do_show_item_tab_menu=(LinearLayout)findViewById(R.id.linear_layout_what2do_show_item_tab_menu);
+        list_view_what2do_tab_menu=(ListView) findViewById(R.id.list_view_what2do_tab_menu);
+       // linear_layout_show_item_tab_menu=(LinearLayout)findViewById(R.id.linear_layout_what2do_show_item_tab_menu);
+        linear_layout_tab_menu_1=(LinearLayout)findViewById(R.id.linear_layout_what2do_tab_menu_1);
+        linear_layout_tab_menu_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuBarAdapter = new MenuBarAdapter(getApplicationContext(), getListItem(Type.LASTEST),Type.LASTEST);
+                list_view_what2do_tab_menu.setAdapter(menuBarAdapter);
+                linear_layout_tab_menu_1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.home_menu_background_color_pressed));
+                linear_layout_what2do_show_item_tab_menu.setVisibility(View.VISIBLE);
+            }
+        });*/
         /*relative_main_layout=(RelativeLayout)findViewById(R.id.relative_main_layout);
         test_list_view=(ListView) findViewById(R.id.test_list_view);
 
@@ -258,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
     int currentSelectedPosition=0;
     private List<MenuBarItem> getListItem(Type type) {
         items = new ArrayList<>();
-        if(type==Type.LASTEST){
+        if (type == Type.LATEST) {
             MenuBarItem item1 = new MenuBarItem(0,"Mới nhất", R.drawable.icon_tab_1_new, false);
             MenuBarItem item2 = new MenuBarItem(1,"Gần tôi", R.drawable.icon_tab_1_near, false);
             MenuBarItem item3 = new MenuBarItem(2,"Phổ biến", R.drawable.icon_tab_1_popular, false);

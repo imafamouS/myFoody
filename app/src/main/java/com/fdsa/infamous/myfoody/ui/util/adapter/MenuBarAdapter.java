@@ -25,6 +25,14 @@ public class MenuBarAdapter extends BaseAdapter {
     Type type;
     private LayoutInflater layoutInflater;
 
+    public Type getType() {
+        return type;
+    }
+
+    public List<MenuBarItem> getMenuBarItems() {
+        return menuBarItems;
+    }
+
     public MenuBarAdapter(Context aContext, List<MenuBarItem> listData, Type type) {
         this.menuBarItems = listData;
         this.context = aContext;
@@ -79,14 +87,41 @@ public class MenuBarAdapter extends BaseAdapter {
         }
 
         public void renderData(MenuBarItem item, Type type) {
-            if (type == Type.LASTEST) {
+            if (type == Type.LATEST) {
                 textView.setText(item.getTittle());
                 imageView.setImageDrawable(ContextCompat.getDrawable(context, item.getImage()));
                 imageView.setVisibility(View.VISIBLE);
                 if (item.isSelected()) {
-                    if (item.getId() == 0) {
-                        imageView.setImageDrawable(imageView.getResources().getDrawable(R.drawable.icon_tab_1_new_selected));
+                    textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    switch (item.getId()) {
+                        case 0:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_new_selected));
+                            break;
+                        case 1:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_near_selected));
+                            break;
+                        case 2:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_popular_selected));
+                            break;
+                        case 3:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_tourist_selected));
+                            break;
+                        case 4:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_ecard_selected));
+                            break;
+                        case 5:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_book_selected));
+                            break;
+                        case 6:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_promote_selected));
+                            break;
+                        case 7:
+                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_delivery_selected));
+                            break;
+                        default:
+                            break;
                     }
+
                     this.isSelected.setVisibility(View.VISIBLE);
                 }
             } else if (type == Type.CATEGORY) {
@@ -96,7 +131,7 @@ public class MenuBarAdapter extends BaseAdapter {
                     imageView.setVisibility(View.VISIBLE);
                 }
                 if (item.isSelected()) {
-                    this.isSelected.setVisibility(View.VISIBLE);
+                    // this.isSelected.setVisibility(View.VISIBLE);
                 }
 
             }

@@ -136,6 +136,7 @@
                 android:smoothScrollbar="true" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linear_layout_what2do_show_item_tab_menu"
         android:layout_width="fill_parent"
