@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,9 +13,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.ui.menu.views.BottomNavigationViewEx;
 import com.fdsa.infamous.myfoody.ui.util.Type;
+import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseDistrictAdapter;
 import com.fdsa.infamous.myfoody.ui.util.adapter.MenuBarAdapter;
+import com.fdsa.infamous.myfoody.ui.util.bean.District;
 import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
 
 import java.util.ArrayList;
@@ -57,11 +61,49 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout linear_layout_what2do_show_item_tab_menu;
     ListView list_view_what2do_tab_menu;
     LinearLayout linear_layout_tab_menu_1;
+    LinearLayout linear_layout_choose_disctrict_parent_menu;
+    LinearLayout linear_layout_choose_disctrict_item;
+    TextView text_view_parent_district;
+    LinearLayout linear_layout_change_district;
+    ListView list_view_city;
+    TextView text_view_close_change_district;
+    List<District> districtList;
+    ChooseDistrictAdapter chooseProvinceAdapter;
+
+    private List<District> getDisttrictList(int idProvince) {
+        List<District> items = new ArrayList<>();
+
+        District item1 = new District("d1", "Quận 1", null);
+        item1.setNumofStreet(10);
+
+        District item2 = new District("d2", "Quận 2", null);
+        item2.setNumofStreet(10);
+
+        District item3 = new District("d3", "Quận 3", null);
+        item3.setNumofStreet(10);
+
+        District item4 = new District("d4", "Quận 4", null);
+        item4.setNumofStreet(10);
+
+        items.add(item1);
+        items.add(item2);
+        items.add(item3);
+        items.add(item4);
+
+        Log.d("DISTRICT",item1.getTittleDistrict());
+
+        return items;
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.home_layout);
+        GlobalStaticData.setCurrentProvince_What2do(GlobalStaticData.getDefaultProvince());
         setContentView(R.layout.home_layout);
+
+
+
+
        /* linear_layout_what2do_show_item_tab_menu=(LinearLayout)findViewById(R.id.linear_layout_what2do_show_item_tab_menu);
         list_view_what2do_tab_menu=(ListView) findViewById(R.id.list_view_what2do_tab_menu);
        // linear_layout_show_item_tab_menu=(LinearLayout)findViewById(R.id.linear_layout_what2do_show_item_tab_menu);
@@ -75,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 linear_layout_what2do_show_item_tab_menu.setVisibility(View.VISIBLE);
             }
         });*/
-        /*relative_main_layout=(RelativeLayout)findViewById(R.id.relative_main_layout);
+        /*
         test_list_view=(ListView) findViewById(R.id.test_list_view);
 
         View fragment=(ViewGroup)getLayoutInflater().inflate(R.layout.test2,test_list_view,false);

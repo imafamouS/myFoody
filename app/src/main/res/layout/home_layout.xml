@@ -12,7 +12,7 @@
 
     </include>-->
 
-  <fragment
+ <fragment
         android:id="@+id/fragment3"
         android:name="com.fdsa.infamous.myfoody.ui.menu.fragment.TabHomeFragment"
         android:layout_width="wrap_content"

@@ -40,6 +40,18 @@ public class MenuBarAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getViewTypeCount() {
+
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return position;
+    }
+
+    @Override
     public boolean isEmpty() {
         return false;
     }
@@ -131,9 +143,9 @@ public class MenuBarAdapter extends BaseAdapter {
                     imageView.setVisibility(View.VISIBLE);
                 }
                 if (item.isSelected()) {
-                    // this.isSelected.setVisibility(View.VISIBLE);
+                    textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    this.isSelected.setVisibility(View.VISIBLE);
                 }
-
             }
         }
     }

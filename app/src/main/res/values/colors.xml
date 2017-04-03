@@ -19,5 +19,7 @@
     <color name="transparent">#00000000</color>
     <color name="color_background_bottom_menu">#F7F7F6</color>
     <color name="orange">#d9de740b</color>
+    <color name="color_circle_rate">#1DA41A</color>
+    <color name="color_text_default_choose_province">#ff0063e9</color>
 
 </resources>

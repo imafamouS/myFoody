@@ -1,175 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout style="@style/view_match"
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal"
+    android:paddingBottom="8.0dip"
+    android:paddingLeft="8.0dip"
+    android:paddingRight="8.0dip"
+    android:paddingTop="8.0dip"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <TextView
+        android:id="@+id/text_view_restaurant_rate"
+        style="@style/componens_textView"
+        android:layout_width="30.0dip"
+        android:layout_height="30.0dip"
+        android:layout_gravity="center"
+        android:layout_marginTop="3.0dip"
+        android:background="@drawable/border_circle_rate"
+        android:gravity="center"
+        android:text="10.0"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold" />
+
+
     <LinearLayout
-        android:id="@+id/linear_layout_parent_what2do_tab_menu"
-        style="@style/view_match"
         android:orientation="vertical"
-        android:weightSum="1">
-
-        <LinearLayout
-            style="@style/bottom_bar"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:background="#55aaaaaa" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@color/transparent_white_95"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_what2do_tab_menu_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/border"
-                    android:orientation="vertical"
-                    android:padding="3.0dip">
-
-                    <TextView
-                        style="@style/style_textView_tab_menu"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1.0"
-                        android:text="test1"
-                        android:textColor="@color/home_new_filter_text"
-                        android:textSize="13.0sp" />
-
-                    <ImageView
-                        android:layout_width="12.0dip"
-                        android:layout_height="12.0dip"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1.0"
-                        android:contentDescription="@string/content_desc_imgView"
-                        android:src="@drawable/icon_arrow_down_filter" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_what2do_tab_menu_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/border"
-                    android:orientation="vertical"
-                    android:padding="3.0dip">
-
-                    <TextView
-                        style="@style/style_textView_tab_menu"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1.0"
-                        android:text="@string/TEXT_CATEGORY"
-                        android:textColor="@color/home_new_filter_text"
-                        android:textSize="13.0sp" />
-
-                    <ImageView
-                        android:layout_width="12.0dip"
-                        android:layout_height="12.0dip"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1.0"
-                        android:contentDescription="@string/content_desc_imgView"
-                        android:src="@drawable/icon_arrow_down_filter" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_what2do_tab_menu_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/border"
-                    android:orientation="vertical"
-                    android:padding="3.0dip">
-
-                    <TextView
-                        style="@style/style_textView_tab_menu"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1.0"
-                        android:text="@string/TEXT_AREAS"
-                        android:textColor="@color/home_new_filter_text"
-                        android:textSize="13.0sp" />
-
-                    <ImageView
-                        android:layout_width="12.0dip"
-                        android:layout_height="12.0dip"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1.0"
-                        android:contentDescription="@string/content_desc_imgView"
-                        android:src="@drawable/icon_arrow_down_filter" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout_home_new_ui"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <!--<LinearLayout
-                android:id="@+id/linear_layout_parent_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="120dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
-
-            </LinearLayout>-->
-            <ListView
-                android:id="@+id/list_view_main_menu"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:animationCache="false"
-                android:background="@color/back_ground_color"
-                android:cacheColorHint="@android:color/transparent"
-                android:divider="@android:color/transparent"
-                android:listSelector="@android:color/transparent"
-                android:scrollingCache="false"
-                android:smoothScrollbar="true" />
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout_what2do_show_item_tab_menu"
+        android:id="@+id/linear_layout_header_restaurant"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ListView
-            android:id="@+id/list_view_what2do_tab_menu"
-            style="@style/view_match"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/height_bottom_bar"
-            android:layout_weight="1.0"
-            android:background="@color/home_menu_background_color_pressed"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@color/home_new_list_view_line"
-            android:dividerHeight="1.0dip"
-            android:listSelector="@android:color/transparent" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.100000024dip"
-            android:background="#ffdddddd" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8.0dip"
+        android:layout_toRightOf="@id/text_view_restaurant_rate">
 
         <TextView
-            android:id="@+id/text_view_what2do_tab_menu_cancel"
+            android:id="@+id/text_view_title_header_restaurant"
+            style="@style/componens_textView"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Lorem ipsum dolor sit amet"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffffff"
-            android:gravity="center"
-            android:padding="10.0dip"
-            android:text="@string/TEXT_ACTION_CANCEL"
-            android:textColor="@color/micro_site_title_sub"
-            android:textSize="@dimen/text_size_title" />
+            android:layout_alignBottom="@id/linear_layout_header_restaurant"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_view_address_restaurent"
+                style="@style/componens_textView"
+                android:layout_weight="1.0"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Lorem ipsum dolor sit ametascdfasdfadfasdasdasdasdasdasdasdasdas"
+                android:textColor="#ff888888"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+</RelativeLayout>
