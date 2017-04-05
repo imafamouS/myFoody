@@ -2,20 +2,14 @@ package com.fdsa.infamous.myfoody.ui.util.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.util.bean.District;
-import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
 
 import java.util.List;
@@ -29,12 +23,31 @@ public class ChooseProvinceAdapter extends BaseAdapter {
     static Context context;
     List<Province> provinceList;
     Province currentProvince;
+    public int indexSelected = -1;
+    IOnSetDefaultProvince onSetDefaultProvince;
 
-    public ChooseProvinceAdapter(Context context,List<Province> provinceList,Province currentProvince) {
+    public ChooseProvinceAdapter(Context context, List<Province> provinceList, Province currentProvince, IOnSetDefaultProvince onSetDefaultProvince) {
         this.context=context;
         this.provinceList=provinceList;
         this.currentProvince=currentProvince;
+        this.onSetDefaultProvince=onSetDefaultProvince;
+        this.indexSelected=getIndexCurrentProvince();
 
+    }
+
+    private int getIndexCurrentProvince() {
+        int index = -1;
+        for (int i = 0; i < provinceList.size(); i++) {
+            if (provinceList.get(i).getIdProvince().equals(currentProvince.getIdProvince())) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public interface IOnSetDefaultProvince{
+        void onSetDefaultProvince();
     }
 
     @Override
@@ -51,22 +64,48 @@ public class ChooseProvinceAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-    ImageView image_view_check_status;
-    TextView text_view_province_name;
-    TextView text_view_set_default;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ChooseProvinceViewHolder holder;
-        Province item = this.provinceList.get(position);
+
         if (convertView == null) {
             convertView = LayoutInflater.from(this.context).inflate(R.layout.choose_province_item, parent, false);
-            holder = new ChooseProvinceViewHolder(convertView);
+            holder = new ChooseProvinceViewHolder(convertView,onSetDefaultProvince);
             convertView.setTag(holder);
         } else {
             holder = (ChooseProvinceViewHolder) convertView.getTag();
         }
+        Province item = this.provinceList.get(position);
+        int indexCurrentProvince = getIndexCurrentProvince();
         holder = (ChooseProvinceViewHolder) convertView.getTag();
-        holder.renderData(item);
+
+        if(position==indexCurrentProvince){
+            holder.image_view_check_status.setVisibility(View.VISIBLE);
+        }
+        if(position==indexSelected){
+            if(position==indexCurrentProvince){
+                holder.text_view_province_name.setTextColor(ContextCompat.getColor(context, R.color.color_text_default_choose_province));
+                holder.text_view_set_default.setVisibility(View.GONE);
+                holder.image_view_check_status.setVisibility(View.VISIBLE);
+            }else{
+                holder.image_view_check_status.setVisibility(View.VISIBLE);
+                holder.text_view_set_default.setVisibility(View.VISIBLE);
+            }
+
+        }else{
+            if(position==indexCurrentProvince){
+                holder.text_view_province_name.setTextColor(ContextCompat.getColor(context, R.color.color_text_default_choose_province));
+                holder.text_view_set_default.setVisibility(View.GONE);
+                holder.image_view_check_status.setVisibility(View.GONE);
+            }else{
+                holder.image_view_check_status.setVisibility(View.GONE);
+                holder.text_view_set_default.setVisibility(View.GONE);
+            }
+        }
+
+        holder.text_view_province_name.setText(item.getTitleProvince());
+
         return convertView;
     }
 
@@ -82,24 +121,25 @@ public class ChooseProvinceAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ChooseProvinceViewHolder{
+    public class ChooseProvinceViewHolder implements View.OnClickListener {
         View item;
-        ImageView image_view_check_status;
-        TextView text_view_province_name;
-        TextView text_view_set_default;
-
-        public ChooseProvinceViewHolder(View view) {
+        public ImageView image_view_check_status;
+        public TextView text_view_province_name;
+        public TextView text_view_set_default;
+        IOnSetDefaultProvince onSetDefaultProvince;
+        public ChooseProvinceViewHolder(View view, IOnSetDefaultProvince onSetDefaultProvince) {
             item = view;
             this.image_view_check_status = (ImageView) view.findViewById(R.id.image_view_check_status);
             this.text_view_province_name = (TextView) view.findViewById(R.id.text_view_province_name);
             this.text_view_set_default=(TextView) view.findViewById(R.id.text_view_set_default);
+            this.onSetDefaultProvince=onSetDefaultProvince;
+
+            text_view_set_default.setOnClickListener(this);
         }
-        public void renderData(Province province){
-            if(province.getIdProvince().equals("0")){
-                this.image_view_check_status.setVisibility(View.VISIBLE);
-                this.text_view_province_name.setTextColor(ContextCompat.getColor(context,R.color.color_text_default_choose_province));
-            }
-            this.text_view_province_name.setText(province.getIdProvince());
+
+        @Override
+        public void onClick(View v) {
+            onSetDefaultProvince.onSetDefaultProvince();
         }
     }
 }

@@ -18,10 +18,14 @@ public class Province {
         this.districtList = districtList;
     }
 
+    public Province(String idProvince, String titleProvince) {
+        this.idProvince = idProvince;
+        this.titleProvince = titleProvince;
+    }
+
     public String getIdProvince() {
         return idProvince;
     }
-
 
     public String getTitleProvince() {
         return titleProvince;
@@ -31,7 +35,7 @@ public class Province {
         return districtList;
     }
 
-
-
-
+    public void setDistrictList(List<District> districtList) {
+        this.districtList = districtList;
+    }
 }

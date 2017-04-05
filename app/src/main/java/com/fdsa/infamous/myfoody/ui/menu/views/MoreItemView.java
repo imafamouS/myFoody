@@ -25,8 +25,6 @@ public class MoreItemView extends LinearLayout implements MoreItemAdapter.IMoreI
 
     public static final int ITEM_DEFAULT=0;
 
-
-
     private MoreItemAdapter adapter;
     private RecyclerView recyclerView;
     private List<MoreItem> moreItemList;

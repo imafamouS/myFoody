@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.home_layout);
-        GlobalStaticData.setCurrentProvince_What2do(GlobalStaticData.getDefaultProvince());
+        GlobalStaticData.setCurrentProvince(GlobalStaticData.getDefaultProvince());
         setContentView(R.layout.home_layout);
 
 

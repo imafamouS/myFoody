@@ -1,6 +1,7 @@
 package com.fdsa.infamous.myfoody.ui.util.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ChooseDistrictAdapter extends BaseAdapter {
 
-    Context context;
+    static Context context;
     List<District> districtList;
 
     public ChooseDistrictAdapter(Context context, List<District> districtList) {
@@ -56,6 +57,17 @@ public class ChooseDistrictAdapter extends BaseAdapter {
         holder.renderData(item);
         return convertView;
     }
+    @Override
+    public int getViewTypeCount() {
+
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return position;
+    }
 
     static class ChooseDistrictViewHolder {
         View item;
@@ -68,6 +80,9 @@ public class ChooseDistrictAdapter extends BaseAdapter {
             this.text_view_num_of_street = (TextView) view.findViewById(R.id.text_view_num_of_street);
         }
         public void renderData(District District){
+            if(District.isSelected()){
+                this.text_view_district_name.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary));
+            }
             this.text_view_district_name.setText(District.getTittleDistrict());
             this.text_view_num_of_street.setText(District.getNumofStreet()+ " Đường");
         }

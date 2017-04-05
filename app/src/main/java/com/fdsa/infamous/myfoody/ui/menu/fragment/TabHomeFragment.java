@@ -106,5 +106,7 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     @Override
     public void OnTopMenuBarChange(int index) {
         this.viewPager.setCurrentItem(index);
+
+
     }
 }

@@ -12,11 +12,25 @@ public class District{
     String titleDistrict;
     int numofStreet;
     List<Street> streetList;
+    boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public District(String idDistrict, String tittleDistrict, List<Street> streetList) {
         this.idDistrict = idDistrict;
         this.titleDistrict = tittleDistrict;
         this.streetList = streetList;
+    }
+
+    public District(String idDistrict, String titleDistrict) {
+        this.idDistrict = idDistrict;
+        this.titleDistrict = titleDistrict;
     }
 
     public String getIdDistrict() {

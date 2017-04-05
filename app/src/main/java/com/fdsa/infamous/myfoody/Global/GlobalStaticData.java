@@ -53,21 +53,13 @@ public class GlobalStaticData {
 
         MenuBarItem item1 = new MenuBarItem(0, "Mới nhất", R.drawable.icon_tab_1_new, false);
         MenuBarItem item2 = new MenuBarItem(1, "Gần tôi", R.drawable.icon_tab_1_near, false);
-        MenuBarItem item3 = new MenuBarItem(2, "Phổ biến", R.drawable.icon_tab_1_popular, true);
+        MenuBarItem item3 = new MenuBarItem(2, "Phổ biến", R.drawable.icon_tab_1_popular, false);
         MenuBarItem item4 = new MenuBarItem(3, "Du khách", R.drawable.icon_tab_1_tourist, false);
         MenuBarItem item5 = new MenuBarItem(4, "Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
         MenuBarItem item6 = new MenuBarItem(5, "Đặt chỗ", R.drawable.icon_tab_1_book, false);
         MenuBarItem item7 = new MenuBarItem(6, "Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
         MenuBarItem item8 = new MenuBarItem(7, "Đặt giao hàng", R.drawable.icon_tab_1_delivery, false);
 
-        MenuBarItem item9 = new MenuBarItem(8, "Mới nhất", R.drawable.icon_tab_1_new, false);
-        MenuBarItem item10 = new MenuBarItem(9, "Gần tôi", R.drawable.icon_tab_1_near, false);
-        MenuBarItem item11 = new MenuBarItem(10, "Phổ biến", R.drawable.icon_tab_1_popular, false);
-        MenuBarItem item12 = new MenuBarItem(11, "Du khách", R.drawable.icon_tab_1_tourist, false);
-        MenuBarItem item13 = new MenuBarItem(12, "Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
-        MenuBarItem item14 = new MenuBarItem(13, "Đặt chỗ", R.drawable.icon_tab_1_book, false);
-        MenuBarItem item15 = new MenuBarItem(14, "Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
-        MenuBarItem item16 = new MenuBarItem(15, "Đặt giao hàng", R.drawable.icon_tab_1_delivery, false);
 
         items.add(item1);
         items.add(item2);
@@ -82,7 +74,7 @@ public class GlobalStaticData {
     }
 
     public static List<MenuBarItem> initLastestData_What2do() {
-       /* List<MenuBarItem> items = new ArrayList<>();
+        List<MenuBarItem> items = new ArrayList<>();
 
         MenuBarItem item1 = new MenuBarItem(0, "Mới nhất", R.drawable.icon_tab_1_new, false);
         MenuBarItem item2 = new MenuBarItem(1, "Gần tôi", R.drawable.icon_tab_1_near, false);
@@ -94,67 +86,19 @@ public class GlobalStaticData {
         items.add(item3);
         items.add(item4);
 
-        return items;*/
-
-        List<MenuBarItem> items = new ArrayList<>();
-
-        MenuBarItem item1 = new MenuBarItem(0, "Mới nhất", R.drawable.icon_tab_1_new, false);
-        MenuBarItem item2 = new MenuBarItem(1, "Gần tôi", R.drawable.icon_tab_1_near, false);
-        MenuBarItem item3 = new MenuBarItem(2, "Phổ biến", R.drawable.icon_tab_1_popular, false);
-        MenuBarItem item4 = new MenuBarItem(3, "Du khách", R.drawable.icon_tab_1_tourist, false);
-        MenuBarItem item5 = new MenuBarItem(4, "Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
-        MenuBarItem item6 = new MenuBarItem(5, "Đặt chỗ", R.drawable.icon_tab_1_book, false);
-        MenuBarItem item7 = new MenuBarItem(6, "Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
-        MenuBarItem item8 = new MenuBarItem(7, "Đặt giao hàng", R.drawable.icon_tab_1_delivery, false);
-
-
-        MenuBarItem item9 = new MenuBarItem(8, "Mới nhất", R.drawable.icon_tab_1_new, false);
-        MenuBarItem item10 = new MenuBarItem(9, "Gần tôi", R.drawable.icon_tab_1_near, false);
-        MenuBarItem item11 = new MenuBarItem(10, "Phổ biến", R.drawable.icon_tab_1_popular, false);
-        MenuBarItem item12 = new MenuBarItem(11, "Du khách", R.drawable.icon_tab_1_tourist, false);
-        MenuBarItem item13 = new MenuBarItem(12, "Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
-        MenuBarItem item14 = new MenuBarItem(13, "Đặt chỗ", R.drawable.icon_tab_1_book, false);
-        MenuBarItem item15 = new MenuBarItem(14, "Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
-        MenuBarItem item16 = new MenuBarItem(15, "Đặt giao hàng", R.drawable.icon_tab_1_delivery, false);
-
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
-        items.add(item4);
-        items.add(item5);
-        items.add(item6);
-        items.add(item7);
-        items.add(item8);
-
-        items.add(item9);
-        items.add(item10);
-        items.add(item11);
-        items.add(item12);
-        items.add(item13);
-        items.add(item14);
-        items.add(item15);
-        items.add(item16);
-
         return items;
+
+
     }
 
-    static Province currentProvince_What2do;
-    static Province currentProvince_Where2go;
+    static Province currentProvince;
 
-    public static Province getCurrentProvince_Where2go() {
-        return currentProvince_Where2go;
+    public static Province getCurrentProvince() {
+        return currentProvince;
     }
 
-    public static void setCurrentProvince_Where2go(Province currentProvince_Where2go) {
-        GlobalStaticData.currentProvince_Where2go = currentProvince_Where2go;
-    }
-
-    public static Province getCurrentProvince_What2do() {
-        return currentProvince_What2do;
-    }
-
-    public static void setCurrentProvince_What2do(Province currentProvince_What2do) {
-        GlobalStaticData.currentProvince_What2do = currentProvince_What2do;
+    public static void setCurrentProvince(Province currentProvince) {
+        GlobalStaticData.currentProvince = currentProvince;
     }
 
     static int callFromFragment;

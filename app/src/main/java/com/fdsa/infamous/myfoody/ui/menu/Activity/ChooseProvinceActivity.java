@@ -1,5 +1,6 @@
 package com.fdsa.infamous.myfoody.ui.menu.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fdsa.infamous.myfoody.Global.AppConfig;
 import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseProvinceAdapter;
@@ -29,7 +32,7 @@ import static android.R.id.list;
  * Created by FDSA on 4/3/2017.
  */
 
-public class ChooseProvinceActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener{
+public class ChooseProvinceActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener,ChooseProvinceAdapter.IOnSetDefaultProvince{
 
 
     RelativeLayout choose_provine_top_bar;
@@ -47,11 +50,12 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     Province currentProvince;
     ChooseProvinceAdapter adapter;
 
+    List<Province> provinceList;
+
     public ChooseProvinceActivity() {
         this.callFromFragment = GlobalStaticData.getCallFromFragment();
 
-        currentProvince = this.callFromFragment == 0 ?
-                GlobalStaticData.getCurrentProvince_What2do() : GlobalStaticData.getCurrentProvince_Where2go();
+        currentProvince = GlobalStaticData.getCurrentProvince();
     }
 
 
@@ -64,6 +68,8 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
         init();
     }
+
+
 
     private void init() {
 
@@ -83,7 +89,9 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         linear_layout_auto_detect_location = (LinearLayout) headerListView.findViewById(R.id.linear_layout_auto_detect_location);
         linear_layout_action_change_country = (LinearLayout) headerListView.findViewById(R.id.linear_layout_action_change_country);
 
-        adapter=new ChooseProvinceAdapter(getApplicationContext(),getProvinceList("VIETNAM"),currentProvince);
+        provinceList=getProvinceList("VIETNAM");
+
+        adapter=new ChooseProvinceAdapter(getApplicationContext(),provinceList,currentProvince,this);
 
         list_view_choose_province.setAdapter(adapter);
         /*Event*/
@@ -97,6 +105,29 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         linear_layout_action_change_country.setOnClickListener(this);
 
         list_view_choose_province.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onSetDefaultProvince() {
+        int indexSelected=this.adapter.indexSelected;
+        Province province2setDefault=provinceList.get(indexSelected);
+
+        GlobalStaticData.setCurrentProvince(province2setDefault);
+
+       // Toast.makeText(getApplicationContext(),GlobalStaticData.getCurrentProvince_What2do().getTitleProvince(),Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent();
+        intent.putExtra("changed_province",true);
+        setResult(AppConfig.RESULT_CODE_CHANGE_PROVINCE,intent);
+        finish();
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        this.adapter.indexSelected=position-1;
+        this.list_view_choose_province.setSelection(adapter.indexSelected);
+        this.list_view_choose_province.smoothScrollToPositionFromTop(adapter.indexSelected,0);
+        this.adapter.notifyDataSetChanged();
     }
 
     private List<Province> getProvinceList(String idCountry){
@@ -119,6 +150,18 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         Province item14=new Province("13","Hà Nội",null);
         Province item15=new Province("14","Đà Nẵng",null);
         Province item16=new Province("15","Hải Phòng",null);
+        Province item17=new Province("16","TP.HCM",null);
+        Province item18=new Province("17","Hà Nội",null);
+        Province item19=new Province("18","Đà Nẵng",null);
+        Province item20=new Province("19","Hải Phòng",null);
+        Province item21=new Province("20","TP.HCM",null);
+        Province item22=new Province("21","Hà Nội",null);
+        Province item23=new Province("22","Đà Nẵng",null);
+        Province item24=new Province("23","Hải Phòng",null);
+        Province item25=new Province("24","TP.HCM",null);
+        Province item26=new Province("25","Hà Nội",null);
+        Province item27=new Province("26","Đà Nẵng",null);
+        Province item28=new Province("27","Hải Phòng",null);
 
         provinces.add(item1);
         provinces.add(item2);
@@ -136,13 +179,20 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         provinces.add(item14);
         provinces.add(item15);
         provinces.add(item16);
+        provinces.add(item17);
+        provinces.add(item18);
+        provinces.add(item19);
+        provinces.add(item20);
+        provinces.add(item21);
+        provinces.add(item22);
+        provinces.add(item23);
+        provinces.add(item24);
+        provinces.add(item25);
+        provinces.add(item26);
+        provinces.add(item27);
+        provinces.add(item28);
 
         return provinces;
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
