@@ -7,12 +7,13 @@ import java.util.List;
  */
 
 
-public class District{
+public class District {
     String idDistrict;
     String titleDistrict;
     int numofStreet;
     List<Street> streetList;
     boolean isSelected;
+    String idProvince;
 
     public boolean isSelected() {
         return isSelected;
@@ -28,9 +29,19 @@ public class District{
         this.streetList = streetList;
     }
 
-    public District(String idDistrict, String titleDistrict) {
+    public District(String idDistrict, String titleDistrict,int numofStreet, boolean isSelected) {
         this.idDistrict = idDistrict;
         this.titleDistrict = titleDistrict;
+        this.numofStreet=numofStreet;
+        this.isSelected=isSelected;
+    }
+
+    public District(String idDistrict, String titleDistrict, int numofStreet, boolean isSelected, String idProvince) {
+        this.idDistrict = idDistrict;
+        this.titleDistrict = titleDistrict;
+        this.numofStreet = numofStreet;
+        this.isSelected = isSelected;
+        this.idProvince = idProvince;
     }
 
     public String getIdDistrict() {
@@ -41,12 +52,20 @@ public class District{
         this.idDistrict = idDistrict;
     }
 
-    public String getTittleDistrict() {
+    public String getTitleDistrict() {
         return titleDistrict;
     }
 
-    public void setTittleDistrict(String tittleDistrict) {
-        this.titleDistrict = tittleDistrict;
+    public void setTitleDistrict(String titleDistrict) {
+        this.titleDistrict = titleDistrict;
+    }
+
+    public int getNumofStreet() {
+        return numofStreet;
+    }
+
+    public void setNumofStreet(int numofStreet) {
+        this.numofStreet = numofStreet;
     }
 
     public List<Street> getStreetList() {
@@ -57,11 +76,13 @@ public class District{
         this.streetList = streetList;
     }
 
-    public int getNumofStreet() {
-        return numofStreet;
+    public String getIdProvince() {
+        return idProvince;
     }
 
-    public void setNumofStreet(int numofStreet) {
-        this.numofStreet = numofStreet;
+    public void setIdProvince(String idProvince) {
+        this.idProvince = idProvince;
     }
 }
+
+

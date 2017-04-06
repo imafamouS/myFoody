@@ -2,26 +2,31 @@ package com.fdsa.infamous.myfoody.ui.util.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by FDSA on 4/3/2017.
  */
 
-public class ChooseProvinceAdapter extends BaseAdapter {
+public class ChooseProvinceAdapter extends BaseAdapter implements Filterable {
 
     static Context context;
     List<Province> provinceList;
+    List<Province> provinceListAfterFilter;
     Province currentProvince;
     public int indexSelected = -1;
     IOnSetDefaultProvince onSetDefaultProvince;
@@ -44,6 +49,52 @@ public class ChooseProvinceAdapter extends BaseAdapter {
             }
         }
         return index;
+    }
+
+    @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                provinceList = (List<Province>) results.values;
+                notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+
+                FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+                List<Province> FilteredArrList = new ArrayList<Province>(provinceListAfterFilter);
+
+                if (provinceList == null) {
+                    provinceList = new ArrayList<Province>(provinceListAfterFilter); // saves the original data in mOriginalValues
+                }
+
+                if (constraint == null || constraint.length() == 0) {
+
+                    // set the Original result to return
+                    results.count = provinceList.size();
+                    results.values = provinceList;
+                } else {
+                    constraint = constraint.toString().toLowerCase();
+                    for (int i = 0; i < provinceList.size(); i++) {
+                        String data = provinceList.get(i).getTitleProvince();
+                        if (data.toLowerCase().startsWith(constraint.toString())) {
+                            FilteredArrList.add(new Province(provinceList.get(i).getIdProvince(),provinceList.get(i).getTitleProvince()));
+                        }
+                    }
+                    // set the Filtered result to return
+                    results.count = FilteredArrList.size();
+                    results.values = FilteredArrList;
+                }
+                return results;
+            }
+        };
+
+        return filter;
     }
 
     public interface IOnSetDefaultProvince{
@@ -120,6 +171,9 @@ public class ChooseProvinceAdapter extends BaseAdapter {
 
         return position;
     }
+
+
+
 
     public class ChooseProvinceViewHolder implements View.OnClickListener {
         View item;

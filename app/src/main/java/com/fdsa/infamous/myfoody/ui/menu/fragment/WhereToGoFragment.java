@@ -22,10 +22,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fdsa.infamous.myfoody.Global.AppConfig;
-import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.AppConfig;
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.menu.Activity.ChooseProvinceActivity;
+import com.fdsa.infamous.myfoody.controller.MenuBarItemController;
+import com.fdsa.infamous.myfoody.controller.ProvinceController;
+import com.fdsa.infamous.myfoody.global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.ui.menu.activity.ChooseProvinceActivity;
 import com.fdsa.infamous.myfoody.ui.menu.views.MoreItemView;
 import com.fdsa.infamous.myfoody.ui.util.Type;
 import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseDistrictAdapter;
@@ -43,6 +45,7 @@ import java.util.Map;
 public class WhereToGoFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     Context context;
+    WhatToDoFragment whatToDoFragment;
 
     LinearLayout linear_layout_tab_menu_1;
     LinearLayout linear_layout_tab_menu_2;
@@ -59,9 +62,8 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     MoreItemView moreItemView;
     View slideShowBanner;
 
-    MenuBarAdapter menuBarAdapter;
-    Map<Type, List<?>> mapMenuBarItems;
-    Map<Type, Integer> selectedPositionMenu;
+    View bottom_menu;
+
 
     /*AreaTabMenu*/
     LinearLayout linear_layout_choose_disctrict_parent_menu;
@@ -70,28 +72,36 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     LinearLayout linear_layout_change_district;
     ListView list_view_city;
     TextView text_view_close_change_district;
-    List<District> districtList;
     ChooseDistrictAdapter chooseDistrictAdapter;
-
+    Province currentProvince;
+    MenuBarAdapter menuBarAdapter;
+    Map<Type, List<?>> mapMenuBarItems;
+    Map<Type, Integer> selectedPositionMenu;
     LinearLayout linear_layout_where2go_show_item_tab_menu;
     ListView list_view_where2go_tab_menu;
-    LayoutInflater inflater;
+
+    MenuBarItemController menuBarItemController;
+    ProvinceController provinceController;
 
 
     public void setCurrentProvince(Province currentProvince) {
         this.currentProvince = currentProvince;
     }
 
-    Province currentProvince;
+    public void setWhatToDoFragment(WhatToDoFragment whereToGoFragment) {
+        this.whatToDoFragment = whereToGoFragment;
+    }
+
+
+
     public WhereToGoFragment() {
         super();
         mapMenuBarItems = new HashMap<>();
         selectedPositionMenu = new HashMap<>();
         initDefaultPostionMenu();
         currentProvince=GlobalStaticData.getCurrentProvince();
-
     }
-    //Hàm set vị trí ban đầu của menu bar
+    //Hàm set vị trí ban đầu của menu item
     private void initDefaultPostionMenu() {
         selectedPositionMenu.put(Type.LATEST, 0);
         selectedPositionMenu.put(Type.CATEGORY, 0);
@@ -103,16 +113,16 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_tab_menu_where_to_go, container, false);
 
-        initView(view, inflater);
+        initView(view,inflater);
 
         return view;
     }
 
 
-    private void initView(View view, LayoutInflater inflater) {
+    private void initView(View view,LayoutInflater inflater) {
         context = getActivity().getApplicationContext();
-        this.inflater = inflater;
-
+        menuBarItemController = new MenuBarItemController(context);
+        provinceController=new ProvinceController(context);
 
 
         linear_layout_tab_menu_1 = (LinearLayout) view.findViewById(R.id.linear_layout_where2go_tab_menu_1);
@@ -126,6 +136,8 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         linear_layout_where2go_show_item_tab_menu = (LinearLayout) view.findViewById(R.id.linear_layout_where2go_show_item_tab_menu);
         list_view_where2go_tab_menu = (ListView) view.findViewById(R.id.list_view_where2go_tab_menu);
         text_view_tab_menu_cancel = (TextView) view.findViewById(R.id.text_view_where2go_tab_menu_cancel);
+
+        bottom_menu=getActivity().findViewById(R.id.bottom_menu);
 
         initViewMenuTabArea(view);
 
@@ -150,6 +162,11 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         list_view_where2go_tab_menu.setOnItemClickListener(this);
         swipe_refresh_layout.setOnRefreshListener(this);
     }
+    //Hàm thực hiện khi tỉnh thành được thay đổi
+    public void onChangeProvince(){
+        this.setCurrentProvince(GlobalStaticData.getCurrentProvince());
+        updateTitleMenu(Type.AREA,true);
+    }
 
     private void initViewMenuTabArea(View view) {
         linear_layout_choose_disctrict_parent_menu = (LinearLayout) view.findViewById(R.id.linear_layout_choose_disctrict_parent_menu);
@@ -163,8 +180,6 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         list_view_city = (ListView) view.findViewById(R.id.list_view_city);
         text_view_close_change_district = (TextView) view.findViewById(R.id.text_view_close_change_district);
 
-        //Default
-
         list_view_city.setOnItemClickListener(this);
 
         text_view_close_change_district.setOnClickListener(this);
@@ -173,51 +188,6 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
     }
 
-    private List<District> getDisttrictList(String idProvince) {
-        List<District> items = new ArrayList<>();
-        if(idProvince.equals("TP.HCM")){
-            District item1 = new District("d1", "Quận 1", null);
-            item1.setNumofStreet(10);
-
-            District item2 = new District("d2", "Quận 2", null);
-            item2.setNumofStreet(10);
-
-            District item3 = new District("d3", "Quận 3", null);
-            item3.setNumofStreet(10);
-
-            District item4 = new District("d4", "Quận 4", null);
-            item4.setNumofStreet(10);
-
-            items.add(item1);
-            items.add(item2);
-            items.add(item3);
-            items.add(item4);
-        }else{
-            District item1 = new District("d1", "Đống Đa", null);
-            item1.setNumofStreet(10);
-
-            District item2 = new District("d2", "Hoàn Kiếm", null);
-            item2.setNumofStreet(10);
-
-            District item3 = new District("d3", "Quận 3", null);
-            item3.setNumofStreet(10);
-
-            District item4 = new District("d4", "Quận 4", null);
-            item4.setNumofStreet(10);
-
-            items.add(item1);
-            items.add(item2);
-            items.add(item3);
-            items.add(item4);
-        }
-
-        return items;
-    }
-    //Hàm thực hiện khi tỉnh thành được thay đổi
-    public void onChangeProvince(){
-        this.setCurrentProvince(GlobalStaticData.getCurrentProvince());
-        updateTitleMenu(Type.AREA,true);
-    }
     //Hàm thực hiện reload lại data khi được swipe refresh
     @Override
     public void onRefresh() {
@@ -236,6 +206,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
             if (data.getBooleanExtra("changed_province", false) == true) {
                 currentProvince=GlobalStaticData.getCurrentProvince();
                 reloadData(Type.AREA, true);
+                whatToDoFragment.onChangeProvince();
 
             }
 
@@ -257,7 +228,6 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
             //Item trong AREA được click
             type = Type.AREA;
         }
-
         resetStateTabMenu();
         hideMenuItem();
         hideStreetList();
@@ -309,7 +279,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
                 hideMenuItem();
                 hideStreetList();
                 showBottomBar();
-                GlobalStaticData.setCallFromFragment(GlobalStaticData.FROM_WHERE2GO);
+                GlobalStaticData.setCallFromFragment(GlobalStaticData.FROM_WHAT2DO);
                 Intent intent = new Intent(this.getActivity(), ChooseProvinceActivity.class);
                 startActivityForResult(intent, AppConfig.REQUEST_CODE_CHANGE_PROVINCE);
                 break;
@@ -358,7 +328,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
             } else {
                 //Type.AREA
                 if (getIndexMenu(type) != -1) {
-                    title = chooseDistrictAdapter.getItem(getIndexMenu(type)).getTittleDistrict();
+                    title = chooseDistrictAdapter.getItem(getIndexMenu(type)).getTitleDistrict();
                     text_view_tab_menu_3.setText(title);
                     text_view_tab_menu_3.setTextColor(ContextCompat.getColor(context, color));
                 } else {
@@ -368,11 +338,14 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
                 }
             }
         } else {
+
             //Khi nhấn vào tên tỉnh hiện tại
             this.selectedPositionMenu.put(Type.AREA, -1);
+
             if(text_view_tab_menu_3==null||text_view_tab_menu_3.getText().toString().trim().equals(currentProvince.getTitleProvince().trim())){
                 return;
             }
+
             text_view_tab_menu_3.setText(currentProvince.getTitleProvince());
             text_view_tab_menu_3.setTextColor(ContextCompat.getColor(context, R.color.home_new_filter_text));
 
@@ -382,12 +355,16 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
     //Hàm ẩn bottom bar
     private void hideBottomBar() {
-        getActivity().findViewById(R.id.bottom_menu).setVisibility(View.GONE);
+        if(bottom_menu==null)
+            return;
+        bottom_menu.setVisibility(View.GONE);
     }
 
     //Hàm hiện bottom bar
     private void showBottomBar() {
-        getActivity().findViewById(R.id.bottom_menu).setVisibility(View.VISIBLE);
+        if(bottom_menu==null)
+            return;
+        bottom_menu.setVisibility(View.VISIBLE);
     }
 
     //Hàm ẩn layout các huyện, đường
@@ -516,14 +493,31 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
     //Hàm khởi tạo giá trị của tab Danh mucc5
     private List<MenuBarItem> initCategoryData() {
-        return initLatestData();
+        List<MenuBarItem> menuBarItems = new ArrayList<>();
+
+        menuBarItems = (List<MenuBarItem>) menuBarItemController.executeSelect(AppConfig.REQUEST_CODE_CATEGORY_WHERE2GO);
+
+        int posSelected = this.selectedPositionMenu.get(Type.CATEGORY).intValue();
+        if (posSelected < menuBarItems.size()) {
+            menuBarItems.get(posSelected).setSelected(true);
+        }
+
+        return menuBarItems;
+    }
+
+    public void onVisible() {
+        showBottomBar();
+        if (this.linear_layout_choose_disctrict_parent_menu.getVisibility() == View.VISIBLE
+                || this.linear_layout_where2go_show_item_tab_menu.getVisibility() == View.VISIBLE) {
+            hideBottomBar();
+        }
     }
 
     //Hàm khởi tạo giá trị của tab Khu vực
     private List<District> initAreaData() {
         List<District> list = new ArrayList<>();
 
-        list = getDisttrictList(currentProvince.getTitleProvince().trim());
+        list =(List<District> ) provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_AREA,currentProvince.getIdProvince());
 
         int posSelected = this.selectedPositionMenu.get(Type.AREA).intValue();
         if (posSelected < list.size() && posSelected != -1) {
@@ -534,7 +528,6 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         }
 
         return list;
-
     }
 
 }

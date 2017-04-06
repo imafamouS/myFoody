@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.bean.MoreItem;
 
@@ -22,7 +23,7 @@ public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder>
 
     IMoreItemClick itemClick;
     List<MoreItem> moreItemList;
-    Context context;
+   static Context context;
     public MoreItemAdapter(Context context, List<MoreItem> moreItemList, IMoreItemClick itemClick) {
         super();
         this.context = context;
@@ -73,7 +74,8 @@ public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder>
             if (resIcon == -1) {
                 this.image_view_more_item_menu.setVisibility(View.GONE);
             } else {
-                this.image_view_more_item_menu.setImageResource(resIcon);
+                //this.image_view_more_item_menu.setImageResource(resIcon);
+                Glide.with(context).load(resIcon).into(this.image_view_more_item_menu);
                 this.image_view_more_item_menu.setVisibility(View.VISIBLE);
             }
             this.text_view_more_item_menu.setText(data.getTittle());

@@ -2,6 +2,7 @@ package com.fdsa.infamous.myfoody.ui.util.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.fdsa.infamous.myfoody.AppConfig;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.Type;
 import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
@@ -101,34 +104,49 @@ public class MenuBarAdapter extends BaseAdapter {
         public void renderData(MenuBarItem item, Type type) {
             if (type == Type.LATEST) {
                 textView.setText(item.getTittle());
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, item.getImage()));
+
+
+                int img_id = context.getResources().getIdentifier(item.getImage(), "drawable", context.getPackageName()) == 0 ?
+                        context.getResources().getIdentifier(AppConfig.IMAGE_NULL, "drawable", context.getPackageName()) :
+                        context.getResources().getIdentifier(item.getImage(), "drawable", context.getPackageName());
+
+                //imageView.setImageDrawable(ContextCompat.getDrawable(context, img_id));
+                Glide.with(context).load(img_id).into(imageView);
                 imageView.setVisibility(View.VISIBLE);
                 if (item.isSelected()) {
                     textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
                     switch (item.getId()) {
-                        case 0:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_new_selected));
+                        case "moinhat":
+                            Glide.with(context).load(R.drawable.icon_tab_1_new_selected).into(imageView);
+                            //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_new_selected));
                             break;
-                        case 1:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_near_selected));
+                        case "gantoi":
+                            Glide.with(context).load( R.drawable.icon_tab_1_near_selected).into(imageView);
+                            //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_near_selected));
                             break;
-                        case 2:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_popular_selected));
+                        case "phobien":
+                            Glide.with(context).load( R.drawable.icon_tab_1_popular_selected).into(imageView);
+                            //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_popular_selected));
                             break;
-                        case 3:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_tourist_selected));
+                        case "dukhach":
+                            Glide.with(context).load( R.drawable.icon_tab_1_tourist_selected).into(imageView);
+                            //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_tourist_selected));
                             break;
-                        case 4:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_ecard_selected));
+                        case "ecard":
+                            Glide.with(context).load( R.drawable.icon_tab_1_ecard_selected).into(imageView);
+                           // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_ecard_selected));
                             break;
-                        case 5:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_book_selected));
+                        case "datcho":
+                            Glide.with(context).load( R.drawable.icon_tab_1_promote_selected).into(imageView);
+                           // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_book_selected));
                             break;
-                        case 6:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_promote_selected));
+                        case "uudaithe":
+                            Glide.with(context).load( R.drawable.icon_tab_1_promote_selected).into(imageView);
+                          //  imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_promote_selected));
                             break;
-                        case 7:
-                            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_delivery_selected));
+                        case "giaohang":
+                            Glide.with(context).load( R.drawable.icon_tab_1_delivery_selected).into(imageView);
+                           // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_delivery_selected));
                             break;
                         default:
                             break;
@@ -138,14 +156,29 @@ public class MenuBarAdapter extends BaseAdapter {
                 }
             } else if (type == Type.CATEGORY) {
                 textView.setText(item.getTittle());
-                if (item.getImage() != -1) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(context, item.getImage()));
+                if(!item.getId().equals("l0")){
+                    int img_id = context.getResources().getIdentifier(item.getImage(), "drawable", context.getPackageName()) == 0 ?
+                            context.getResources().getIdentifier(AppConfig.IMAGE_NULL, "drawable", context.getPackageName()) :
+                            context.getResources().getIdentifier(item.getImage(), "drawable", context.getPackageName());
+
+                    Log.d("CATEGORY", img_id + "");
+                    Glide.with(context).load(img_id).into(imageView);
+                   // imageView.setImageDrawable(ContextCompat.getDrawable(context, img_id));
+
                     imageView.setVisibility(View.VISIBLE);
+
+                    if (item.isSelected()) {
+                        textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                        this.isSelected.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    imageView.setVisibility(View.GONE);
+                    if(item.isSelected()) {
+                        textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                        this.isSelected.setVisibility(View.VISIBLE);
+                    }
                 }
-                if (item.isSelected()) {
-                    textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-                    this.isSelected.setVisibility(View.VISIBLE);
-                }
+
             }
         }
     }

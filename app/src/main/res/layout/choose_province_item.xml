@@ -3,9 +3,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:background="@drawable/list_item_selector"
-    android:layout_centerVertical="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:clickable="false"
@@ -30,19 +29,6 @@
 
 
     <TextView
-        android:id="@+id/text_view_province_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5.0dip"
-        android:paddingLeft="15dip"
-        android:layout_weight="1.0"
-        android:text="TP.HCM"
-        android:textColor="#ff333333"
-        android:layout_centerVertical="true"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/text_view_set_default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,17 +41,31 @@
         android:text="@string/ACTION_DEFAULT"
         android:textColor="@color/color_text_default_choose_province"
         android:textSize="@dimen/text_size_small"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/text_view_province_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dip"
+        android:layout_weight="1.0"
+        android:text="TP.HCM"
+        android:textColor="#ff333333"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+         />
 
 
 </RelativeLayout>
 
-<!--
 
--->
-
+    <!---->
 
 

@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.Global;
+package com.fdsa.infamous.myfoody.global;
 
 import android.content.res.Resources;
 

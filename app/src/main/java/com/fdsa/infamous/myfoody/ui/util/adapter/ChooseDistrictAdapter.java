@@ -83,7 +83,7 @@ public class ChooseDistrictAdapter extends BaseAdapter {
             if(District.isSelected()){
                 this.text_view_district_name.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary));
             }
-            this.text_view_district_name.setText(District.getTittleDistrict());
+            this.text_view_district_name.setText(District.getTitleDistrict());
             this.text_view_num_of_street.setText(District.getNumofStreet()+ " Đường");
         }
     }

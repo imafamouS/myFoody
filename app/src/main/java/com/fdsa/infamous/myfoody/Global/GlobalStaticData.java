@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.Global;
+package com.fdsa.infamous.myfoody.global;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.menu.views.MoreItemView;
@@ -16,7 +16,7 @@ import java.util.List;
 public class GlobalStaticData {
 
     public static Province getDefaultProvince(){
-        return new Province("0","TP.HCM",null);
+        return new Province("vn1","TP.HCM",null);
     }
 
     public static List<MoreItem> getListMoreItem(int type) {
@@ -51,14 +51,14 @@ public class GlobalStaticData {
     public static List<MenuBarItem> initLastestData_Where2go() {
         List<MenuBarItem> items = new ArrayList<>();
 
-        MenuBarItem item1 = new MenuBarItem(0, "Mới nhất", R.drawable.icon_tab_1_new, false);
-        MenuBarItem item2 = new MenuBarItem(1, "Gần tôi", R.drawable.icon_tab_1_near, false);
-        MenuBarItem item3 = new MenuBarItem(2, "Phổ biến", R.drawable.icon_tab_1_popular, false);
-        MenuBarItem item4 = new MenuBarItem(3, "Du khách", R.drawable.icon_tab_1_tourist, false);
-        MenuBarItem item5 = new MenuBarItem(4, "Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
-        MenuBarItem item6 = new MenuBarItem(5, "Đặt chỗ", R.drawable.icon_tab_1_book, false);
-        MenuBarItem item7 = new MenuBarItem(6, "Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
-        MenuBarItem item8 = new MenuBarItem(7, "Đặt giao hàng", R.drawable.icon_tab_1_delivery, false);
+        MenuBarItem item1 = new MenuBarItem("moinhat", "Mới nhất", "icon_tab_1_new", false);
+        MenuBarItem item2 = new MenuBarItem("gantoi", "Gần tôi", "icon_tab_1_near", false);
+        MenuBarItem item3 = new MenuBarItem("phobien", "Phổ biến", "icon_tab_1_popular", false);
+        MenuBarItem item4 = new MenuBarItem("dukhach", "Du khách", "icon_tab_1_tourist", false);
+        MenuBarItem item5 = new MenuBarItem("ecard", "Ưu đãi E-card", "icon_tab_1_ecard", false);
+        MenuBarItem item6 = new MenuBarItem("datcho", "Đặt chỗ", "icon_tab_1_book", false);
+        MenuBarItem item7 = new MenuBarItem("uudaithe", "Ưu đãi thẻ", "icon_tab_1_promote", false);
+        MenuBarItem item8 = new MenuBarItem("giaohang", "Đặt giao hàng", "icon_tab_1_delivery", false);
 
 
         items.add(item1);
@@ -76,10 +76,11 @@ public class GlobalStaticData {
     public static List<MenuBarItem> initLastestData_What2do() {
         List<MenuBarItem> items = new ArrayList<>();
 
-        MenuBarItem item1 = new MenuBarItem(0, "Mới nhất", R.drawable.icon_tab_1_new, false);
-        MenuBarItem item2 = new MenuBarItem(1, "Gần tôi", R.drawable.icon_tab_1_near, false);
-        MenuBarItem item3 = new MenuBarItem(2, "Xem nhiều", R.drawable.icon_tab_1_popular, false);
-        MenuBarItem item4 = new MenuBarItem(3, "Du khách", R.drawable.icon_tab_1_tourist, false);
+
+        MenuBarItem item1 = new MenuBarItem("moinhat", "Mới nhất", "icon_tab_1_new", false);
+        MenuBarItem item2 = new MenuBarItem("gantoi", "Gần tôi", "icon_tab_1_near", false);
+        MenuBarItem item3 = new MenuBarItem("phobien", "Xem nhiều", "icon_tab_1_popular", false);
+        MenuBarItem item4 = new MenuBarItem("dukhach", "Du khách", "icon_tab_1_tourist", false);
 
         items.add(item1);
         items.add(item2);

@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.menu.Activity;
+package com.fdsa.infamous.myfoody.ui.menu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,18 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.fdsa.infamous.myfoody.Global.AppConfig;
-import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.AppConfig;
+import com.fdsa.infamous.myfoody.controller.ProvinceController;
+import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseProvinceAdapter;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.list;
 
 /**
  * Created by FDSA on 4/3/2017.
@@ -51,11 +49,13 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     ChooseProvinceAdapter adapter;
 
     List<Province> provinceList;
+    ProvinceController provinceController;
 
     public ChooseProvinceActivity() {
         this.callFromFragment = GlobalStaticData.getCallFromFragment();
 
         currentProvince = GlobalStaticData.getCurrentProvince();
+
     }
 
 
@@ -89,6 +89,8 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         linear_layout_auto_detect_location = (LinearLayout) headerListView.findViewById(R.id.linear_layout_auto_detect_location);
         linear_layout_action_change_country = (LinearLayout) headerListView.findViewById(R.id.linear_layout_action_change_country);
 
+
+        provinceController=new ProvinceController(getApplicationContext());
         provinceList=getProvinceList("VIETNAM");
 
         adapter=new ChooseProvinceAdapter(getApplicationContext(),provinceList,currentProvince,this);
@@ -131,68 +133,7 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     }
 
     private List<Province> getProvinceList(String idCountry){
-        List<Province> provinces=new ArrayList<>();
-
-        Province item1=new Province("0","TP.HCM",null);
-        Province item2=new Province("1","Hà Nội",null);
-        Province item3=new Province("2","Đà Nẵng",null);
-        Province item4=new Province("3","Hải Phòng",null);
-        Province item5=new Province("4","TP.HCM",null);
-        Province item6=new Province("5","Hà Nội",null);
-        Province item7=new Province("6","Đà Nẵng",null);
-        Province item8=new Province("7","Hải Phòng",null);
-        Province item9=new Province("8","TP.HCM",null);
-        Province item10=new Province("9","Hà Nội",null);
-        Province item11=new Province("10","Đà Nẵng",null);
-        Province item12=new Province("11","Hải Phòng",null);
-
-        Province item13=new Province("12","TP.HCM",null);
-        Province item14=new Province("13","Hà Nội",null);
-        Province item15=new Province("14","Đà Nẵng",null);
-        Province item16=new Province("15","Hải Phòng",null);
-        Province item17=new Province("16","TP.HCM",null);
-        Province item18=new Province("17","Hà Nội",null);
-        Province item19=new Province("18","Đà Nẵng",null);
-        Province item20=new Province("19","Hải Phòng",null);
-        Province item21=new Province("20","TP.HCM",null);
-        Province item22=new Province("21","Hà Nội",null);
-        Province item23=new Province("22","Đà Nẵng",null);
-        Province item24=new Province("23","Hải Phòng",null);
-        Province item25=new Province("24","TP.HCM",null);
-        Province item26=new Province("25","Hà Nội",null);
-        Province item27=new Province("26","Đà Nẵng",null);
-        Province item28=new Province("27","Hải Phòng",null);
-
-        provinces.add(item1);
-        provinces.add(item2);
-        provinces.add(item3);
-        provinces.add(item4);
-        provinces.add(item5);
-        provinces.add(item6);
-        provinces.add(item7);
-        provinces.add(item8);
-        provinces.add(item9);
-        provinces.add(item10);
-        provinces.add(item11);
-        provinces.add(item12);
-        provinces.add(item13);
-        provinces.add(item14);
-        provinces.add(item15);
-        provinces.add(item16);
-        provinces.add(item17);
-        provinces.add(item18);
-        provinces.add(item19);
-        provinces.add(item20);
-        provinces.add(item21);
-        provinces.add(item22);
-        provinces.add(item23);
-        provinces.add(item24);
-        provinces.add(item25);
-        provinces.add(item26);
-        provinces.add(item27);
-        provinces.add(item28);
-
-        return provinces;
+       return (List<Province>)provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_PROVINCE);
 
     }
 
@@ -204,7 +145,12 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+            if(edit_text_search_choose_province.getText().toString().length()==0){
+                image_view_delete_choose_province.setVisibility(View.GONE);
+                return;
+            }
+            adapter.getFilter().filter(s.toString());
+            image_view_delete_choose_province.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -217,8 +163,10 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button_choose_provine:
+                finish();
                 break;
             case R.id.text_view_done_choose_provine:
+                onSetDefaultProvince();
                 break;
         }
     }

@@ -6,22 +6,22 @@ package com.fdsa.infamous.myfoody.ui.util.bean;
 
 public class MenuBarItem {
     private String tittle;
-    private int id;
-    private int image;
+    private String id;
+    private String image;
     private boolean isSelected;
 
-    public MenuBarItem(int id, String tittle, int image, boolean isSelected) {
+    public MenuBarItem(String id, String tittle, String image, boolean isSelected) {
         this.tittle = tittle;
         this.image = image;
         this.isSelected = isSelected;
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class MenuBarItem {
         this.tittle = tittle;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

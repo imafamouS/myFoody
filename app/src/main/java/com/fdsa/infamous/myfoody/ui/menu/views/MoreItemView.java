@@ -7,15 +7,13 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.fdsa.infamous.myfoody.Global.GlobalFunction;
-import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.global.GlobalFunction;
+import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.ui.util.adapter.MoreItemAdapter;
 import com.fdsa.infamous.myfoody.ui.util.bean.MoreItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.fdsa.infamous.myfoody.Global.GlobalFunction.dpToPx;
 
 /**
  * Created by FDSA on 4/1/2017.

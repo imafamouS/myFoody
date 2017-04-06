@@ -43,7 +43,7 @@
                         android:layout_weight="1.0"
                         android:text="@string/TEXT_NEWEST"
                         android:textColor="@color/home_new_filter_text"
-                        android:textSize="13.0sp" />
+                        android:textSize="12.0sp" />
 
                     <ImageView
                         android:layout_width="12.0dip"
@@ -71,7 +71,7 @@
                         android:layout_weight="1.0"
                         android:text="@string/TEXT_CATEGORY"
                         android:textColor="@color/home_new_filter_text"
-                        android:textSize="13.0sp" />
+                        android:textSize="12.0sp" />
 
                     <ImageView
                         android:layout_width="12.0dip"
@@ -99,7 +99,7 @@
                         android:layout_weight="1.0"
                         android:text="@string/TEXT_AREAS"
                         android:textColor="@color/home_new_filter_text"
-                        android:textSize="13.0sp" />
+                        android:textSize="12.0sp" />
 
                     <ImageView
                         android:layout_width="12.0dip"

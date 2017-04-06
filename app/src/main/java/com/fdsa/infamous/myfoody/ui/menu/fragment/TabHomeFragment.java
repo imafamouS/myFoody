@@ -32,6 +32,9 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
         mTopMenuBarFragment = new TopMenuBarFragment();
         whereToGoFragment=new WhereToGoFragment();
         whatToDoFragment=new WhatToDoFragment();
+
+        whereToGoFragment.setWhatToDoFragment(whatToDoFragment);
+        whatToDoFragment.setWhereToGoFragment(whereToGoFragment);
     }
     class myTabHomeFragmentAdapter extends  FragmentPagerAdapter{
         public myTabHomeFragmentAdapter(FragmentManager fm){
@@ -106,6 +109,11 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     @Override
     public void OnTopMenuBarChange(int index) {
         this.viewPager.setCurrentItem(index);
+        if(index==1){
+            whatToDoFragment.onVisible();
+        }else{
+            whereToGoFragment.onVisible();
+        }
 
 
     }

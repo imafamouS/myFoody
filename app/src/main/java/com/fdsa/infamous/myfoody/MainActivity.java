@@ -1,11 +1,15 @@
 package com.fdsa.infamous.myfoody;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,7 +17,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.database.DataAccess;
+import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.ui.menu.views.BottomNavigationViewEx;
 import com.fdsa.infamous.myfoody.ui.util.Type;
 import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseDistrictAdapter;
@@ -51,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
     List<Integer> mResources;
     LinearLayout test_aa;
 
+
     public void intitImage() {
         this.mResources = new ArrayList<>();
-
         mResources.add(R.drawable.icon_foody);
         mResources.add(R.drawable.icon_bottom_menu_user_selected);
     }
@@ -70,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     List<District> districtList;
     ChooseDistrictAdapter chooseProvinceAdapter;
 
-    private List<District> getDisttrictList(int idProvince) {
+  /*  private List<District> getDisttrictList(int idProvince) {
         List<District> items = new ArrayList<>();
 
         District item1 = new District("d1", "Quận 1", null);
@@ -93,13 +98,63 @@ public class MainActivity extends AppCompatActivity {
         Log.d("DISTRICT",item1.getTittleDistrict());
 
         return items;
+    }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.home_layout);
         GlobalStaticData.setCurrentProvince(GlobalStaticData.getDefaultProvince());
         setContentView(R.layout.home_layout);
+
+        bottomNavigationMenu = (BottomNavigationViewEx) findViewById(R.id.bottom_menu);
+
+        bottomNavigationMenu.setTextVisibility(false);
+        bottomNavigationMenu.enableAnimation(false);
+        bottomNavigationMenu.enableShiftingMode(false);
+        bottomNavigationMenu.enableItemShiftingMode(false);
+        bottomNavigationMenu.setCurrentItem(0);
+
+        menu = bottomNavigationMenu.getMenu();
+        setTab(0);
+        bottomNavigationMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_bottom_bar_home:
+                                //change the icon
+                                setTab(0);
+                                break;
+                            case R.id.menu_bottom_bar_gallery:
+                                //change the icon
+                                setTab(1);
+                                break;
+                            case R.id.menu_bottom_bar_search:
+                                //change the icon
+                                setTab(2);
+                                break;
+                            case R.id.menu_bottom_bar_notify:
+                                //change the icon
+                                setTab(3);
+                                break;
+                            case R.id.menu_bottom_bar_user:
+                                //change the icon
+                                setTab(4);
+                                break;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+
 
 
 
@@ -181,48 +236,6 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
-        /*bottomNavigationMenu = (BottomNavigationViewEx) findViewById(R.id.bottom_menu);
-
-        bottomNavigationMenu.setTextVisibility(false);
-        bottomNavigationMenu.enableAnimation(false);
-        bottomNavigationMenu.enableShiftingMode(false);
-        bottomNavigationMenu.enableItemShiftingMode(false);
-        bottomNavigationMenu.setCurrentItem(0);
-
-        menu = bottomNavigationMenu.getMenu();
-        setTab(0);
-        bottomNavigationMenu.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_bottom_bar_home:
-                                //change the icon
-                                setTab(0);
-
-                                break;
-                            case R.id.menu_bottom_bar_gallery:
-                                //change the icon
-                                setTab(1);
-                                break;
-                            case R.id.menu_bottom_bar_search:
-                                //change the icon
-                                setTab(2);
-                                break;
-                            case R.id.menu_bottom_bar_notify:
-                                //change the icon
-                                setTab(3);
-                                break;
-                            case R.id.menu_bottom_bar_user:
-                                //change the icon
-                                setTab(4);
-                                break;
-                            default:
-                                break;
-                        }
-                        return true;
-                    }
-                });*/
 
         /*text_view_what_to_do = (TextView) findViewById(R.id.text_view_what2do_top_menu);
         text_text_where_to_go = (TextView) findViewById(R.id.text_view_where2go_top_menu);
@@ -268,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
         this.text_view_what_to_do.setBackgroundColor(0);
     }*/
 
-    /*private void setTab(int currentTabindex) {
+    private void setTab(int currentTabindex) {
 
         switch (currentTabindex) {
             case 0:
@@ -310,9 +323,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
         }
-    }*/
-    int currentSelectedPosition=0;
-    private List<MenuBarItem> getListItem(Type type) {
+    }
+   /* private List<MenuBarItem> getListItem(Type type) {
         items = new ArrayList<>();
         if (type == Type.LATEST) {
             MenuBarItem item1 = new MenuBarItem(0,"Mới nhất", R.drawable.icon_tab_1_new, false);
@@ -358,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         return items;
-    }
+    }*/
 
 
 }

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.fdsa.infamous.myfoody.Global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.menu.views.AutoScrollViewPager;
 import com.fdsa.infamous.myfoody.ui.util.adapter.MySlideShowBannerAdapter;
