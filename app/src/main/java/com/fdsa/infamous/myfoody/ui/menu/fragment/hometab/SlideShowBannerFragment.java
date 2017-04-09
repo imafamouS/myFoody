@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.menu.fragment;
+package com.fdsa.infamous.myfoody.ui.menu.fragment.hometab;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.ui.menu.views.AutoScrollViewPager;
-import com.fdsa.infamous.myfoody.ui.util.adapter.MySlideShowBannerAdapter;
+import com.fdsa.infamous.myfoody.ui.util.adapter.SlideShowBannerAdapter;
 
 import java.util.List;
 
@@ -25,12 +25,15 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class SlideShowBannerFragment extends Fragment {
 
+    public static final int TYPE_HAVE_ADS = 1;
+    public static final int TYPE_NO_ADS = 2;
+
     public AutoScrollViewPager view_pager_slide_show;
     FrameLayout frame_layout_banner_image_parent;
     Context context;
     List<Integer> mResources;
     View view;
-    MySlideShowBannerAdapter adapter;
+    SlideShowBannerAdapter adapter;
     CircleIndicator indicator;
 
     public SlideShowBannerFragment() {
@@ -42,10 +45,13 @@ public class SlideShowBannerFragment extends Fragment {
     }
 
     public void setResourcesSlideShow(List<Integer> resources) {
-        if (resources != null)
+        if (resources != null) {
             mResources = resources;
+            adapter.notifyDataSetChanged();
+        } else {
+            adapter = null;
+        }
 
-        adapter.notifyDataSetChanged();
     }
 
     @Nullable
@@ -59,9 +65,9 @@ public class SlideShowBannerFragment extends Fragment {
     public void initView(View view) {
 
         frame_layout_banner_image_parent = (FrameLayout) view.findViewById(R.id.frame_layout_banner_image_parent);
-        mResources = GlobalStaticData.getDefaultImageSlideShow();
+        mResources = GlobalStaticData.getImageSlideShow(TYPE_HAVE_ADS);
         view_pager_slide_show = (AutoScrollViewPager) view.findViewById(R.id.view_pager_slide_show);
-        adapter = new MySlideShowBannerAdapter(getContext(), mResources);
+        adapter = new SlideShowBannerAdapter(getContext(), mResources);
         indicator = (CircleIndicator) view.findViewById(R.id.indicator);
 
         view_pager_slide_show.setAdapter(adapter);
@@ -73,5 +79,6 @@ public class SlideShowBannerFragment extends Fragment {
         view_pager_slide_show.startAutoScroll();
 
         indicator.setViewPager(view_pager_slide_show);
+
     }
 }

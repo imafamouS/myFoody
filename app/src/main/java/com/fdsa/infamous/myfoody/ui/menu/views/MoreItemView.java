@@ -11,6 +11,7 @@ import com.fdsa.infamous.myfoody.global.GlobalFunction;
 import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.ui.util.adapter.MoreItemAdapter;
 import com.fdsa.infamous.myfoody.ui.util.bean.MoreItem;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IMoreItemClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,10 @@ import java.util.List;
  * Created by FDSA on 4/1/2017.
  */
 
-public class MoreItemView extends LinearLayout implements MoreItemAdapter.IMoreItemClick {
+public class MoreItemView extends LinearLayout implements IMoreItemClick {
 
     public static final int ITEM_DEFAULT=0;
+    public static final int ITEM_TYPE_1 = 1;
 
     private MoreItemAdapter adapter;
     private RecyclerView recyclerView;
@@ -30,16 +32,11 @@ public class MoreItemView extends LinearLayout implements MoreItemAdapter.IMoreI
     private int defaultPadding;
     private Context context;
 
-    class myGridLayoutManger extends GridLayoutManager {
-        public myGridLayoutManger(Context context, int spanCount) {
-            super(context, spanCount);
-        }
-        @Override
-        public boolean canScrollVertically() {
-            return false;
-        }
-    }
-
+    /***
+     * Hàm khởi tạo MoreItemView (10 nút trên menu) kế thừa từ lớp Linearlayout
+     *
+     * @param context
+     */
     public MoreItemView(Context context) {
         super(context);
         init(context);
@@ -50,17 +47,29 @@ public class MoreItemView extends LinearLayout implements MoreItemAdapter.IMoreI
         super(context, attrs,0);
     }
 
-
     public MoreItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        //init(context);
     }
 
+    /***
+     * Hàm khởi tạo các view cho MoreItemView
+     * Ý tưởng: Tạo 1 recycleview với layout dạng GridLayout có 2 cột, load dữ liệu từ nguồn dữ liệu có sẵn trong lớp GbloBalStaticData
+     *
+     * @param context
+     */
     private void init(Context context){
+
+
         this.context=context;
         this.moreItemList = new ArrayList<>();
         this.recyclerView = new RecyclerView(context);
-        moreItemList = GlobalStaticData.getListMoreItem(MoreItemView.ITEM_DEFAULT);
+        if (GlobalStaticData.TYPE_MOREITEM == -1) {
+            moreItemList = GlobalStaticData.getListMoreItem(ITEM_DEFAULT);
+        } else {
+            moreItemList = GlobalStaticData.getListMoreItem(GlobalStaticData.TYPE_MOREITEM);
+        }
+
         defaultPadding= GlobalFunction.dpToPx(3.0f);
         myGridLayoutManger=new myGridLayoutManger(context, 2);
 
@@ -68,15 +77,15 @@ public class MoreItemView extends LinearLayout implements MoreItemAdapter.IMoreI
         this.adapter = new MoreItemAdapter(context, moreItemList, this);
         this.recyclerView.setPadding(defaultPadding, GlobalFunction.dpToPx(10),defaultPadding,GlobalFunction.dpToPx(10));
         this.recyclerView.setAdapter(this.adapter);
+
         this.addView(this.recyclerView);
     }
 
-    public void setMoreItemListByType(int type){
-        moreItemList.clear();
-        moreItemList=GlobalStaticData.getListMoreItem(type);
-        this.adapter.notifyDataSetChanged();
-    }
-
+    /***
+     * Hàm gọi khi có sự kiện click trên layout của MoreItemView
+     *
+     * @param pos:vị trí đươc click
+     */
     @Override
     public void moreItemClick(int pos) {
         switch (this.moreItemList.get(pos).getTittle()) {
@@ -93,4 +102,23 @@ public class MoreItemView extends LinearLayout implements MoreItemAdapter.IMoreI
 
         }
     }
+
+    class myGridLayoutManger extends GridLayoutManager {
+        public myGridLayoutManger(Context context, int spanCount) {
+            super(context, spanCount);
+        }
+
+        @Override
+        public boolean canScrollVertically() {
+            return false;
+        }
+    }
 }
+
+
+   /* public void setMoreItemListByType(int type){
+        moreItemList.clear();
+        moreItemList=GlobalStaticData.getListMoreItem(type);
+        this.adapter.notifyDataSetChanged();
+    }
+*/

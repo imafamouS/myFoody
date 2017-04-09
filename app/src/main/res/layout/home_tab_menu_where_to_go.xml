@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:tools="http://schemas.android.com/tools"
-    style="@style/view_match"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/frame_layout_layout_parent_where2go"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    style="@style/view_match">
 
     <LinearLayout
         android:id="@+id/linear_layout_parent_where2go_tab_menu"
@@ -136,6 +135,7 @@
                 android:background="@color/back_ground_color"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@android:color/transparent"
+                android:dividerHeight="10dp"
                 android:listSelector="@android:color/transparent"
                 android:scrollingCache="false"
                 android:smoothScrollbar="true" />

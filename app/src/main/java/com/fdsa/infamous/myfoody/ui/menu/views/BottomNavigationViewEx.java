@@ -25,6 +25,10 @@ import java.lang.reflect.Field;
 /**
  * Created by yu on 2016/11/10.
  */
+
+/**
+ * Thư viện BottomNavigation
+ **/
 /*Source: https://github.com/ittianyu/BottomNavigationViewEx */
 public class BottomNavigationViewEx extends BottomNavigationView {
     // used for animation
@@ -872,5 +876,4 @@ public class BottomNavigationViewEx extends BottomNavigationView {
         }
 
     }
-
 }

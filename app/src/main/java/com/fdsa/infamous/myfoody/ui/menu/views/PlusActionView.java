@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.fdsa.infamous.myfoody.R;
 
-public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
+public class PlusActionView extends BottomSheetDialogFragment implements View.OnClickListener {
 
     View v;
     LinearLayout linear_layout_add_place_plus_menu;
@@ -22,16 +22,26 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment i
     LinearLayout linear_layout_ecoupon_plus_menu;
     LinearLayout linear_layout_review_plus_menu;
     LinearLayout linear_layout_upload_image_plus_menu;
+
+    /***
+     * Hàm bắt sự kiện khi PLusActionView được gọi
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.home_plus_menu, container, false);
-
+        /**Khởi tao các View**/
         linear_layout_add_place_plus_menu = (LinearLayout) v.findViewById(R.id.linear_layout_add_place_plus_menu);
         linear_layout_checkin_plus_menu = (LinearLayout) v.findViewById(R.id.linear_layout_checkin_plus_menu);
         linear_layout_ecoupon_plus_menu = (LinearLayout) v.findViewById(R.id.linear_layout_ecoupon_plus_menu);
         linear_layout_review_plus_menu = (LinearLayout) v.findViewById(R.id.linear_layout_review_plus_menu);
         linear_layout_upload_image_plus_menu = (LinearLayout) v.findViewById(R.id.linear_layout_upload_image_plus_menu);
 
+        /**Khởi tao sự kiện click cho view**/
         linear_layout_add_place_plus_menu.setOnClickListener(this);
         linear_layout_checkin_plus_menu.setOnClickListener(this);
         linear_layout_ecoupon_plus_menu.setOnClickListener(this);
@@ -41,6 +51,11 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment i
         return v;
     }
 
+    /***
+     * Hàm bắt sự kiện khi click các menu của PlusActionView
+     *
+     * @param v: Layout được nhấn
+     */
     @Override
     public void onClick(View v) {
         String str = "You clicked ";

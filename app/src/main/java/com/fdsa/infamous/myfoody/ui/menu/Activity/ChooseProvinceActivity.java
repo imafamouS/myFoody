@@ -17,13 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.AppConfig;
+import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.controller.ProvinceController;
 import com.fdsa.infamous.myfoody.global.GlobalStaticData;
-import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseProvinceAdapter;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,23 +32,44 @@ import java.util.List;
 public class ChooseProvinceActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener,ChooseProvinceAdapter.IOnSetDefaultProvince{
 
 
-    RelativeLayout choose_provine_top_bar;
-    LinearLayout back_button_choose_provine;
-    TextView choose_provine_top_bar_title;
-    TextView text_view_done_choose_provine;
-    ListView list_view_choose_province;
+    private RelativeLayout choose_provine_top_bar;
+    private LinearLayout back_button_choose_provine;
+    private TextView choose_provine_top_bar_title;
+    private TextView text_view_done_choose_provine;
+    private ListView list_view_choose_province;
 
-    EditText edit_text_search_choose_province;
-    ImageView image_view_delete_choose_province;
-    LinearLayout linear_layout_auto_detect_location;
-    LinearLayout linear_layout_action_change_country;
+    private EditText edit_text_search_choose_province;
+    private ImageView image_view_delete_choose_province;
+    public TextWatcher searchWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    int callFromFragment;
-    Province currentProvince;
-    ChooseProvinceAdapter adapter;
+        }
 
-    List<Province> provinceList;
-    ProvinceController provinceController;
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (edit_text_search_choose_province.getText().toString().length() == 0) {
+                image_view_delete_choose_province.setVisibility(View.GONE);
+                return;
+            }
+
+            image_view_delete_choose_province.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+    private LinearLayout linear_layout_auto_detect_location;
+    private LinearLayout linear_layout_action_change_country;
+    private int callFromFragment;
+    private Province currentProvince;
+    private ChooseProvinceAdapter adapter;
+    private List<Province> provinceList;
+    private ProvinceController provinceController;
+
+
 
     public ChooseProvinceActivity() {
         this.callFromFragment = GlobalStaticData.getCallFromFragment();
@@ -57,8 +77,6 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         currentProvince = GlobalStaticData.getCurrentProvince();
 
     }
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,9 +86,6 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
         init();
     }
-
-
-
     private void init() {
 
         choose_provine_top_bar = (RelativeLayout) findViewById(R.id.choose_provine_top_bar);
@@ -102,62 +117,42 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         text_view_done_choose_provine.setOnClickListener(this);
 
         edit_text_search_choose_province.addTextChangedListener(this.searchWatcher);
+        image_view_delete_choose_province.setOnClickListener(this);
 
         linear_layout_auto_detect_location.setOnClickListener(this);
         linear_layout_action_change_country.setOnClickListener(this);
 
         list_view_choose_province.setOnItemClickListener(this);
+        list_view_choose_province.setTextFilterEnabled(true);
     }
 
     @Override
     public void onSetDefaultProvince() {
-        int indexSelected=this.adapter.indexSelected;
-        Province province2setDefault=provinceList.get(indexSelected);
+        int indexSelected = this.adapter.indexSelected;
+        Province province2setDefault = provinceList.get(indexSelected);
 
         GlobalStaticData.setCurrentProvince(province2setDefault);
 
-       // Toast.makeText(getApplicationContext(),GlobalStaticData.getCurrentProvince_What2do().getTitleProvince(),Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent();
-        intent.putExtra("changed_province",true);
-        setResult(AppConfig.RESULT_CODE_CHANGE_PROVINCE,intent);
+        // Toast.makeText(getApplicationContext(),GlobalStaticData.getCurrentProvince_What2do().getTitleProvince(),Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.putExtra("changed_province", true);
+        setResult(AppConfig.RESULT_CODE_CHANGE_PROVINCE, intent);
         finish();
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        this.adapter.indexSelected=position-1;
+        this.adapter.indexSelected = position - 1;
         this.list_view_choose_province.setSelection(adapter.indexSelected);
-        this.list_view_choose_province.smoothScrollToPositionFromTop(adapter.indexSelected,0);
+        this.list_view_choose_province.smoothScrollToPositionFromTop(adapter.indexSelected, 0);
         this.adapter.notifyDataSetChanged();
     }
 
-    private List<Province> getProvinceList(String idCountry){
-       return (List<Province>)provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_PROVINCE);
+    private List<Province> getProvinceList(String idCountry) {
+        return (List<Province>) provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_PROVINCE);
 
     }
-
-    public TextWatcher searchWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(edit_text_search_choose_province.getText().toString().length()==0){
-                image_view_delete_choose_province.setVisibility(View.GONE);
-                return;
-            }
-            adapter.getFilter().filter(s.toString());
-            image_view_delete_choose_province.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
 
     @Override
     public void onClick(View v) {
@@ -167,6 +162,9 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.text_view_done_choose_provine:
                 onSetDefaultProvince();
+                break;
+            case R.id.image_view_delete_choose_province:
+                edit_text_search_choose_province.setText("");
                 break;
         }
     }

@@ -1,10 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fdsa.infamous.myfoody">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -14,12 +18,11 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".DomainActivity"></activity>
+        <activity android:name=".ui.menu.activity.DomainActivity"></activity>
         <activity android:name=".ui.menu.activity.ChooseProvinceActivity"></activity>
+
     </application>
     <meta-data android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"
         android:value="GlideModule"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 </manifest>

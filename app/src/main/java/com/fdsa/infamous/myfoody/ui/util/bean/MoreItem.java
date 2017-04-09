@@ -1,27 +1,35 @@
 package com.fdsa.infamous.myfoody.ui.util.bean;
 
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.ui.util.myenum.MoreItemCode;
 
 /**
  * Created by FDSA on 3/31/2017.
  */
 
 public class MoreItem {
-    String tittle;
-    MoreItemCode code;
+    private String tittle;
+    private MoreItemCode code;
     public MoreItem(String tittle, MoreItemCode code) {
         this.tittle = tittle;
         this.code = code;
     }
 
+    //Hàm get Tiêu đề
     public String getTittle() {
         return tittle;
     }
 
+    //Hàm set Tiêu đề
     public void setTittle(String tittle) {
         this.tittle = tittle;
     }
 
+    /***
+     * Hàm trả về id của drawable hình của đối tượng moreItem
+     *
+     * @return
+     */
     public int getImage() {
         int img = -1;
         if (code == null) {
@@ -61,16 +69,5 @@ public class MoreItem {
         return img;
     }
 
-    public enum MoreItemCode {
-        NEARBY,
-        BOOK,
-        ECARD,
-        REVIEW,
-        TOPMEMBER,
-        COUPON,
-        DELIVERY,
-        GAME_FUN,
-        BLOGS,
-        VIDEO
-    }
+
 }

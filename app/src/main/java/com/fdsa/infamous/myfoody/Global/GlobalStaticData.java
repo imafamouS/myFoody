@@ -5,6 +5,7 @@ import com.fdsa.infamous.myfoody.ui.menu.views.MoreItemView;
 import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
 import com.fdsa.infamous.myfoody.ui.util.bean.MoreItem;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
+import com.fdsa.infamous.myfoody.ui.util.myenum.MoreItemCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,12 @@ import java.util.List;
 
 public class GlobalStaticData {
 
+    public final static int FROM_WHAT2DO = 0;
+    public final static int FROM_WHERE2GO = 1;
+    public static int TYPE_MOREITEM = MoreItemView.ITEM_DEFAULT;
+    static Province currentProvince;
+    static int callFromFragment;
+
     public static Province getDefaultProvince(){
         return new Province("vn1","TP.HCM",null);
     }
@@ -23,27 +30,32 @@ public class GlobalStaticData {
         List<MoreItem> list = new ArrayList<>();
 
         if(type == MoreItemView.ITEM_DEFAULT){
-            list.add(new MoreItem("Gần tôi", MoreItem.MoreItemCode.NEARBY));
-            list.add(new MoreItem("Coupon", MoreItem.MoreItemCode.COUPON));
-            list.add(new MoreItem("Đặt chỗ ưu đãi", MoreItem.MoreItemCode.BOOK));
-            list.add(new MoreItem("Đặt giao hàng", MoreItem.MoreItemCode.DELIVERY));
-            list.add(new MoreItem("E-card", MoreItem.MoreItemCode.ECARD));
+            list.add(new MoreItem("Gần tôi", MoreItemCode.NEARBY));
+            list.add(new MoreItem("Coupon", MoreItemCode.COUPON));
+            list.add(new MoreItem("Đặt chỗ ưu đãi", MoreItemCode.BOOK));
+            list.add(new MoreItem("Đặt giao hàng", MoreItemCode.DELIVERY));
+            list.add(new MoreItem("E-card", MoreItemCode.ECARD));
 
-            list.add(new MoreItem("Game & Fun", MoreItem.MoreItemCode.GAME_FUN));
-            list.add(new MoreItem("Bình luận", MoreItem.MoreItemCode.REVIEW));
-            list.add(new MoreItem("Blogs", MoreItem.MoreItemCode.BLOGS));
-            list.add(new MoreItem("Top thành viên", MoreItem.MoreItemCode.TOPMEMBER));
-            list.add(new MoreItem("Video", MoreItem.MoreItemCode.VIDEO));
+            list.add(new MoreItem("Game & Fun", MoreItemCode.GAME_FUN));
+            list.add(new MoreItem("Bình luận", MoreItemCode.REVIEW));
+            list.add(new MoreItem("Blogs", MoreItemCode.BLOGS));
+            list.add(new MoreItem("Top thành viên", MoreItemCode.TOPMEMBER));
+            list.add(new MoreItem("Video", MoreItemCode.VIDEO));
+        } else {
+            list.add(new MoreItem("Gần tôi", MoreItemCode.NEARBY));
+            list.add(new MoreItem("Bình luận", MoreItemCode.REVIEW));
+            list.add(new MoreItem("Blogs", MoreItemCode.BLOGS));
+            list.add(new MoreItem("Top thành viên", MoreItemCode.TOPMEMBER));
         }
 
         return list;
     }
 
-    public static List<Integer> getDefaultImageSlideShow() {
+    public static List<Integer> getImageSlideShow(int type) {
         List<Integer> mResources = new ArrayList<>();
 
-        mResources.add(R.drawable.icon_foody);
-        mResources.add(R.drawable.icon_bottom_menu_user_selected);
+        mResources.add(R.drawable.img_slider_1);
+        mResources.add(R.drawable.img_slider_2);
 
         return mResources;
     }
@@ -92,8 +104,6 @@ public class GlobalStaticData {
 
     }
 
-    static Province currentProvince;
-
     public static Province getCurrentProvince() {
         return currentProvince;
     }
@@ -101,11 +111,6 @@ public class GlobalStaticData {
     public static void setCurrentProvince(Province currentProvince) {
         GlobalStaticData.currentProvince = currentProvince;
     }
-
-    static int callFromFragment;
-
-    public final static int FROM_WHAT2DO = 0;
-    public final static int FROM_WHERE2GO = 1;
 
     public static int getCallFromFragment() {
         return callFromFragment;

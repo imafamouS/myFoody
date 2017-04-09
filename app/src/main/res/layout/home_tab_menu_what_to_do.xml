@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:tools="http://schemas.android.com/tools"
-    style="@style/view_match"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/frame_layout_layout_parent_what2do"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    style="@style/view_match">
 
     <LinearLayout
         android:id="@+id/linear_layout_parent_what2do_tab_menu"
@@ -110,7 +109,6 @@
                         android:src="@drawable/icon_arrow_down_filter" />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -126,7 +124,7 @@
                 android:orientation="vertical">
 
             </LinearLayout>-->
-            <ListView
+            <com.fdsa.infamous.myfoody.ui.menu.views.HeaderGridView
                 android:id="@+id/list_view_main_menu"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -136,9 +134,12 @@
                 android:background="@color/back_ground_color"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@android:color/transparent"
+                android:horizontalSpacing="5dp"
                 android:listSelector="@android:color/transparent"
+                android:numColumns="2"
                 android:scrollingCache="false"
-                android:smoothScrollbar="true" />
+                android:smoothScrollbar="true"
+                android:verticalSpacing="5dp" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 

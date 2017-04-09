@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="Thông Báo"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="40.0dip"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:cropToPadding="true"
+            android:padding="8.0dip"
+            android:src="@drawable/icon_three_dot" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        style="@style/bottom_bar"
+        android:layout_marginTop="45dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#55aaaaaa" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/transparent_white_95"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="3.0dip">
+
+                <TextView
+                    style="@style/style_textView_tab_menu"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:text="Theo dõi"
+                    android:textColor="@color/home_new_filter_text"
+                    android:textSize="12.0sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="3.0dip">
+
+                <TextView
+                    style="@style/style_textView_tab_menu"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:text="Của tôi"
+                    android:textColor="@color/home_new_filter_text"
+                    android:textSize="12.0sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="3.0dip">
+
+                <TextView
+                    style="@style/style_textView_tab_menu"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:text="Tin mới"
+                    android:textColor="@color/home_new_filter_text"
+                    android:textSize="12.0sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Chưa có dữ liệu" />
+</RelativeLayout>

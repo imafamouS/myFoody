@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.fdsa.infamous.myfoody.R;
 
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.List;
  * Created by FDSA on 3/31/2017.
  */
 
-public class MySlideShowBannerAdapter extends PagerAdapter {
+public class SlideShowBannerAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     List<Integer> mResources;
 
-    public MySlideShowBannerAdapter(Context context, List<Integer> mResources) {
+    public SlideShowBannerAdapter(Context context, List<Integer> mResources) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mResources = mResources;
@@ -42,7 +43,8 @@ public class MySlideShowBannerAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.banner_image_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.image_view_banner_image_item);
-        imageView.setImageResource(mResources.get(position));
+        Glide.with(mContext).load(mResources.get(position)).into(imageView);
+        // imageView.setImageResource(mResources.get(position));
 
         container.addView(itemView);
 

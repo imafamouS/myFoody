@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.bean.MoreItem;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IMoreItemClick;
 
 import java.util.List;
 
@@ -19,11 +20,19 @@ import java.util.List;
  * Created by FDSA on 3/31/2017.
  */
 
+/**
+ * Adapter cho Recycleview dùng trong MoreItemView
+ **/
 public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder> {
 
+    static Context context;
     IMoreItemClick itemClick;
+    /**
+     * interface của sự kiện khi nhấn vào các layout
+     **/
     List<MoreItem> moreItemList;
-   static Context context;
+
+    //Hàm khởi tạo
     public MoreItemAdapter(Context context, List<MoreItem> moreItemList, IMoreItemClick itemClick) {
         super();
         this.context = context;
@@ -31,36 +40,60 @@ public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder>
         this.itemClick = itemClick;
     }
 
+    /***
+     * Hàm hiện dữ liệu lên view
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MoreItemViewHolder holder, int position) {
-        holder.onBind(this.moreItemList.get(position));
+        holder.renderData(this.moreItemList.get(position));
     }
 
+    /***
+     * Hàm khởi tạo ViewHolder
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MoreItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MoreItemViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.home_more_item_layout, parent, false), this.itemClick);
+                LayoutInflater
+                        .from(parent.getContext())
+                        .inflate(R.layout.home_more_item_layout, parent, false), this.itemClick);
     }
 
+    /***
+     * Hàm get id của phần tử thứ posion
+     *
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /***
+     * Hàm get số lượng phần tử trong adapter
+     * @return
+     */
     @Override
     public int getItemCount() {
         return moreItemList.size();
     }
 
-    public interface IMoreItemClick {
-        void moreItemClick(int pos);
-    }
 
+    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
     static class MoreItemViewHolder extends ViewHolder implements View.OnClickListener {
         ImageView image_view_more_item_menu;
         TextView text_view_more_item_menu;
         IMoreItemClick itemClick;
 
+        //Hàm khởi tạo ViewHolder
         public MoreItemViewHolder(View itemView, IMoreItemClick itemClick) {
             super(itemView);
             this.image_view_more_item_menu = (ImageView) itemView.findViewById(R.id.image_view_more_item_menu);
@@ -69,7 +102,8 @@ public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder>
             itemView.setOnClickListener(this);
         }
 
-        public void onBind(MoreItem data) {
+        //Hàm hiện data cho các view
+        public void renderData(MoreItem data) {
             int resIcon = data.getImage();
             if (resIcon == -1) {
                 this.image_view_more_item_menu.setVisibility(View.GONE);
@@ -82,6 +116,7 @@ public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder>
 
         }
 
+        //Sự kiện click vào các item của MoreItemView thì interface IMoreItemCLick được thực hiện
         @Override
         public void onClick(View view) {
             this.itemClick.moreItemClick(getLayoutPosition());

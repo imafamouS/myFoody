@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:background="#ffcc0000"
+    android:orientation="horizontal">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout_header_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/frame_o_dau_an_gi"
+        app:tabBackground="@drawable/top_menu_selector"
+        app:tabIndicatorHeight="0dp"
+        app:tabSelectedTextColor="@color/dark_grey"
+        app:tabTextAppearance="@style/MyCustomTabText"
+        app:tabTextColor="@color/colorWhite">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tab_item_1_header_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_tab_angi"
+            android:paddingBottom="4.0dip"
+            android:paddingLeft="6.0dip"
+            android:paddingRight="8.0dip"
+            android:paddingTop="4.0dip"
+            android:text="@string/TEXT_PLACE_COLLECTION_BAR"
+            android:textSize="12sp" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tab_item_2_header_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_tab_angi"
+            android:paddingBottom="4.0dip"
+            android:paddingLeft="6.0dip"
+            android:paddingRight="8.0dip"
+            android:paddingTop="4.0dip"
+            android:text="@string/TEXT_PHOTO_COLLECTION_BAR"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_small" />
+    </android.support.design.widget.TabLayout>
+
+    <ImageView
+        android:layout_width="46.0dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/list_item_selector"
+        android:paddingLeft="16.0dip"
+        android:paddingRight="16.0dip"
+        android:src="@drawable/icon_search" />
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.menu.fragment;
+package com.fdsa.infamous.myfoody.ui.menu.fragment.hometab;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -36,24 +36,7 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
         whereToGoFragment.setWhatToDoFragment(whatToDoFragment);
         whatToDoFragment.setWhereToGoFragment(whereToGoFragment);
     }
-    class myTabHomeFragmentAdapter extends  FragmentPagerAdapter{
-        public myTabHomeFragmentAdapter(FragmentManager fm){
-            super(fm);
-        }
-        public int getCount() {
-            return 2;
-        }
 
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return whereToGoFragment;
-                default:
-                    return whatToDoFragment;
-            }
-
-        }
-    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +47,7 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
 
         return view;
     }
+
     /**
      * Init
      */
@@ -80,8 +64,9 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
 
         linear_layout_top_menu_bar = (LinearLayout) view.findViewById(R.id.linear_layout_top_menu_bar);
         // hom_new_ui_linear_layout_location_bar.removeAllViews();
+        getFragmentManager().beginTransaction().add(R.id.linear_layout_top_menu_bar, mTopMenuBarFragment).show(mTopMenuBarFragment).commitAllowingStateLoss();
 
-        getFragmentManager().beginTransaction().replace(R.id.linear_layout_top_menu_bar, mTopMenuBarFragment).commit();
+        // getFragmentManager().beginTransaction().replace(R.id.linear_layout_top_menu_bar, mTopMenuBarFragment).commit();
 
         viewPager.setCurrentItem(0);
     }
@@ -90,6 +75,7 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
+
     @Override
     public void onPageSelected(int position) {
         mTopMenuBarFragment.setNotify(position);
@@ -114,7 +100,25 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
         }else{
             whereToGoFragment.onVisible();
         }
+    }
 
+    class myTabHomeFragmentAdapter extends FragmentPagerAdapter {
+        public myTabHomeFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
+        public int getCount() {
+            return 2;
+        }
+
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return whereToGoFragment;
+                default:
+                    return whatToDoFragment;
+            }
+
+        }
     }
 }

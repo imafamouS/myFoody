@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.menu.fragment;
+package com.fdsa.infamous.myfoody.ui.menu.fragment.hometab;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.fdsa.infamous.myfoody.DomainActivity;
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.menu.views.CustomBottomSheetDialogFragment;
+import com.fdsa.infamous.myfoody.ui.menu.activity.DomainActivity;
+import com.fdsa.infamous.myfoody.ui.menu.views.PlusActionView;
 
 /**
  * Created by FDSA on 3/26/2017.
@@ -147,7 +147,7 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
     }
 
     private void onPlusMenu() {
-        new CustomBottomSheetDialogFragment().show(fragmentManager, "Dialog");
+        new PlusActionView().show(fragmentManager, "Dialog");
     }
 
     private void onChangeDomain() {

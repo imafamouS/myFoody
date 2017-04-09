@@ -40,4 +40,13 @@
     <string name="ACTION_CHANGE_COUNTRY">Đổi quốc gia</string>
     <string name="ACTION_DEFAULT">Mặc định</string>
 
+    <string name="RES_OPEN">Đang mở cửa</string>
+    <string name="RES_CLOSE">Chưa mở cửa</string>
+    <string name="REQUEST_REVIEW">Hãy là người đầu tiên đánh giá</string>
+
+    <string name="TEXT_PLACE_COLLECTION_BAR">Bộ sưu tập địa điểm</string>
+    <string name="TEXT_PHOTO_COLLECTION_BAR">Bộ sưu tập ảnh</string>
+
+    <string name="TEXT_NO_RESTAURANT">Chưa có địa điểm nào</string>
+
 </resources>

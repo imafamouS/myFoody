@@ -1,20 +1,29 @@
 package com.fdsa.infamous.myfoody.ui.menu.views;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.os.Handler;
+import android.view.animation.Interpolator;
+import android.widget.Scroller;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
-import android.view.animation.Interpolator;
 
 /**
  * Created by FDSA on 3/28/2017.
  */
+/**
+ * Thư viện AutoScrollViewPager dùng trong slide Banner
+ **/
+
+/**
+ * Source: https://github.com/Trinea/android-auto-scroll-view-pager
+ **/
 
 public class AutoScrollViewPager extends ViewPager {
 
@@ -29,7 +38,7 @@ public class AutoScrollViewPager extends ViewPager {
     public static final int        SLIDE_BORDER_MODE_CYCLE     = 1;
     /** deliver event to parent when sliding at the last or first item **/
     public static final int        SLIDE_BORDER_MODE_TO_PARENT = 2;
-
+    public static final int SCROLL_WHAT = 0;
     /** auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL} **/
     private long                   interval                    = DEFAULT_INTERVAL;
     /** auto scroll direction, default is {@link #RIGHT} **/
@@ -46,14 +55,11 @@ public class AutoScrollViewPager extends ViewPager {
     private double                 autoScrollFactor            = 1.0;
     /** scroll factor for swipe scroll animation, default is 1.0 **/
     private double                 swipeScrollFactor           = 1.0;
-
     private Handler handler;
     private boolean                isAutoScroll                = false;
     private boolean                isStopByTouch               = false;
     private float                  touchX                      = 0f, downX = 0f;
     private CustomDurationScroller scroller                    = null;
-
-    public static final int        SCROLL_WHAT                 = 0;
 
     public AutoScrollViewPager(Context paramContext) {
         super(paramContext);
@@ -209,33 +215,6 @@ public class AutoScrollViewPager extends ViewPager {
         return super.dispatchTouchEvent(ev);
     }
 
-    private static class MyHandler extends Handler {
-
-        private final WeakReference<AutoScrollViewPager> autoScrollViewPager;
-
-        public MyHandler(AutoScrollViewPager autoScrollViewPager) {
-            this.autoScrollViewPager = new WeakReference<AutoScrollViewPager>(autoScrollViewPager);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            switch (msg.what) {
-                case SCROLL_WHAT:
-                    AutoScrollViewPager pager = this.autoScrollViewPager.get();
-                    if (pager != null) {
-                        pager.scroller.setScrollDurationFactor(pager.autoScrollFactor);
-                        pager.scrollOnce();
-                        pager.scroller.setScrollDurationFactor(pager.swipeScrollFactor);
-                        pager.sendScrollMessage(pager.interval + pager.scroller.getDuration());
-                    }
-                default:
-                    break;
-            }
-        }
-    }
-
     /**
      * get auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL}
      *
@@ -344,5 +323,54 @@ public class AutoScrollViewPager extends ViewPager {
      */
     public void setBorderAnimation(boolean isBorderAnimation) {
         this.isBorderAnimation = isBorderAnimation;
+    }
+
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<AutoScrollViewPager> autoScrollViewPager;
+
+        public MyHandler(AutoScrollViewPager autoScrollViewPager) {
+            this.autoScrollViewPager = new WeakReference<AutoScrollViewPager>(autoScrollViewPager);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+                case SCROLL_WHAT:
+                    AutoScrollViewPager pager = this.autoScrollViewPager.get();
+                    if (pager != null) {
+                        pager.scroller.setScrollDurationFactor(pager.autoScrollFactor);
+                        pager.scrollOnce();
+                        pager.scroller.setScrollDurationFactor(pager.swipeScrollFactor);
+                        pager.sendScrollMessage(pager.interval + pager.scroller.getDuration());
+                    }
+                default:
+                    break;
+            }
+        }
+    }
+
+    public class CustomDurationScroller extends Scroller {
+
+        private double scrollFactor = 1;
+
+        public CustomDurationScroller(Context context) {
+            super(context);
+        }
+
+        public CustomDurationScroller(Context context, Interpolator interpolator) {
+            super(context, interpolator);
+        }
+
+        public void setScrollDurationFactor(double scrollFactor) {
+            this.scrollFactor = scrollFactor;
+        }
+
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+            super.startScroll(startX, startY, dx, dy, (int) (duration * scrollFactor));
+        }
     }
 }

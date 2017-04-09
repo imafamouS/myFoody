@@ -1,286 +1,162 @@
 package com.fdsa.infamous.myfoody;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.fdsa.infamous.myfoody.database.DataAccess;
 import com.fdsa.infamous.myfoody.global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.ui.menu.fragment.collectiontab.ColectionTabFragment;
+import com.fdsa.infamous.myfoody.ui.menu.fragment.hometab.TabHomeFragment;
+import com.fdsa.infamous.myfoody.ui.menu.fragment.notifytab.NotifyTabFragment;
+import com.fdsa.infamous.myfoody.ui.menu.fragment.searchtab.SearchTabFragment;
+import com.fdsa.infamous.myfoody.ui.menu.fragment.usertab.UserTabFragment;
 import com.fdsa.infamous.myfoody.ui.menu.views.BottomNavigationViewEx;
-import com.fdsa.infamous.myfoody.ui.util.Type;
-import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseDistrictAdapter;
-import com.fdsa.infamous.myfoody.ui.util.adapter.MenuBarAdapter;
-import com.fdsa.infamous.myfoody.ui.util.bean.District;
-import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * Created by FDSA on 3/18/2017.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationViewEx bottomNavigationMenu;
     Menu menu;
-    LinearLayout linear_layout_top_menu_change_domain;
-    LinearLayout linear_layout_show_item_tab_menu;
-    LinearLayout linear_layout_tab_menu_2;
-    ListView listView;
-    MenuBarAdapter menuBarAdapter;
-    List<MenuBarItem> items;
-    ImageView image_view_top_menu_plus_menu;
+    Fragment homeTab;
+    Fragment collectionTab;
+    Fragment notifyTab;
+    Fragment searchTab;
+    Fragment userTab;
+    FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
 
-    TabLayout tab_layout_top_menu;
-    TextView text_view_where2go_top_menu;
-    TextView text_view_what2do_top_menu;
-
-
-    RelativeLayout relative_main_layout;
-    ListView test_list_view;
-    ViewGroup slideShowBanner;
-    List<Integer> mResources;
-    LinearLayout test_aa;
-
-
-    public void intitImage() {
-        this.mResources = new ArrayList<>();
-        mResources.add(R.drawable.icon_foody);
-        mResources.add(R.drawable.icon_bottom_menu_user_selected);
+    public MainActivity() {
+        homeTab = new TabHomeFragment();
+        collectionTab = new ColectionTabFragment();
+        notifyTab = new NotifyTabFragment();
+        searchTab = new SearchTabFragment();
+        userTab = new UserTabFragment();
     }
 
-    LinearLayout linear_layout_what2do_show_item_tab_menu;
-    ListView list_view_what2do_tab_menu;
-    LinearLayout linear_layout_tab_menu_1;
-    LinearLayout linear_layout_choose_disctrict_parent_menu;
-    LinearLayout linear_layout_choose_disctrict_item;
-    TextView text_view_parent_district;
-    LinearLayout linear_layout_change_district;
-    ListView list_view_city;
-    TextView text_view_close_change_district;
-    List<District> districtList;
-    ChooseDistrictAdapter chooseProvinceAdapter;
-
-  /*  private List<District> getDisttrictList(int idProvince) {
-        List<District> items = new ArrayList<>();
-
-        District item1 = new District("d1", "Quận 1", null);
-        item1.setNumofStreet(10);
-
-        District item2 = new District("d2", "Quận 2", null);
-        item2.setNumofStreet(10);
-
-        District item3 = new District("d3", "Quận 3", null);
-        item3.setNumofStreet(10);
-
-        District item4 = new District("d4", "Quận 4", null);
-        item4.setNumofStreet(10);
-
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
-        items.add(item4);
-
-        Log.d("DISTRICT",item1.getTittleDistrict());
-
-        return items;
-    }*/
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
+    /***
+     * Hàm bắt sự kiện Activity dược khởi tạo (Khởi tạo layout cho activity)
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.home_layout);
         GlobalStaticData.setCurrentProvince(GlobalStaticData.getDefaultProvince());
         setContentView(R.layout.home_layout);
 
+        initFragments();
+        initBottombar();
+    }
+
+    /***
+     * Hàm khởi tạo đối tượng quản lí các fragment và hiện fragment Home lên đầu tiên
+     */
+    private void initFragments() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.contentContainer, homeTab);
+        fragmentTransaction.add(R.id.contentContainer, collectionTab);
+        fragmentTransaction.add(R.id.contentContainer, searchTab);
+        fragmentTransaction.add(R.id.contentContainer, notifyTab);
+        fragmentTransaction.add(R.id.contentContainer, userTab);
+
+        fragmentTransaction.hide(homeTab);
+        fragmentTransaction.hide(collectionTab);
+        fragmentTransaction.hide(searchTab);
+        fragmentTransaction.hide(notifyTab);
+        fragmentTransaction.hide(userTab);
+
+        fragmentTransaction.show(homeTab);
+
+        fragmentTransaction.commit();
+    }
+
+
+    /***
+     * Hàm khởi tạo các thuộc tính cho bottombar
+     */
+    private void initBottombar() {
         bottomNavigationMenu = (BottomNavigationViewEx) findViewById(R.id.bottom_menu);
 
-        bottomNavigationMenu.setTextVisibility(false);
-        bottomNavigationMenu.enableAnimation(false);
-        bottomNavigationMenu.enableShiftingMode(false);
-        bottomNavigationMenu.enableItemShiftingMode(false);
+        bottomNavigationMenu.setTextVisibility(false);      //Ẩn chữ
+        bottomNavigationMenu.enableAnimation(false);        //Ẩn đi hiệu ứng chuyện tab
+        bottomNavigationMenu.enableShiftingMode(false);     //Ẩn đi hiệu hứng chuyển tab
+        bottomNavigationMenu.enableItemShiftingMode(false); //Ẩn đi hiệu hứng chuyển tab
+
         bottomNavigationMenu.setCurrentItem(0);
 
         menu = bottomNavigationMenu.getMenu();
+
         setTab(0);
-        bottomNavigationMenu.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_bottom_bar_home:
-                                //change the icon
-                                setTab(0);
-                                break;
-                            case R.id.menu_bottom_bar_gallery:
-                                //change the icon
-                                setTab(1);
-                                break;
-                            case R.id.menu_bottom_bar_search:
-                                //change the icon
-                                setTab(2);
-                                break;
-                            case R.id.menu_bottom_bar_notify:
-                                //change the icon
-                                setTab(3);
-                                break;
-                            case R.id.menu_bottom_bar_user:
-                                //change the icon
-                                setTab(4);
-                                break;
-                            default:
-                                break;
-                        }
-                        return true;
-                    }
-                });
 
-
-
-
-
-
-       /* linear_layout_what2do_show_item_tab_menu=(LinearLayout)findViewById(R.id.linear_layout_what2do_show_item_tab_menu);
-        list_view_what2do_tab_menu=(ListView) findViewById(R.id.list_view_what2do_tab_menu);
-       // linear_layout_show_item_tab_menu=(LinearLayout)findViewById(R.id.linear_layout_what2do_show_item_tab_menu);
-        linear_layout_tab_menu_1=(LinearLayout)findViewById(R.id.linear_layout_what2do_tab_menu_1);
-        linear_layout_tab_menu_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuBarAdapter = new MenuBarAdapter(getApplicationContext(), getListItem(Type.LASTEST),Type.LASTEST);
-                list_view_what2do_tab_menu.setAdapter(menuBarAdapter);
-                linear_layout_tab_menu_1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.home_menu_background_color_pressed));
-                linear_layout_what2do_show_item_tab_menu.setVisibility(View.VISIBLE);
-            }
-        });*/
-        /*
-        test_list_view=(ListView) findViewById(R.id.test_list_view);
-
-        View fragment=(ViewGroup)getLayoutInflater().inflate(R.layout.test2,test_list_view,false);
-        test_aa=new LinearLayout(getApplicationContext());
-        //slideShowBanner.initView();
-        //slideShowBanner.view_pager_slide_show.setAdapter(new MySlideShowBannerAdapter(getApplicationContext(),mResources));
-
-        test_aa.addView(fragment);
-        test_list_view.addHeaderView(test_aa);
-        test_list_view.setAdapter(new MenuBarAdapter(getApplicationContext(),getListItem(Type.LASTEST),Type.LASTEST));*/
-
-        //  tab_layout_top_menu.addTab(tab_layout_top_menu.newTab());
-        // tab_layout_top_menu.addTab(tab_layout_top_menu.newTab());
-
-      /* createTabView(getApplicationContext());
-
-        tab_layout_top_menu.getTabAt(0).setCustomView(text_view_where2go_top_menu);
-        tab_layout_top_menu.getTabAt(1).setCustomView(text_view_what2do_top_menu);*/
-
-
-        // bottomSheetBehavior= BottomSheetBehavior.from(findViewById(R.id.layout_parent_plus_menu));
-
-       /* image_view_top_menu_plus_menu = (ImageView) findViewById(R.id.image_view_top_menu_plus_menu);
-
-        image_view_top_menu_plus_menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new CustomBottomSheetDialogFragment().show(getSupportFragmentManager(), "Dialog");
-            }
-        });
-
-
-
-        linear_layout_show_item_tab_menu = (LinearLayout) findViewById(R.id.linear_layout_show_item_tab_menu);
-        listView = (ListView) findViewById(R.id.list_view_what2do_tab_menu);
-*/
-
-        /*linear_layout_tab_menu_1=(LinearLayout)findViewById(R.id.linear_layout_what2do_tab_menu_1);
-        linear_layout_tab_menu_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuBarAdapter = new MenuBarAdapter(getApplicationContext(), getListItem(Type.LASTEST),Type.LASTEST);
-                listView.setAdapter(menuBarAdapter);
-                linear_layout_tab_menu_1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.home_menu_background_color_pressed));
-                linear_layout_show_item_tab_menu.setVisibility(View.VISIBLE);
-                bottomNavigationMenu.setVisibility(View.GONE);
-            }
-        });
-
-        linear_layout_tab_menu_2=(LinearLayout)findViewById(R.id.linear_layout_what2do_tab_menu_2);
-        linear_layout_tab_menu_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuBarAdapter = new MenuBarAdapter(getApplicationContext(), getListItem(Type.CATEGORY),Type.CATEGORY);
-                listView.setAdapter(menuBarAdapter);
-                linear_layout_tab_menu_1.setBackgroundColor(0);
-                linear_layout_tab_menu_2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.home_menu_background_color_pressed));
-                linear_layout_show_item_tab_menu.setVisibility(View.VISIBLE);
-                bottomNavigationMenu.setVisibility(View.GONE);
-            }
-        });*/
-
-
-
-        /*text_view_what_to_do = (TextView) findViewById(R.id.text_view_what2do_top_menu);
-        text_text_where_to_go = (TextView) findViewById(R.id.text_view_where2go_top_menu);
-        linear_layout_top_menu_change_domain = (LinearLayout) findViewById(R.id.linear_layout_top_menu_change_domain);
-
-        linear_layout_top_menu_change_domain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DomainActivity.class);
-                startActivity(intent);
-            }
-        });
-        text_text_where_to_go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                set(0);
-            }
-        });
-
-        text_view_what_to_do.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                set(1);
-            }
-        });*/
+        bottomNavigationMenu.setOnNavigationItemSelectedListener(this);
     }
 
-   /* TextView text_view_what_to_do;
-    TextView text_text_where_to_go;
+    /***
+     * Hàm xử lí sự kiện khi nhấn menu trên bottombar
+     * Để hiện ra Fragment tương ứng
+     *
+     * @param item: Menu được nhấn
+     * @return
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-    private void set(int currentPageIndex) {
-        if (currentPageIndex == 0) {
-            this.text_view_what_to_do.setBackgroundResource(R.drawable.home_item_left);
-            this.text_view_what_to_do.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
+        transaction.hide(homeTab);
+        transaction.hide(collectionTab);
+        transaction.hide(searchTab);
+        transaction.hide(notifyTab);
+        transaction.hide(userTab);
 
-            this.text_text_where_to_go.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.dark_grey));
-            this.text_text_where_to_go.setBackgroundColor(0);
-            return;
+        switch (item.getItemId()) {
+            case R.id.menu_bottom_bar_home:
+                //change the icon
+                setTab(0);
+                transaction.show(homeTab);
+                break;
+            case R.id.menu_bottom_bar_gallery:
+                //change the icon
+                setTab(1);
+                transaction.show(collectionTab);
+                break;
+            case R.id.menu_bottom_bar_search:
+                //change the icon
+                setTab(2);
+                transaction.show(searchTab);
+                break;
+            case R.id.menu_bottom_bar_notify:
+                //change the icon
+                setTab(3);
+                transaction.show(notifyTab);
+                break;
+            case R.id.menu_bottom_bar_user:
+                //change the icon
+                setTab(4);
+                transaction.show(userTab);
+                break;
+            default:
+                break;
         }
-        this.text_text_where_to_go.setBackgroundResource(R.drawable.home_item_right);
-        this.text_text_where_to_go.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
-        this.text_view_what_to_do.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.dark_grey));
-        this.text_view_what_to_do.setBackgroundColor(0);
-    }*/
+        transaction.commitAllowingStateLoss();
+        return true;
+    }
 
+    /***
+     * Hàm thay đổi trạng thái icon trên bottombar
+     *
+     * @param currentTabindex: vị trí của menu được nhấn
+     */
     private void setTab(int currentTabindex) {
 
         switch (currentTabindex) {
@@ -324,53 +200,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-   /* private List<MenuBarItem> getListItem(Type type) {
-        items = new ArrayList<>();
-        if (type == Type.LATEST) {
-            MenuBarItem item1 = new MenuBarItem(0,"Mới nhất", R.drawable.icon_tab_1_new, false);
-            MenuBarItem item2 = new MenuBarItem(1,"Gần tôi", R.drawable.icon_tab_1_near, false);
-            MenuBarItem item3 = new MenuBarItem(2,"Phổ biến", R.drawable.icon_tab_1_popular, false);
-            MenuBarItem item4 = new MenuBarItem(3,"Du khách", R.drawable.icon_tab_1_tourist, false);
-            MenuBarItem item5 = new MenuBarItem(4,"Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
-            MenuBarItem item6 = new MenuBarItem(5,"Đặt chỗ", R.drawable.icon_tab_1_book, false);
-            MenuBarItem item7 = new MenuBarItem(6,"Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
-            MenuBarItem item8 = new MenuBarItem(7,"Đặt giao hàng", R.drawable.icon_tab_1_book, false);
-
-            items.add(item1);
-            items.add(item2);
-            items.add(item3);
-            items.add(item4);
-            items.add(item5);
-            items.add(item6);
-            items.add(item7);
-            items.add(item8);
-
-            if(currentSelectedPosition<items.size()){
-                items.get(currentSelectedPosition).setSelected(true);
-            }
-        }else if(type==Type.CATEGORY){
-            MenuBarItem item1=new MenuBarItem(0,"Danh mục",-1,true);
-            MenuBarItem item2 = new MenuBarItem(1,"Gần tôi", R.drawable.icon_tab_1_near, false);
-            MenuBarItem item3 = new MenuBarItem(2,"Phổ biến", R.drawable.icon_tab_1_popular, false);
-            MenuBarItem item4 = new MenuBarItem(3,"Du khách", R.drawable.icon_tab_1_tourist, false);
-            MenuBarItem item5 = new MenuBarItem(4,"Ưu đãi E-card", R.drawable.icon_tab_1_ecard, false);
-            MenuBarItem item6 = new MenuBarItem(5,"Đặt chỗ", R.drawable.icon_tab_1_book, false);
-            MenuBarItem item7 = new MenuBarItem(6,"Ưu đãi thẻ", R.drawable.icon_tab_1_promote, false);
-            MenuBarItem item8 = new MenuBarItem(7,"Đặt giao hàng", R.drawable.icon_tab_1_book, false);
-
-            items.add(item1);
-            items.add(item2);
-            items.add(item3);
-            items.add(item4);
-            items.add(item5);
-            items.add(item6);
-            items.add(item7);
-            items.add(item8);
-        }
-
-
-        return items;
-    }*/
-
-
 }

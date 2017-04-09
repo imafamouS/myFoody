@@ -2,48 +2,46 @@ package com.fdsa.infamous.myfoody.ui.util.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by FDSA on 4/3/2017.
  */
 
-public class ChooseProvinceAdapter extends BaseAdapter implements Filterable {
+public class ChooseProvinceAdapter extends BaseAdapter {
 
     static Context context;
-    List<Province> provinceList;
-    List<Province> provinceListAfterFilter;
-    Province currentProvince;
     public int indexSelected = -1;
     IOnSetDefaultProvince onSetDefaultProvince;
+    private List<Province> provinceList;
+    private List<Province> provinceListDisplay;
+    private Province currentProvince;
 
     public ChooseProvinceAdapter(Context context, List<Province> provinceList, Province currentProvince, IOnSetDefaultProvince onSetDefaultProvince) {
         this.context=context;
         this.provinceList=provinceList;
+        this.provinceListDisplay = provinceList;
         this.currentProvince=currentProvince;
         this.onSetDefaultProvince=onSetDefaultProvince;
         this.indexSelected=getIndexCurrentProvince();
+
 
     }
 
     private int getIndexCurrentProvince() {
         int index = -1;
-        for (int i = 0; i < provinceList.size(); i++) {
-            if (provinceList.get(i).getIdProvince().equals(currentProvince.getIdProvince())) {
+        for (int i = 0; i < provinceListDisplay.size(); i++) {
+            if (provinceListDisplay.get(i).getIdProvince().equals(currentProvince.getIdProvince())) {
                 index = i;
                 break;
             }
@@ -52,67 +50,29 @@ public class ChooseProvinceAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public Filter getFilter() {
-        Filter filter = new Filter() {
-
-            @SuppressWarnings("unchecked")
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-
-                provinceList = (List<Province>) results.values;
-                notifyDataSetChanged();
-            }
-
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-
-                FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
-                List<Province> FilteredArrList = new ArrayList<Province>(provinceListAfterFilter);
-
-                if (provinceList == null) {
-                    provinceList = new ArrayList<Province>(provinceListAfterFilter); // saves the original data in mOriginalValues
-                }
-
-                if (constraint == null || constraint.length() == 0) {
-
-                    // set the Original result to return
-                    results.count = provinceList.size();
-                    results.values = provinceList;
-                } else {
-                    constraint = constraint.toString().toLowerCase();
-                    for (int i = 0; i < provinceList.size(); i++) {
-                        String data = provinceList.get(i).getTitleProvince();
-                        if (data.toLowerCase().startsWith(constraint.toString())) {
-                            FilteredArrList.add(new Province(provinceList.get(i).getIdProvince(),provinceList.get(i).getTitleProvince()));
-                        }
-                    }
-                    // set the Filtered result to return
-                    results.count = FilteredArrList.size();
-                    results.values = FilteredArrList;
-                }
-                return results;
-            }
-        };
-
-        return filter;
-    }
-
-    public interface IOnSetDefaultProvince{
-        void onSetDefaultProvince();
-    }
-
-    @Override
     public int getCount() {
-        return provinceList.size();
+        return provinceListDisplay.size();
     }
 
     @Override
     public Province getItem(int position) {
-        return provinceList.get(position);
+        return provinceListDisplay.get(position);
     }
 
     @Override
     public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
         return position;
     }
 
@@ -127,7 +87,7 @@ public class ChooseProvinceAdapter extends BaseAdapter implements Filterable {
         } else {
             holder = (ChooseProvinceViewHolder) convertView.getTag();
         }
-        Province item = this.provinceList.get(position);
+        Province item = this.provinceListDisplay.get(position);
         int indexCurrentProvince = getIndexCurrentProvince();
         holder = (ChooseProvinceViewHolder) convertView.getTag();
 
@@ -160,26 +120,15 @@ public class ChooseProvinceAdapter extends BaseAdapter implements Filterable {
         return convertView;
     }
 
-    @Override
-    public int getViewTypeCount() {
-
-        return getCount();
+    public interface IOnSetDefaultProvince {
+        void onSetDefaultProvince();
     }
-
-    @Override
-    public int getItemViewType(int position) {
-
-        return position;
-    }
-
-
-
 
     public class ChooseProvinceViewHolder implements View.OnClickListener {
-        View item;
         public ImageView image_view_check_status;
         public TextView text_view_province_name;
         public TextView text_view_set_default;
+        View item;
         IOnSetDefaultProvince onSetDefaultProvince;
         public ChooseProvinceViewHolder(View view, IOnSetDefaultProvince onSetDefaultProvince) {
             item = view;

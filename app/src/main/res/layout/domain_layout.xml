@@ -48,6 +48,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_food"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -85,6 +86,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_travel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -116,11 +118,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_TRAVEL" />
+                    android:text="@string/TEXT_DOMAIN_TRAVEL"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_wedding"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -152,11 +155,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_WEDDING" />
+                    android:text="@string/TEXT_DOMAIN_WEDDING"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_healthy"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -188,8 +192,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_HEALTHY" />
+                    android:text="@string/TEXT_DOMAIN_HEALTHY"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
         </LinearLayout>
@@ -200,6 +204,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_relax"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -231,11 +236,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_RELAX" />
+                    android:text="@string/TEXT_DOMAIN_RELAX"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_shopping"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -267,11 +273,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_SHOPPING" />
+                    android:text="@string/TEXT_DOMAIN_SHOPPING"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_edu"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -303,11 +310,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_EDU" />
+                    android:text="@string/TEXT_DOMAIN_EDU"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_domain_service"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -339,8 +347,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dip"
-                    android:textColor="@color/dark_grey"
-                    android:text="@string/TEXT_DOMAIN_SERVICE" />
+                    android:text="@string/TEXT_DOMAIN_SERVICE"
+                    android:textColor="@color/dark_grey" />
             </LinearLayout>
 
         </LinearLayout>
@@ -365,6 +373,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/linear_layout_domain_delivery"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20.0dip"
@@ -403,6 +412,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_domain_booking"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20.0dip"

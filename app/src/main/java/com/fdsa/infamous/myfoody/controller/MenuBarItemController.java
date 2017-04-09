@@ -45,7 +45,7 @@ public class MenuBarItemController extends DataAccess {
     public List<?> executeSelect(String... params) {
         List<MenuBarItem> list = new ArrayList<>();
 
-        String query = "";
+        String query;
         String db = "";
         if (params[0].equals(AppConfig.REQUEST_CODE_CATEGORY_WHAT2DO)) {
             db = "tbl_restype";
@@ -70,5 +70,9 @@ public class MenuBarItemController extends DataAccess {
         }
         Log.d(TAG, "Get list ok");
         return list;
+    }
+
+    public List<MenuBarItem> getMenubarItem(String code) {
+        return (List<MenuBarItem>) executeSelect(code);
     }
 }
