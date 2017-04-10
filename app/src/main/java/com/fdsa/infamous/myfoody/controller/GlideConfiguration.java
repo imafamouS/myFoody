@@ -11,6 +11,10 @@ import com.bumptech.glide.module.GlideModule;
  * Created by FDSA on 4/7/2017.
  */
 
+
+/**
+ * Class config của thư viện load ảnh Glide
+ **/
 public class GlideConfiguration implements GlideModule {
 
     @Override

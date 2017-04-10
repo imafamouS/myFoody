@@ -6,13 +6,10 @@ import android.database.Cursor;
 import com.fdsa.infamous.myfoody.AppConfig;
 import com.fdsa.infamous.myfoody.database.DataAccess;
 import com.fdsa.infamous.myfoody.ui.util.bean.District;
-import com.fdsa.infamous.myfoody.ui.util.bean.MenuBarItem;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.list;
 
 /**
  * Created by FDSA on 4/6/2017.
@@ -21,21 +18,26 @@ import static android.R.id.list;
 public class ProvinceController extends DataAccess {
 
     Context context;
+
+    //Hàm khởi tạo
     public ProvinceController(Context context) {
         super(context);
         this.context=context;
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
     }
 
+    //Hàm lấy danh sách các tỉnh hoặc danh sách các huyện
     @Override
     public List<?> executeSelect(String... params) {
         List<?> list=new ArrayList<>();

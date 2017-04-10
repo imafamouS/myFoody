@@ -22,17 +22,20 @@ public class RestaurantController extends DataAccess {
     CommentController commentController;
     MoreImageRestaurantController moreImageRestaurantController;
 
+    //Hàm khởi tạo
     public RestaurantController(Context context) {
         super(context);
         commentController = new CommentController(context);
         moreImageRestaurantController = new MoreImageRestaurantController(context);
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
@@ -43,16 +46,17 @@ public class RestaurantController extends DataAccess {
         return null;
     }
 
-
+    //Hàm lấy danhsach1 nhà hàng
     public List<Restaurant> getListRestaurant_Where2go() {
         return getListRestaurant_Where2go(GlobalStaticData.getCurrentProvince().getIdProvince(), "", "l0", "moinhat");
     }
 
+    //Hàm lấy danhsach1 nhà hàng
     public List<Restaurant> getListRestaurant_Where2go(String province_id) {
         return getListRestaurant_Where2go(province_id, "", "l0", "moinhat");
     }
 
-
+    //Hàm lấy danhsach1 nhà hàng
     public List<Restaurant> getListRestaurant_Where2go(String province_id, String district_id, String where_type, String newest_type) {
         List<Restaurant> list = new ArrayList<>();
         this.open();

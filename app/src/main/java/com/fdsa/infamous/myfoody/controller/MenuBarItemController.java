@@ -26,21 +26,25 @@ public class MenuBarItemController extends DataAccess {
     Context context;
     private DataAccess dataAccess;
 
+    //Hàm khởi tạoo
     public MenuBarItemController(Context context) {
         super(context);
         this.context = context;
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
     }
 
+    //Hàm thực hiện việc lấy danh sách các danh mục (Tab Danh mục)
     @Override
     public List<?> executeSelect(String... params) {
         List<MenuBarItem> list = new ArrayList<>();

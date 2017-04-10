@@ -22,6 +22,7 @@ public class FoodController extends DataAccess {
 
     UserController userController;
 
+    //Hàm khởi tạo
     public FoodController(Context context) {
         super(context);
         userController = new UserController(context);
@@ -32,24 +33,29 @@ public class FoodController extends DataAccess {
         return null;
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
     }
 
+    //Hàm lấy danh sách món ăn
     public List<Food> getListFood() {
         return getListFood(GlobalStaticData.getCurrentProvince().getIdProvince(), "", "l0", "moinhat");
     }
 
+    //Hàm lấy danh sách món ăn
     public List<Food> getListFood(String province_id) {
         return getListFood(province_id, "", "l0", "moinhat");
     }
 
+    //Hàm lấy danh sách món ăn
     public List<Food> getListFood(String province_id, String district_id, String res_type, String newest_type) {
 
 

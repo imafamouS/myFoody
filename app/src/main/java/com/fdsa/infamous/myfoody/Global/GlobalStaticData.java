@@ -22,10 +22,12 @@ public class GlobalStaticData {
     static Province currentProvince;
     static int callFromFragment;
 
+    //Hàm get tỉnh mặc định (TPHCM)
     public static Province getDefaultProvince(){
         return new Province("vn1","TP.HCM",null);
     }
 
+    //Hàm get các item của MoreItemView
     public static List<MoreItem> getListMoreItem(int type) {
         List<MoreItem> list = new ArrayList<>();
 
@@ -51,6 +53,7 @@ public class GlobalStaticData {
         return list;
     }
 
+    //Hàm get các ảnh của SlideShowBanner
     public static List<Integer> getImageSlideShow(int type) {
         List<Integer> mResources = new ArrayList<>();
 
@@ -60,6 +63,7 @@ public class GlobalStaticData {
         return mResources;
     }
 
+    //Hàm khởi tạo danh sách của tab mới nhất của fragment ở đâu
     public static List<MenuBarItem> initLastestData_Where2go() {
         List<MenuBarItem> items = new ArrayList<>();
 
@@ -85,6 +89,7 @@ public class GlobalStaticData {
         return items;
     }
 
+    //Hàm khởi tạo danh sách của tab mới nhất của fragment ăn gì
     public static List<MenuBarItem> initLastestData_What2do() {
         List<MenuBarItem> items = new ArrayList<>();
 
@@ -104,18 +109,22 @@ public class GlobalStaticData {
 
     }
 
+    //Hàm get tỉnh hiện tại
     public static Province getCurrentProvince() {
         return currentProvince;
     }
 
+    //Hàm set tỉnh hiện tại
     public static void setCurrentProvince(Province currentProvince) {
         GlobalStaticData.currentProvince = currentProvince;
     }
 
+    //Hàm get giá trị để xem fragment được gọi từ frament nào
     public static int getCallFromFragment() {
         return callFromFragment;
     }
 
+    //Hàm set giá trị để xem fragment được gọi từ frament nào
     public static void setCallFromFragment(int callFromFragment) {
         GlobalStaticData.callFromFragment = callFromFragment;
     }

@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
 
 /**
  * Created by FDSA on 3/26/2017.
  */
 
-public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeListener, View.OnClickListener, TopMenuBarFragment.IOnTopMenuBarChange {
+public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeListener, View.OnClickListener, IOnTopMenuBarChange {
     TopMenuBarFragment mTopMenuBarFragment;
     Context context;
     LinearLayout linear_layout_top_menu_bar;
@@ -27,6 +28,7 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     ViewPager viewPager;
     LinearLayout linear_layout_home_fragment_menu_parent;
 
+    //Hàm khởi tạo
     public TabHomeFragment() {
         super();
         mTopMenuBarFragment = new TopMenuBarFragment();
@@ -37,6 +39,14 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
         whatToDoFragment.setWhereToGoFragment(whereToGoFragment);
     }
 
+    /**
+     * Hàm xử lí sự kiện khi fragment được khởi tạo (khởi tạo view)
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +86,10 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
 
     }
 
+    /**
+     *Hàm sự lí sự kiện khi trượt view pager
+     * @param position
+     */
     @Override
     public void onPageSelected(int position) {
         mTopMenuBarFragment.setNotify(position);
@@ -92,6 +106,10 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
 
     }
 
+    /**
+     * Hàm sự lí sự kiện khi thay đổi vị trí giữa các tab (ở đâu, ăn gì)
+     * @param index
+     */
     @Override
     public void OnTopMenuBarChange(int index) {
         this.viewPager.setCurrentItem(index);
@@ -102,6 +120,9 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
         }
     }
 
+    /**
+     * Adapter của viewpaer quản lí các fragment trong TabHomeFragment
+     */
     class myTabHomeFragmentAdapter extends FragmentPagerAdapter {
         public myTabHomeFragmentAdapter(FragmentManager fm) {
             super(fm);

@@ -23,33 +23,74 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
 
 
     static Context context;
-    List<Food> foodList;
+    private List<Food> foodList;
 
+    //Hàm khởi tạo
     public HomeWhatToDoAdapter(Context context, List<Food> foodList) {
         this.context = context;
         this.foodList = foodList;
     }
 
+    //Hàm set danh sách món ăn (update adapter)
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
     }
 
-
+    /**
+     * Hàm trả về số lượng phần tử của adapter
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return foodList.size();
     }
 
+    /**
+     * Hàm trả về món về tại vị trí postion
+     * @param position
+     * @return
+     */
     @Override
     public Food getItem(int position) {
         return foodList.get(position);
     }
 
+    /**
+     * Hàm trả về id của món ăn trong apdater tại vị trí posion
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /***
+     * Hàm xác định số loại View trên 1 item của Adapter để xác định chính xác vị trí được chọn
+     *
+     * @return
+     */
+    @Override
+    public int getViewTypeCount() {
+
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return position;
+    }
+
+    /**
+     * Hàm hiện dữ liệu lên view
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         HomeWhatToDoAdapter.FoodViewHolder holder;
@@ -67,6 +108,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
 
     }
 
+    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
     static class FoodViewHolder {
         public View item;
         private LinearLayout linear_layout_food_item_1;
@@ -78,6 +120,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
         private TextView text_view_name_user_food_1;
         private TextView text_view_day_user_food_1;
 
+        //Hàm khởi tạo
         public FoodViewHolder(View item) {
             this.item = item;
 
@@ -91,10 +134,12 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
             text_view_day_user_food_1 = (TextView) item.findViewById(R.id.text_view_day_user_food_1);
         }
 
+        //Hàm hiện dữ liệu từ đối tượng món ăn lên view
         public void renderData(Food food) {
             loadItem1(food);
         }
 
+        //Hàm hiện dữ liệu từ đối tượng món ăn lên view
         private void loadItem1(Food food) {
             Glide.with(context).load(food.getPhoto()).into(image_view_pic_food_1);
             text_view_name_food_1.setText(food.getFoodName());

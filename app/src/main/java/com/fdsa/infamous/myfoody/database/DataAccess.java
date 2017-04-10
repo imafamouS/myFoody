@@ -15,19 +15,24 @@ public abstract class DataAccess {
     //145
     private SQLiteOpenHelper openHelper;
 
+    //Hàm khởi tạo kết nối CSDL
     public DataAccess(Context context) {
         this.openHelper = new DatabaseHelper(context);
     }
 
+    //Hàm thực hiện mở kết nối
     public void open() {
         this.database = openHelper.getWritableDatabase();
     }
 
+    //Hàm thực hiện đóng kết nối
     public void close() {
         if (database != null) {
             this.database.close();
         }
     }
+
+    //Hàm thực hiện câu lệnh query
     public abstract List<?> executeSelect(String... params);
 
 }

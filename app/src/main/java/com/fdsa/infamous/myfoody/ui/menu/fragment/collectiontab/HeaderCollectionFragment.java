@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.menu.fragment.hometab.TopMenuBarFragment;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
 
 
 /**
@@ -23,16 +23,29 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
     public Tab tab_item_1_header_collection;
     public Tab tab_item_2_header_collection;
     TabLayout tab_layout_header_collection;
-    TopMenuBarFragment.IOnTopMenuBarChange onPageChange;
+    IOnTopMenuBarChange onPageChange;
 
+    //Hàm khởi tạo
     public HeaderCollectionFragment() {
         super();
     }
 
-    public void setOnPageChange(TopMenuBarFragment.IOnTopMenuBarChange onPageChange) {
+    /**
+     * Hàm set interface IOnTopMenuBarChange
+     *
+     * @param onPageChange
+     */
+    public void setOnPageChange(IOnTopMenuBarChange onPageChange) {
         this.onPageChange = onPageChange;
     }
 
+    /**
+     * Hàm xử lí sự kiện khi fragment được khởi tạo (khởi tạo view)
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +62,10 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
         return v;
     }
 
+    /**
+     * Hàm thay đổi  vị trí của các tab
+     * @param currentPageIndex
+     */
     public void setNotify(int currentPageIndex) {
         if (tab_item_1_header_collection == null || tab_item_2_header_collection == null) {
             Log.d("NULL", "null");
@@ -64,6 +81,10 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
         tab_item_2_header_collection.select();
     }
 
+    /**
+     * Hàm xử lí sự kiện khi thay đổi vị trí các tab
+     * @param tab
+     */
     @Override
     public void onTabSelected(Tab tab) {
         switch (tab.getPosition()) {

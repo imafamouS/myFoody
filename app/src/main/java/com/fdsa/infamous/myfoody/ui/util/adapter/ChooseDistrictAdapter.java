@@ -26,26 +26,47 @@ public class ChooseDistrictAdapter extends BaseAdapter {
     static Context context;
     private List<District> districtList;
 
+    //Hàm khởi tạo
     public ChooseDistrictAdapter(Context context, List<District> districtList) {
         this.context = context;
         this.districtList = districtList;
     }
 
+    /**
+     * Hàm trả về số lượng phần tử của adapter
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return districtList.size();
     }
 
+    /**
+     * Hàm trả về quận huyện tại vị trí position
+     * @param position
+     * @return
+     */
     @Override
     public District getItem(int position) {
         return districtList.get(position);
     }
 
+    /**
+     * Hàm trả về id của món ăn trong apdater tại vị trí posion
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /***
+     * Hàm xác định số loại View trên 1 item của Adapter để xác định chính xác vị trí được chọn
+     *
+     * @return
+     */
     @Override
     public int getViewTypeCount() {
 

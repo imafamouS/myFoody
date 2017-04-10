@@ -12,6 +12,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "myfoody.sqlite";
     private static final int DATABASE_VERSION = 1;
 
+    //Hàm khởi tạo kết nối CSDL
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         setForcedUpgrade();

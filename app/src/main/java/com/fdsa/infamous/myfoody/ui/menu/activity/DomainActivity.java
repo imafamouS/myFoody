@@ -30,6 +30,12 @@ public class DomainActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout linear_layout_domain_delivery;
     LinearLayout linear_layout_domain_booking;
 
+    /**
+     * Hàm sử lí sự kiện khi activity được tạo (khởi tạo các view và event)
+     *
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +77,10 @@ public class DomainActivity extends AppCompatActivity implements View.OnClickLis
         linear_layout_domain_booking.setOnClickListener(this);
     }
 
+    /**
+     * Hàm sự lí sự kiện khi click vào các view
+     * @param v: view được click
+     */
     @Override
     public void onClick(View v) {
         String strShow = "";

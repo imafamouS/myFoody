@@ -24,34 +24,55 @@ import java.util.List;
 public class HomeWhereToGoAdapter extends BaseAdapter {
 
     static Context context;
-    List<Restaurant> restaurantList;
+    private List<Restaurant> restaurantList;
 
+    //Hàm khởi tạo
     public HomeWhereToGoAdapter(Context context, List<Restaurant> restaurantList) {
         super();
         this.context = context;
         this.restaurantList = restaurantList;
     }
 
+    //Hàm set lại danh sách nhà hàng (cập nhật adapter)
     public void setRestaurantList(List<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
     }
 
+    /**
+     * Hàm get số lượng phần tử của adapter
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return restaurantList.size();
     }
 
+    /**
+     * Hàm trả về nhà hàng tại vị trí position
+     * @param position
+     * @return
+     */
     @Override
     public Object getItem(int position) {
         return restaurantList.get(position);
     }
 
+    /**
+     * Hàm trả về id của nhà hàng tại vị trí position
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-
+    /***
+     * Hàm xác định số loại View trên 1 item của Adapter để xác định chính xác vị trí được chọn
+     *
+     * @return
+     */
     @Override
     public int getViewTypeCount() {
 
@@ -64,6 +85,13 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * Hàm hiện dữ liệu lên view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         RestaurentViewHolder holder;
@@ -79,6 +107,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
     static class RestaurentViewHolder {
         View item;
         private RelativeLayout layout_parent_header_restaurant;
@@ -109,6 +138,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         private TextView text_view_num_of_photo;
         private String requestReview;
 
+        //Hàm khởi tạo
         public RestaurentViewHolder(View item) {
             this.item = item;
 
@@ -116,6 +146,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
         }
 
+        //Hàm khởi tạo các view để hiện dũ liệu
         private void initView(View item) {
             layout_parent_header_restaurant = (RelativeLayout) item.findViewById(R.id.layout_parent_header_restaurant);
             text_view_rate_arg_restaurant = (TextView) item.findViewById(R.id.text_view_rate_arg_restaurant);
@@ -154,6 +185,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             requestReview = item.getResources().getString(R.string.REQUEST_REVIEW);
         }
 
+        //Hàm hiện dữ liệu lên view
         public void renderData(Restaurant restaurant) {
             loadHeader(restaurant);
 
@@ -164,6 +196,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             updateStatusRestaurent(restaurant);
         }
 
+        //Hàm load tên, địa chỉ, rating, và hình chính của của nhà hàng
         private void loadHeader(Restaurant restaurant) {
             text_view_rate_arg_restaurant.setText(restaurant.getRating() + "");
             text_view_name_restaurant.setText(restaurant.getNameRes());
@@ -175,6 +208,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
         }
 
+        //Hàm load thêm hình ảnh của của hàng
         private void loadMoreImage(Restaurant restaurant) {
             if (restaurant.getSubImg() == null || restaurant.getSubImg().size() <= 0) {
                 linear_layout_sub_img_restaurant.setVisibility(View.GONE);
@@ -196,6 +230,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             }
         }
 
+        //Hàm load thêm hình ảnh của của hàng
         private void loadSubImage(int index, Restaurant restaurant) {
             if (index == 1) {
                 image_view_sub_img_res_2.setVisibility(View.GONE);
@@ -232,6 +267,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             }
         }
 
+        //Hàm load bình luận của của hàng
         private void loadComment(Restaurant restaurant) {
             if (restaurant.getComments().size() == 0 || restaurant.getComments() == null) {
                 linear_layout_parent_comment_res.setVisibility(View.GONE);
@@ -262,6 +298,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
         }
 
+        //Hàm load bình luận của của hàng
         private void loadComment1(Comment comment1) {
             Glide.with(context).load(comment1.getUid().getAvatar()).into(image_view_avatar_comment_1);
 
@@ -270,6 +307,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             text_view_comment_1.setText(comment1.getText());
         }
 
+        //Hàm load bình luận của của hàng
         private void loadComment2(Comment comment2) {
             Glide.with(context).load(comment2.getUid().getAvatar()).into(image_view_avatar_comment_2);
 
@@ -278,6 +316,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             text_view_comment_2.setText(comment2.getText());
         }
 
+        //Hàm load trạng thái của của hàng
         private void updateStatusRestaurent(Restaurant restaurant) {
             String numOfReview = restaurant.getComments().size() + "";
             String numOfPhoto = restaurant.getSubImg().size() + "";

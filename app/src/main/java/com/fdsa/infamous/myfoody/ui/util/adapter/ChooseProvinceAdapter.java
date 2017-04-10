@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnSetDefaultProvince;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
     private List<Province> provinceListDisplay;
     private Province currentProvince;
 
+    //Hàm khởi tạo
     public ChooseProvinceAdapter(Context context, List<Province> provinceList, Province currentProvince, IOnSetDefaultProvince onSetDefaultProvince) {
         this.context=context;
         this.provinceList=provinceList;
@@ -38,6 +40,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
 
     }
 
+    //Hàm lấy vị trí hiện tại của tỉnh hiện tại
     private int getIndexCurrentProvince() {
         int index = -1;
         for (int i = 0; i < provinceListDisplay.size(); i++) {
@@ -49,21 +52,41 @@ public class ChooseProvinceAdapter extends BaseAdapter {
         return index;
     }
 
+    /**
+     * Hàm trả về số lượng phần tử của adapter
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return provinceListDisplay.size();
     }
 
+    /**
+     * Hàm trả về tỉnh tại vị trí position
+     * @param position
+     * @return
+     */
     @Override
     public Province getItem(int position) {
         return provinceListDisplay.get(position);
     }
 
+    /**
+     * Hàm trả về id của món ăn trong apdater tại vị trí posion
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /***
+     * Hàm xác định số loại View trên 1 item của Adapter để xác định chính xác vị trí được chọn
+     *
+     * @return
+     */
     @Override
     public int getViewTypeCount() {
 
@@ -76,6 +99,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
         return position;
     }
 
+    //Hàm hiện dữ liệu lên view
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ChooseProvinceViewHolder holder;
@@ -120,16 +144,16 @@ public class ChooseProvinceAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public interface IOnSetDefaultProvince {
-        void onSetDefaultProvince();
-    }
 
+    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
     public class ChooseProvinceViewHolder implements View.OnClickListener {
         public ImageView image_view_check_status;
         public TextView text_view_province_name;
         public TextView text_view_set_default;
         View item;
         IOnSetDefaultProvince onSetDefaultProvince;
+
+        //Hàm khởi tạo
         public ChooseProvinceViewHolder(View view, IOnSetDefaultProvince onSetDefaultProvince) {
             item = view;
             this.image_view_check_status = (ImageView) view.findViewById(R.id.image_view_check_status);
@@ -140,6 +164,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
             text_view_set_default.setOnClickListener(this);
         }
 
+        //Sự kiện click vào các item của adapter thì interface IOnSetDefaultProvince được thực hiện
         @Override
         public void onClick(View v) {
             onSetDefaultProvince.onSetDefaultProvince();

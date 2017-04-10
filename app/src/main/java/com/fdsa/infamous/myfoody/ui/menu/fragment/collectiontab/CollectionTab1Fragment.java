@@ -14,15 +14,22 @@ import com.fdsa.infamous.myfoody.R;
  */
 
 public class CollectionTab1Fragment extends Fragment {
-
+    //Hàm khởi tạo
     public CollectionTab1Fragment() {
         super();
     }
 
+    /**
+     * Hàm xử lí sự kiện khi fragment được tạo (khởi tạo view)
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.collection_tab_1, container, false);
-        return v;
+        return inflater.inflate(R.layout.collection_tab_1, container, false);
     }
 }

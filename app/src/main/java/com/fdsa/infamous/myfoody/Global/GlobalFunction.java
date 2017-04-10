@@ -10,10 +10,12 @@ import java.math.RoundingMode;
  */
 
 public class GlobalFunction {
+    //Hàm chuyển từ Dp sang pixel
     public static int dpToPx(float dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    //Hàm làm tròn số lấy 1 chữ số thập phân
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 

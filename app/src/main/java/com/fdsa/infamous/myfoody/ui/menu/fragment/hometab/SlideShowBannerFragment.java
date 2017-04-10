@@ -23,6 +23,7 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by FDSA on 3/28/2017.
  */
 
+
 public class SlideShowBannerFragment extends Fragment {
 
     public static final int TYPE_HAVE_ADS = 1;
@@ -36,14 +37,17 @@ public class SlideShowBannerFragment extends Fragment {
     SlideShowBannerAdapter adapter;
     CircleIndicator indicator;
 
+    //Hàm khởi tạo
     public SlideShowBannerFragment() {
         super();
     }
 
+    //Hàm set context
     public void setContext(Context context) {
         this.context = context;
     }
 
+    //Hàm set dữ liệu cho fragment
     public void setResourcesSlideShow(List<Integer> resources) {
         if (resources != null) {
             mResources = resources;
@@ -54,6 +58,14 @@ public class SlideShowBannerFragment extends Fragment {
 
     }
 
+    /**
+     * Hàm xử lí sự kiện khi fragment được tạo (khởi tạo view)
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +74,10 @@ public class SlideShowBannerFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Hàm khởi tạo view
+     * @param view
+     */
     public void initView(View view) {
 
         frame_layout_banner_image_parent = (FrameLayout) view.findViewById(R.id.frame_layout_banner_image_parent);

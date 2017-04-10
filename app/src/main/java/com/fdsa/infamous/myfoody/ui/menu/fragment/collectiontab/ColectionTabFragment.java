@@ -12,19 +12,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.menu.fragment.hometab.TopMenuBarFragment;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
 
 /**
  * Created by FDSA on 4/8/2017.
  */
 
-public class ColectionTabFragment extends Fragment implements TopMenuBarFragment.IOnTopMenuBarChange, ViewPager.OnPageChangeListener {
+public class ColectionTabFragment extends Fragment implements IOnTopMenuBarChange, ViewPager.OnPageChangeListener {
     HeaderCollectionFragment headerCollectionFragment;
     CollectionTab1Fragment collectionTab1Fragment;
     CollectionTab2Fragment collectionTab2Fragment;
     ViewPager viewPager;
     LinearLayout linear_layout_collection_top_menu_bar;
 
+    //Hàm khởi tạo
     public ColectionTabFragment() {
         super();
         headerCollectionFragment = new HeaderCollectionFragment();
@@ -32,6 +33,14 @@ public class ColectionTabFragment extends Fragment implements TopMenuBarFragment
         collectionTab2Fragment = new CollectionTab2Fragment();
     }
 
+    /**
+     * Hàm xử lí sự kiện khi fragment được khởi tạo (khởi tạo view và event)
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +66,10 @@ public class ColectionTabFragment extends Fragment implements TopMenuBarFragment
 
     }
 
+    /**
+     * Hàm xử lí sự kiện khi thay đổi vị trí của viewpager
+     * @param position
+     */
     @Override
     public void onPageSelected(int position) {
 
@@ -68,11 +81,18 @@ public class ColectionTabFragment extends Fragment implements TopMenuBarFragment
 
     }
 
+    /**
+     * Hàm xử lí sự kiện khi click vào các view trên top menu (thay đổi vị trí của viewpager)
+     * @param index
+     */
     @Override
     public void OnTopMenuBarChange(int index) {
         this.viewPager.setCurrentItem(index);
     }
 
+    /**
+     * Adapter của viewpager (Quản lí các fragment trên CollectionTabFragment)
+     */
     class myTabCollectionFragmentAdapter extends FragmentPagerAdapter {
         public myTabCollectionFragmentAdapter(FragmentManager fm) {
             super(fm);

@@ -21,15 +21,18 @@ public class MoreImageRestaurantController extends DataAccess {
         TAG = "MoreImageResController";
     }
 
+    //Hàm khởi tạo
     public MoreImageRestaurantController(Context context) {
         super(context);
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
@@ -40,6 +43,7 @@ public class MoreImageRestaurantController extends DataAccess {
         return null;
     }
 
+    //Hàm lấy thêm các ảnh của nhà hàng
     public List<byte[]> getListMoreImage(String res_id) {
         List<byte[]> list = new ArrayList<>();
         this.open();

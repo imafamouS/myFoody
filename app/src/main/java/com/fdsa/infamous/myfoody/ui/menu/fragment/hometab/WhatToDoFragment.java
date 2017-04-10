@@ -91,7 +91,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
     NodataAdapter nodataAdapter;
     HomeWhatToDoAdapter adapter;
 
-
+    //Hàm khởi tạo
     public WhatToDoFragment() {
         super();
         mapMenuBarItems = new HashMap<>();
@@ -100,10 +100,12 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
 
     }
 
+    //Hàm set tỉnh hiện tại
     public void setCurrentProvince(Province currentProvince) {
         this.currentProvince = currentProvince;
     }
 
+    //Hàm set fragment Ơ đâu
     public void setWhereToGoFragment(WhereToGoFragment whereToGoFragment) {
         this.whereToGoFragment = whereToGoFragment;
     }
@@ -115,6 +117,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         selectedPositionMenu.put(Type.AREA, -1);
     }
 
+    //Hàm xử lí sự kiện khi fragment được tạo (Khởi tạo view)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -125,7 +128,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         return view;
     }
 
-
+    //Khởi tạo view
     private void initView(View view,LayoutInflater inflater) {
         context = getActivity().getApplicationContext();
         menuBarItemController = new MenuBarItemController(context);
@@ -173,6 +176,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         swipe_refresh_layout.setOnRefreshListener(this);
     }
 
+    //Khởi tạo view của tab Khu Vực (chọn huyện)
     private void initViewMenuTabArea(View view) {
         linear_layout_choose_disctrict_parent_menu = (LinearLayout) view.findViewById(R.id.linear_layout_choose_disctrict_parent_menu);
         linear_layout_choose_disctrict_item = (LinearLayout) view.findViewById(R.id.linear_layout_choose_disctrict_item);
@@ -333,12 +337,13 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
-    //Hàm tải lại các tiệm ăn
+    //Hàm tải lại các món ăn
     private void reloadData(Type type, boolean isChangeProvince) {
         updateTitleMenu(type, isChangeProvince);
         loadFood();
     }
 
+    //Hàm lấy danh sách các món từ CSDL
     private void loadFood() {
         String id_province = currentProvince.getIdProvince();
 

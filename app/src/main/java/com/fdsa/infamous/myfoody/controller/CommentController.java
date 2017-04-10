@@ -25,16 +25,19 @@ public class CommentController extends DataAccess {
 
     UserController userController;
 
+    //Hàm khởi tạo
     public CommentController(Context context) {
         super(context);
         userController = new UserController(context);
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
@@ -45,6 +48,7 @@ public class CommentController extends DataAccess {
         return null;
     }
 
+    //Hàm lấy danh sách các bình luận thông qua mã nhà hàng
     public List<Comment> getCommentList(String res_id) {
         List<Comment> list = new ArrayList<>();
         this.open();

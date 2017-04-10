@@ -13,15 +13,18 @@ import java.util.List;
  */
 
 public class UserController extends DataAccess {
+    //Hàm khởi tạo
     public UserController(Context context) {
         super(context);
     }
 
+    //Hàm mở kết nối
     @Override
     public void open() {
         super.open();
     }
 
+    //Hàm đóng kết nối
     @Override
     public void close() {
         super.close();
@@ -32,6 +35,7 @@ public class UserController extends DataAccess {
         return null;
     }
 
+    //Hàm lấy User thông qua uid
     public User getUser(String uid) {
         this.open();
         User user = null;

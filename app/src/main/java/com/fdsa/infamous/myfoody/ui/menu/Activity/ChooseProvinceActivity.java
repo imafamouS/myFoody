@@ -22,6 +22,7 @@ import com.fdsa.infamous.myfoody.controller.ProvinceController;
 import com.fdsa.infamous.myfoody.global.GlobalStaticData;
 import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseProvinceAdapter;
 import com.fdsa.infamous.myfoody.ui.util.bean.Province;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnSetDefaultProvince;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
  * Created by FDSA on 4/3/2017.
  */
 
-public class ChooseProvinceActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener,ChooseProvinceAdapter.IOnSetDefaultProvince{
+public class ChooseProvinceActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, IOnSetDefaultProvince {
 
 
     private RelativeLayout choose_provine_top_bar;
@@ -40,6 +41,9 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
     private EditText edit_text_search_choose_province;
     private ImageView image_view_delete_choose_province;
+    /**
+     * TextWatcher khi nhập vào ô tìm kiếm
+     */
     public TextWatcher searchWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,7 +74,9 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     private ProvinceController provinceController;
 
 
-
+    /**
+     * Hàm khởi tạo
+     */
     public ChooseProvinceActivity() {
         this.callFromFragment = GlobalStaticData.getCallFromFragment();
 
@@ -78,6 +84,11 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
     }
 
+    /**
+     * Sự kiện khi activi được tạo
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +97,10 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
         init();
     }
+
+    /**
+     * Khởi tạo các view và sự kiện các view
+     */
     private void init() {
 
         choose_provine_top_bar = (RelativeLayout) findViewById(R.id.choose_provine_top_bar);
@@ -126,6 +141,9 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         list_view_choose_province.setTextFilterEnabled(true);
     }
 
+    /**
+     * Hàm sử lí khi nhấn nút mặc định trên adapter
+     */
     @Override
     public void onSetDefaultProvince() {
         int indexSelected = this.adapter.indexSelected;
@@ -140,7 +158,13 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         finish();
     }
 
-
+    /**
+     * Hàm xử lí sự kiện khi chọn 1 đối tượng trên listview
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         this.adapter.indexSelected = position - 1;
@@ -149,21 +173,33 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         this.adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Hàm lấy danh sách các tỉnh trong CSDL
+     * @param idCountry: ID quốc gia
+     * @return
+     */
     private List<Province> getProvinceList(String idCountry) {
         return (List<Province>) provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_PROVINCE);
 
     }
 
+    /**
+     * Hàm sủ lí sự kiện khi click vào các view trên activity
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button_choose_provine:
+                //Nút back
                 finish();
                 break;
             case R.id.text_view_done_choose_provine:
+                //Nút xong
                 onSetDefaultProvince();
                 break;
             case R.id.image_view_delete_choose_province:
+                //Nút xoá nội dung tìm kiếm
                 edit_text_search_choose_province.setText("");
                 break;
         }

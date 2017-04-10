@@ -93,7 +93,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     RestaurantController restaurantController;
     NodataAdapter nodataAdapter;
 
-
+    //Hàm khởi tạo
     public WhereToGoFragment() {
         super();
         mapMenuBarItems = new HashMap<>();
@@ -102,10 +102,12 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
     }
 
+    //Hàm set tỉnh hiện tại
     public void setCurrentProvince(Province currentProvince) {
         this.currentProvince = currentProvince;
     }
 
+    //Hàm set fragment Ăn gì
     public void setWhatToDoFragment(WhatToDoFragment whereToGoFragment) {
         this.whatToDoFragment = whereToGoFragment;
     }
@@ -117,6 +119,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         selectedPositionMenu.put(Type.AREA, -1);
     }
 
+    //Hàm xử lí sự kiện khi fragment được tạo
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -127,7 +130,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         return view;
     }
 
-
+    //Hàm khởi tạo view
     private void initView(View view,LayoutInflater inflater) {
         context = getActivity().getApplicationContext();
         menuBarItemController = new MenuBarItemController(context);
@@ -177,6 +180,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         swipe_refresh_layout.setOnRefreshListener(this);
     }
 
+    //Hàm khởi tạo view của tab chọn quận huyện
     private void initViewMenuTabArea(View view) {
         linear_layout_choose_disctrict_parent_menu = (LinearLayout) view.findViewById(R.id.linear_layout_choose_disctrict_parent_menu);
         linear_layout_choose_disctrict_item = (LinearLayout) view.findViewById(R.id.linear_layout_choose_disctrict_item);
@@ -344,6 +348,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         loadRestaurant();
     }
 
+    //Hàm lấy danh sách các nhà hàng từ CSDL
     private void loadRestaurant() {
         String id_province = currentProvince.getIdProvince();
 

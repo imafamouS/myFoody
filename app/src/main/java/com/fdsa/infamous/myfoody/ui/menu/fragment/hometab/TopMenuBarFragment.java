@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.ui.menu.activity.DomainActivity;
 import com.fdsa.infamous.myfoody.ui.menu.views.PlusActionView;
+import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
 
 /**
  * Created by FDSA on 3/26/2017.
@@ -40,15 +41,18 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
 
     IOnTopMenuBarChange onPageChange;
 
+    //Hàm khởi tạo
     public TopMenuBarFragment() {
         super();
 
     }
 
+    //Hàm set interface IontopMenuBarChange
     public void setOnPageChange(IOnTopMenuBarChange onPageChange) {
         this.onPageChange = onPageChange;
     }
 
+    //Hàm set context
     public void setContext(Context context) {
         this.context = context;
     }
@@ -57,6 +61,14 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
         this.fragmentManager = fragmentManager;
     }
 
+    /**
+     * Hàm xử lí sự kiện khi fragment được tạo (khởi tạo các view)
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,6 +89,7 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
         return view;
     }
 
+    //Hàm khởi tạo sự kiện
     private void initEvent() {
         tab_parent_top_menu.addOnTabSelectedListener(this);
 
@@ -85,6 +98,7 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
         linear_layout_top_menu_change_domain.setOnClickListener(this);
     }
 
+    //Hàm thay đổi vị trí các tab
     public void setNotify(int currentPageIndex) {
         if (tab_where2go_top_menu == null || tab_what2do_top_menu == null) {
             Log.d("NULL", "null");
@@ -100,6 +114,7 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
         tab_what2do_top_menu.select();
     }
 
+    //Hàm xử lí sự kiện khi tab bị thay đổi
     @Override
     public void onTabSelected(Tab tab) {
         switch (tab.getPosition()) {
@@ -122,15 +137,18 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
 
     }
 
+    //Hàm xử lí sự kiện click
     @Override
     public void onClick(View v) {
         int viewID = v.getId();
 
         switch (viewID) {
             case R.id.image_view_top_menu_plus_menu:
+                //Plus menu
                 onPlusMenu();
                 break;
             case R.id.linear_layout_top_menu_change_domain:
+                //Domain (F)
                 onChangeDomain();
                 break;
             default:
@@ -138,25 +156,27 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
         }
     }
 
+    //Click vào Ở đâu
     private void onWhere2Go() {
         onPageChange.OnTopMenuBarChange(0);
     }
 
+    //CLick vào ăn gì
     private void onWhat2Do() {
         onPageChange.OnTopMenuBarChange(1);
     }
 
+    //Click vào plus menu
     private void onPlusMenu() {
         new PlusActionView().show(fragmentManager, "Dialog");
     }
 
+    //Click vào domain (F)
     private void onChangeDomain() {
         Intent intent = new Intent(context, DomainActivity.class);
         intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
-    public interface IOnTopMenuBarChange {
-        void OnTopMenuBarChange(int index);
-    }
+
 }
