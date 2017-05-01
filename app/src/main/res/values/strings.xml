@@ -17,6 +17,7 @@
     <string name="TEXT_PLUS_MENU_ADD_PLACE">Thêm địa điểm</string>
 
     <string name="TEXT_ACTION_CANCEL">Huỷ</string>
+    <string name="TEXT_ACTION_CLOSE">Đóng</string>
 
     <string name="TEXT_BOOK_AND_DELIVERY">Giao hàng và đặt chỗ</string>
     <string name="TEXT_DELIVERY">Giao hàng</string>
@@ -48,5 +49,50 @@
     <string name="TEXT_PHOTO_COLLECTION_BAR">Bộ sưu tập ảnh</string>
 
     <string name="TEXT_NO_RESTAURANT">Chưa có địa điểm nào</string>
+
+    <string name="TEXT_LOGIN_WITH_FACEBOOK">Facebook</string>
+    <string name="TEXT_LOGIN_WITH_GOOGLE">Google</string>
+    <string name="TEXT_LOGIN_WITH_YAHOO">Yahoo</string>
+    <string name="TEXT_LOGIN_WITH_TWITTER">Twitter</string>
+    <string name="TEXT_LOGIN_WITH_PHONE_NUMBER">Đăng nhập với số điện thoại</string>
+    <string name="TEXT_LOGIN_WITH_EMAIL">Đăng nhập với Email</string>
+    <string name="TEXT_LOGIN_NO_USE_INFO">Chúng tôi sẽ không sử dụng thông tin của bạn với bất kỳ mục đích nào </string>khác
+    <string name="TEXT_REGISTER">Đăng ký</string>
+    <string name="TEXT_LOGIN_TO_APP">Đăng nhập Foody</string>
+
+
+    <string name="TEXT_ERR_VALID_EMAIL">Email sai định dạng</string>
+    <string name="TEXT_ERR_VALID_PASS_LENGHT">Mật khẩu có ít nhất 4 kí tự</string>
+    <string name="TEXT_ERR_VALID_PASS_CONFIRM">Mật khẩu không trùng</string>
+    <string name="TEXT_RES_SUCCESS">Đăng kí thành công</string>
+    <string name="TEXT_RES_FAIL">Đăng kí thất bại. Vui lòng thử lại</string>
+
+
+    <string name="TEXT_USER">Tên đăng nhập</string>
+    <string name="TEXT_LAST_NAME">Tên</string>
+    <string name="TEXT_FIRST_NAME">Họ</string>
+    <string name="TEXT_MANAGE_PHONE">Quản lý số điện thoại</string>
+    <string name="TEXT_MANAGE_ADDRESS">Quản lý điạ chỉ</string>
+    <string name="TEXT_DATE_JOIN">Ngày tham gia</string>
+    <string name="TEXT_MARRY_STATUS">Hôn nhân</string>
+    <string name="TEXT_DATE_OF_BIRTH">Ngày sinh</string>
+    <string name="TEXT_ACTION_SAVE">Lưu lại</string>
+    <string name="TEXT_ERR_VALID_DATE">Ngày không hợp lệ</string>
+    <string name="TEXT_AVATAR_AND_COVER">Ảnh đại diện &amp; bìa</string>
+    <string name="TEXT_PASSWORD">Mật khẩu</string>
+    <string name="TEXT_MANAGE_SESSION">Quản lý phiên hoạt động</string>
+
+    <string name="TEXT_AVATAR">HÌNH ĐẠI DIỆN</string>
+    <string name="TEXT_COVER">HÌNH COVER</string>
+    <string name="TEXT_CHANGE_AVATAR">Đổi ảnh đại diện</string>
+    <string name="TEXT_CHANGE_COVER">Đổi ảnh bìa</string>
+    <string name="TEXT_ACTION_SAVE_CHANGE">Lưu thay đổi</string>
+    <string name="TEXT_EMAIL_REGISTER">Email đăng ký:</string>
+    <string name="TEXT_UPDATE_INFO_SUCCESS">Thông tin của bạn đã được cập nhật!</string>
+    <string name="TEXT_UPDATE_INFO_FAIL">Lỗi xảy ra khi cập nhật thông tin của bạn. Vui lòng thử lại!</string>
+    <string name="TEXT_SELECT_PHOTO_FROM_CAMERA">Chụp ảnh</string>
+    <string name="TEXT_SELECT_PHOTO_FROM_GALLERY">Chọn hình từ thư viện</string>
+    <string name="TEXT_LOG_OUT">ĐĂNG XUẤT</string>
+    <string name="TEXT_LOG_OUT_MESS">Bạn có muốn đăng xuất khỏi Foody?</string>
 
 </resources>

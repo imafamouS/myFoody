@@ -7,11 +7,11 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.fdsa.infamous.myfoody.global.GlobalFunction;
-import com.fdsa.infamous.myfoody.global.GlobalStaticData;
-import com.fdsa.infamous.myfoody.ui.util.adapter.MoreItemAdapter;
-import com.fdsa.infamous.myfoody.ui.util.bean.MoreItem;
-import com.fdsa.infamous.myfoody.ui.util.myinterface.IMoreItemClick;
+import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
+import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.ui.menu.adapter.MoreItemAdapter;
+import com.fdsa.infamous.myfoody.common.bean_F1.MoreItem;
+import com.fdsa.infamous.myfoody.common.myinterface.IMoreItemClick;
 
 import java.util.ArrayList;
 import java.util.List;

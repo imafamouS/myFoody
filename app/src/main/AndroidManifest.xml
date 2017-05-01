@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,18 +12,27 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+        </activity>
+        <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".ui.menu.activity.DomainActivity"></activity>
         <activity android:name=".ui.menu.activity.ChooseProvinceActivity"></activity>
+        <activity android:name=".ui.menu.activity.LoginChooserActivity" android:launchMode="standard"></activity>
+        <activity android:name=".ui.menu.activity.LoginByEmailActivity" ></activity>
+        <activity android:name=".ui.menu.activity.RegisterActivity" ></activity>
+        <activity android:name=".ui.menu.activity.ChangeInforActivity_1" android:launchMode="standard"></activity>
+        <activity android:name=".ui.menu.activity.ChangeInforActivity_2" android:launchMode="standard"></activity>
+        <activity android:name=".ui.menu.activity.ChangeAvatarActivity"></activity>
+        <activity android:name=".ui.menu.activity.ChangePasswordActivity"></activity>
 
     </application>
-    <meta-data android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"
-        android:value="GlideModule"/>
+    <meta-data
+        android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"
+        android:value="GlideModule" />
 
 </manifest>

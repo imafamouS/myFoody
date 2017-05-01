@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:windowIsTranslucent="true"
+    android:windowBackground="@android:color/transparent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/choose_provine_top_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:background="#ffcc0000"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/back_button_change_infor_user_2"
+            android:layout_width="50.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:padding="10.0dip"
+                android:src="@drawable/icon_back" />
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/back_button_change_infor_user_2"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:text="Thiết lập tài khoản"
+            android:gravity="center_vertical"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/text_size_big_title"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dip"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#ffc8c7cc"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_change_avatar_user"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:cropToPadding="true"
+                android:src="@drawable/icon_user_avatar" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/TEXT_AVATAR_AND_COVER"
+                android:textColor="#ff000000"
+                android:textSize="13dip" />
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="25.0dip"
+                android:layout_marginRight="10.0dip"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginLeft="50.0dip"
+            android:background="#ffc8c7cc"
+            android:orientation="vertical"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_change_password"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:cropToPadding="true"
+                android:src="@drawable/icon_password" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/TEXT_PASSWORD"
+                android:textColor="#ff000000"
+                android:textSize="13dip" />
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="25.0dip"
+                android:layout_marginRight="10.0dip"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="8dip"
+            android:background="#ffeeeeee" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:cropToPadding="true"
+                android:src="@drawable/icon_session" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/TEXT_MANAGE_SESSION"
+                android:textColor="#ff000000"
+                android:textSize="13dip" />
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="25.0dip"
+                android:layout_marginRight="10.0dip"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -14,10 +14,12 @@ import com.fdsa.infamous.myfoody.R;
  */
 
 public class NotifyTabFragment extends Fragment {
+    //Hàm khởi tạo
     public NotifyTabFragment() {
         super();
     }
 
+    //Hàm xử lí sự kiện khi fragment được tạo (khởi tạo view)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

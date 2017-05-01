@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
+import com.fdsa.infamous.myfoody.common.myinterface.IOnTopMenuBarChange;
 
 
 /**

@@ -16,15 +16,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fdsa.infamous.myfoody.AppConfig;
+import com.fdsa.infamous.myfoody.common.bean_F2.ProvinceBean;
+import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.controller.ProvinceController;
-import com.fdsa.infamous.myfoody.global.GlobalStaticData;
-import com.fdsa.infamous.myfoody.ui.util.adapter.ChooseProvinceAdapter;
-import com.fdsa.infamous.myfoody.ui.util.bean.Province;
-import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnSetDefaultProvince;
+import com.fdsa.infamous.myfoody.util.controller_F2.ProvinceController;
+import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.ui.menu.adapter.ChooseProvinceAdapter;
+import com.fdsa.infamous.myfoody.common.myinterface.IOnSetDefaultProvince;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by FDSA on 4/3/2017.
@@ -68,9 +70,9 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     private LinearLayout linear_layout_auto_detect_location;
     private LinearLayout linear_layout_action_change_country;
     private int callFromFragment;
-    private Province currentProvince;
+    private ProvinceBean currentProvinceBean;
     private ChooseProvinceAdapter adapter;
-    private List<Province> provinceList;
+    private List<ProvinceBean> provinceBeanList;
     private ProvinceController provinceController;
 
 
@@ -80,7 +82,7 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     public ChooseProvinceActivity() {
         this.callFromFragment = GlobalStaticData.getCallFromFragment();
 
-        currentProvince = GlobalStaticData.getCurrentProvince();
+        currentProvinceBean = GlobalStaticData.getCurrentProvinceBean();
 
     }
 
@@ -95,13 +97,17 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
         setContentView(R.layout.choose_province_activity_layout);
 
-        init();
+        try {
+            init();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Khởi tạo các view và sự kiện các view
      */
-    private void init() {
+    private void init() throws ExecutionException, InterruptedException {
 
         choose_provine_top_bar = (RelativeLayout) findViewById(R.id.choose_provine_top_bar);
         choose_provine_top_bar_title = (TextView) findViewById(R.id.choose_provine_top_bar_title);
@@ -120,10 +126,10 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         linear_layout_action_change_country = (LinearLayout) headerListView.findViewById(R.id.linear_layout_action_change_country);
 
 
-        provinceController=new ProvinceController(getApplicationContext());
-        provinceList=getProvinceList("VIETNAM");
+        provinceController=new ProvinceController(getApplicationContext(),"vietnam",false);
+        provinceBeanList =provinceController.getListProvince();
 
-        adapter=new ChooseProvinceAdapter(getApplicationContext(),provinceList,currentProvince,this);
+        adapter=new ChooseProvinceAdapter(getApplicationContext(), provinceBeanList, currentProvinceBean,this);
 
         list_view_choose_province.setAdapter(adapter);
         /*Event*/
@@ -147,9 +153,15 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     @Override
     public void onSetDefaultProvince() {
         int indexSelected = this.adapter.indexSelected;
-        Province province2setDefault = provinceList.get(indexSelected);
+        ProvinceBean provinceBean2SetDefault;
+        if(indexSelected!=-1){
+            provinceBean2SetDefault = provinceBeanList.get(indexSelected);
+        }else{
+            provinceBean2SetDefault=GlobalStaticData.getCurrentProvinceBean();
+        }
 
-        GlobalStaticData.setCurrentProvince(province2setDefault);
+
+        GlobalStaticData.setCurrentProvinceBean(provinceBean2SetDefault);
 
         // Toast.makeText(getApplicationContext(),GlobalStaticData.getCurrentProvince_What2do().getTitleProvince(),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
@@ -178,10 +190,10 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
      * @param idCountry: ID quốc gia
      * @return
      */
-    private List<Province> getProvinceList(String idCountry) {
-        return (List<Province>) provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_PROVINCE);
+   /* private List<ProvinceBean> getProvinceList(String idCountry) {
+        return (List<ProvinceBean>) provinceController.executeSelect(AppConfig.REQUEST_CODE_LIST_PROVINCE);
 
-    }
+    }*/
 
     /**
      * Hàm sủ lí sự kiện khi click vào các view trên activity

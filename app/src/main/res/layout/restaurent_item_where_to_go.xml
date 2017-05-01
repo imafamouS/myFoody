@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_parent_restaurant"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -105,7 +106,7 @@
             <ImageView
                 android:id="@+id/image_view_main_img_restaurant"
                 android:layout_width="match_parent"
-                android:layout_height="135.0dip"
+                android:layout_height="200.0dip"
                 android:layout_marginRight="1.0dip"
                 android:layout_weight="1.0"
                 android:background="@color/black"
@@ -130,7 +131,7 @@
             <ImageView
                 android:id="@+id/image_view_sub_img_res_1"
                 android:layout_width="match_parent"
-                android:layout_height="60.0dip"
+                android:layout_height="100.0dip"
                 android:layout_marginRight="1.0dip"
                 android:layout_weight="1.0"
                 android:background="@color/black"
@@ -139,7 +140,7 @@
             <ImageView
                 android:id="@+id/image_view_sub_img_res_2"
                 android:layout_width="match_parent"
-                android:layout_height="60.0dip"
+                android:layout_height="100.0dip"
                 android:layout_marginRight="1.0dip"
                 android:layout_weight="1.0"
                 android:background="@color/cardview_shadow_start_color"
@@ -148,11 +149,12 @@
             <ImageView
                 android:id="@+id/image_view_sub_img_res_3"
                 android:layout_width="match_parent"
-                android:layout_height="60.0dip"
+                android:layout_height="100.0dip"
                 android:layout_weight="1.0"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerCrop" />
         </LinearLayout>
+
     </LinearLayout>
 
 

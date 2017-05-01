@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
+import com.fdsa.infamous.myfoody.common.myinterface.IOnTopMenuBarChange;
 
 /**
  * Created by FDSA on 3/26/2017.
@@ -79,7 +79,10 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
         // getFragmentManager().beginTransaction().replace(R.id.linear_layout_top_menu_bar, mTopMenuBarFragment).commit();
 
         viewPager.setCurrentItem(0);
+
     }
+
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

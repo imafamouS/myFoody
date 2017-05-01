@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.ui.menu.adapter.SlideShowBannerAdapter;
 import com.fdsa.infamous.myfoody.ui.menu.views.AutoScrollViewPager;
-import com.fdsa.infamous.myfoody.ui.util.adapter.SlideShowBannerAdapter;
+import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 
 import java.util.List;
 
@@ -36,6 +36,8 @@ public class SlideShowBannerFragment extends Fragment {
     View view;
     SlideShowBannerAdapter adapter;
     CircleIndicator indicator;
+
+
 
     //Hàm khởi tạo
     public SlideShowBannerFragment() {

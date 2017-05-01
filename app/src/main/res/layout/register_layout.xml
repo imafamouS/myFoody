@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+<ImageView
+    android:id="@+id/image_view_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_back_button_register"
+            android:layout_width="50.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:padding="5.0dip"
+                app:srcCompat="@drawable/icon_back" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Đăng ký"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_big_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="50dip"
+        android:layout_marginRight="50dip"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="70.0dip">
+
+        <EditText
+            android:id="@+id/edit_text_email_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="10.0dip"
+            android:maxLines="1"
+            android:textColor="#ffffffff"
+            android:textColorHint="#ffcccccc"
+            android:textSize="@dimen/text_size_title" />
+
+        <EditText
+            android:id="@+id/edit_text_password_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mật khẩu"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:padding="10.0dip"
+            android:maxLines="1"
+            android:textColor="#ffffffff"
+            android:textColorHint="#ffcccccc"
+            android:textSize="@dimen/text_size_title" />
+
+        <EditText
+            android:id="@+id/edit_text_pass_confirm_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập lại mật khẩu"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:padding="10.0dip"
+            android:maxLines="1"
+            android:textColor="#ffffffff"
+            android:textColorHint="#ffcccccc"
+            android:textSize="@dimen/text_size_title" />
+
+        <EditText
+            android:id="@+id/edit_text_name_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên hiển thị"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:padding="10.0dip"
+            android:maxLines="1"
+            android:textColor="#ffffffff"
+            android:textColorHint="#ffcccccc"
+            android:textSize="@dimen/text_size_title" />
+
+        <TextView
+            android:id="@+id/text_view_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30.0dip"
+            android:background="@drawable/border_button_login"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10.0dip"
+            android:paddingLeft="20.0dip"
+            android:paddingRight="20.0dip"
+            android:paddingTop="10.0dip"
+            android:text="@string/TEXT_REGISTER"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/text_size_title" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dip"
+            android:text="Mật khẩu phải có ít nhất 4 kí tự"
+            android:textColor="#ffffffff"
+            android:textSize="10dip" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_view_login_register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/item_selector_register"
+        android:clickable="true"
+        android:gravity="bottom|center"
+        android:padding="10.0dip"
+        android:text="Đăng nhập"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/text_size_title" />
+</FrameLayout>

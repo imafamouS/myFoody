@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
+import com.fdsa.infamous.myfoody.common.myinterface.IOnTopMenuBarChange;
 
 /**
  * Created by FDSA on 4/8/2017.

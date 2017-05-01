@@ -1,23 +1,25 @@
 package com.fdsa.infamous.myfoody;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.fdsa.infamous.myfoody.global.GlobalStaticData;
+import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.collectiontab.ColectionTabFragment;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.hometab.TabHomeFragment;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.notifytab.NotifyTabFragment;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.searchtab.SearchTabFragment;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.usertab.UserTabFragment;
 import com.fdsa.infamous.myfoody.ui.menu.views.BottomNavigationViewEx;
+import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 
 
 /**
@@ -27,11 +29,11 @@ import com.fdsa.infamous.myfoody.ui.menu.views.BottomNavigationViewEx;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationViewEx bottomNavigationMenu;
     Menu menu;
-    Fragment homeTab;
-    Fragment collectionTab;
-    Fragment notifyTab;
-    Fragment searchTab;
-    Fragment userTab;
+    TabHomeFragment homeTab;
+    ColectionTabFragment collectionTab;
+    NotifyTabFragment notifyTab;
+    SearchTabFragment searchTab;
+    UserTabFragment userTab;
     FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
@@ -41,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         notifyTab = new NotifyTabFragment();
         searchTab = new SearchTabFragment();
         userTab = new UserTabFragment();
-    }
 
+
+    }
     /***
      * Hàm bắt sự kiện Activity dược khởi tạo (Khởi tạo layout cho activity)
      *
@@ -51,11 +54,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GlobalStaticData.setCurrentProvince(GlobalStaticData.getDefaultProvince());
+        GlobalStaticData.setCurrentProvinceBean(GlobalStaticData.getDefaultProvince());
         setContentView(R.layout.home_layout);
 
         initFragments();
         initBottombar();
+
+        GlobalStaticData.setMainActivity(this);
     }
 
     /***
@@ -93,13 +98,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationMenu.enableShiftingMode(false);     //Ẩn đi hiệu hứng chuyển tab
         bottomNavigationMenu.enableItemShiftingMode(false); //Ẩn đi hiệu hứng chuyển tab
 
-        bottomNavigationMenu.setCurrentItem(0);
+
 
         menu = bottomNavigationMenu.getMenu();
 
         setTab(0);
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener(this);
+        this.onNavigationItemSelected(bottomNavigationMenu.getMenu().getItem(0));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode== AppConfig.RESULT_CODE_LOGIN){
+            this.onNavigationItemSelected(bottomNavigationMenu.getMenu().getItem(4));
+            userTab.onTabVisible();
+        }else if(resultCode==AppConfig.RESULT_CODE_CHANGE_INFO_1){
+            Log.d("MAINACTIVITY",GlobalStaticData.getCurrentUser().toString());
+            userTab.onTabVisible();
+        }
+
     }
 
     /***
@@ -157,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
      *
      * @param currentTabindex: vị trí của menu được nhấn
      */
-    private void setTab(int currentTabindex) {
+    public void setTab(int currentTabindex) {
 
         switch (currentTabindex) {
             case 0:

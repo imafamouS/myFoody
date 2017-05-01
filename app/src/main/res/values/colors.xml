@@ -21,5 +21,8 @@
     <color name="orange">#d9de740b</color>
     <color name="color_circle_rate">#1DA41A</color>
     <color name="color_text_default_choose_province">#ff0063e9</color>
-
+    <color name="color_edit_text_info_user">#00C1F4</color>
+    <color name="color_button_save_change_selected">#aa044aa0</color>
+    <color name="color_button_save_change_normal">#aa018423</color>
+    <color name="color_grey">#EFEFF4</color>
 </resources>

@@ -31,7 +31,6 @@
             android:background="@drawable/border_button_change_district"
             android:id="@+id/linear_layout_change_district"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10.0dip"
@@ -60,13 +59,26 @@
         </LinearLayout>
     </LinearLayout>
         <!--Expandable-->
-    <ListView
+    <!--  <ExpandableListView
+          android:id="@+id/list_view_city"
+          style="@style/view_match"
+          android:layout_height="0dp"
+          android:layout_weight="1.0"
+          android:background="@color/home_menu_background_color_pressed"
+          android:cacheColorHint="@android:color/transparent"
+          android:divider="@color/home_new_list_view_line"
+          android:dividerHeight="1.0dip"
+          android:listSelector="@android:color/transparent" />-->
+    <ExpandableListView
         android:id="@+id/list_view_city"
-        style="@style/view_match"
-        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_weight="1.0"
-        android:background="@color/home_menu_background_color_pressed"
-        android:cacheColorHint="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        android:childDivider="#ffeeeeee"
+        android:childIndicator="@drawable/icon_arrow_right"
+        android:groupIndicator="@null"
+        android:indicatorLeft="@null"
         android:divider="@color/home_new_list_view_line"
         android:dividerHeight="1.0dip"
         android:listSelector="@android:color/transparent" />

@@ -15,10 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.fdsa.infamous.myfoody.MainActivity;
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.common.myinterface.IOnTopMenuBarChange;
 import com.fdsa.infamous.myfoody.ui.menu.activity.DomainActivity;
 import com.fdsa.infamous.myfoody.ui.menu.views.PlusActionView;
-import com.fdsa.infamous.myfoody.ui.util.myinterface.IOnTopMenuBarChange;
 
 /**
  * Created by FDSA on 3/26/2017.
@@ -40,6 +41,16 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
     View view;
 
     IOnTopMenuBarChange onPageChange;
+
+    MainActivity mainActivity;
+
+    public MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
 
     //Hàm khởi tạo
     public TopMenuBarFragment() {
