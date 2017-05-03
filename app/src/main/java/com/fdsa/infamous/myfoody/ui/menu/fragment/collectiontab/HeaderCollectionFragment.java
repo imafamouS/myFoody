@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,11 +67,8 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
      */
     public void setNotify(int currentPageIndex) {
         if (tab_item_1_header_collection == null || tab_item_2_header_collection == null) {
-            Log.d("NULL", "null");
             return;
         }
-
-        Log.d("RUNNNIN", "Index: " + currentPageIndex + "");
         if (currentPageIndex == 0) {
             tab_item_1_header_collection.select();
             return;

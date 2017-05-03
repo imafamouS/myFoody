@@ -94,5 +94,10 @@
     <string name="TEXT_SELECT_PHOTO_FROM_GALLERY">Chọn hình từ thư viện</string>
     <string name="TEXT_LOG_OUT">ĐĂNG XUẤT</string>
     <string name="TEXT_LOG_OUT_MESS">Bạn có muốn đăng xuất khỏi Foody?</string>
+    <string name="TEXT_REQUEST_PERMISSION">Bạn cần cho phép quyền vào thiết bị để thực hiện chức năng này</string>
+    <string name="TEXT_YES">Có</string>
+    <string name="TEXT_NO">Không</string>
+    <string name="TEXT_PERMISSION_STORAGE">"Truy cập ảnh, phương tiện và tệp trên thiết bị của bạn"</string>
+
 
 </resources>

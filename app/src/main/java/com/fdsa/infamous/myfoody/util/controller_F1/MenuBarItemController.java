@@ -2,7 +2,6 @@ package com.fdsa.infamous.myfoody.util.controller_F1;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.config.AppConfig;
@@ -72,7 +71,6 @@ public class MenuBarItemController extends DataAccess {
             cursor.close();
             this.close();
         }
-        Log.d(TAG, "Get list ok");
         return list;
     }
 

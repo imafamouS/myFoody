@@ -2,14 +2,13 @@ package com.fdsa.infamous.myfoody.util.controller_F1;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
+import com.fdsa.infamous.myfoody.common.bean_F1.Comment;
+import com.fdsa.infamous.myfoody.common.bean_F1.Food;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.util.database.DataAccess;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
-import com.fdsa.infamous.myfoody.common.bean_F1.Comment;
-import com.fdsa.infamous.myfoody.common.bean_F1.Food;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +99,6 @@ public class FoodController extends DataAccess {
                 item.setComment(comment);
 
                 list.add(item);
-
-                Log.d("QUERY", query);
             }
         } finally {
             cursor.close();

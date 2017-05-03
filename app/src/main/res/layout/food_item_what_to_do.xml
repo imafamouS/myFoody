@@ -28,6 +28,7 @@
                 android:id="@+id/image_view_pic_food_1"
                 android:layout_width="match_parent"
                 android:layout_height="135dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/icon_user_tab_pay" />
 
             <TextView

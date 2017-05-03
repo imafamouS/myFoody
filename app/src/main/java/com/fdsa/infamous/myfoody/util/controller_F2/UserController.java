@@ -1,7 +1,6 @@
 package com.fdsa.infamous.myfoody.util.controller_F2;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.util.asynctask.MyFoodyGetMethod;
@@ -39,7 +38,6 @@ public class UserController {
         url="user/register";
 
         JsonObject output=new MyFoodyPostMethod(loginJson, context).execute(url).get();
-        Log.d("TTTTT",output.toString());
         if(output.get("success").toString().equals("true")){
            return true;
         }
@@ -49,7 +47,6 @@ public class UserController {
         url="user/update";
 
         JsonObject output=new MyFoodyPostMethod(updateJson, context).execute(url).get();
-        Log.d("TTTTT",output.toString());
         if(output.get("success").toString().equals("true")){
             return true;
         }
@@ -60,7 +57,6 @@ public class UserController {
         url+="&token="+token;
 
         JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
-        Log.d("TTTTT",output.toString());
         UserBean user=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();
@@ -72,7 +68,6 @@ public class UserController {
         url="user/changepass";
 
         JsonObject output=new MyFoodyPostMethod(input, context).execute(url).get();
-        Log.d("TTTTT",output.toString());
         if(output.get("success").toString().equals("true")){
             return true;
         }

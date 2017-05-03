@@ -154,13 +154,17 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
             text_view_add_res_1.setText(food.getAddress_res());
             //image_view_avatar_user_food_1
             if (food.getListComment() != null && food.getListComment().size()>0) {
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+food.getListComment().get(0).getUser().getAvatar()).into(image_view_avatar_user_food_1);
+                if(food.getListComment().get(0).getUser()!=null){
+                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE+food.getListComment().get(0).getUser().getAvatar()).into(image_view_avatar_user_food_1);
+                    text_view_name_user_food_1.setVisibility(View.VISIBLE);
+                    text_view_day_user_food_1.setVisibility(View.VISIBLE);
 
-                text_view_name_user_food_1.setVisibility(View.VISIBLE);
-                text_view_day_user_food_1.setVisibility(View.VISIBLE);
+                    text_view_name_user_food_1.setText(food.getListComment().get(0).getUser().getName());
+                    text_view_day_user_food_1.setText(food.getListComment().get(0).getComment());
+                }
 
-                text_view_name_user_food_1.setText(food.getListComment().get(0).getUser().getName());
-                text_view_day_user_food_1.setText(food.getListComment().get(0).getComment());
+
+
             } else {
                 text_view_name_user_food_1.setVisibility(View.GONE);
                 text_view_day_user_food_1.setVisibility(View.GONE);

@@ -1,5 +1,6 @@
-package com.fdsa.infamous.myfoody.ui.menu.activity;
+package com.fdsa.infamous.myfoody.ui.menu.activity.userprofile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.ui.menu.activity.gallery.GalleryFolderActivity;
+import com.fdsa.infamous.myfoody.util.permission.PermissionUtil;
 
 /**
  * Created by apple on 5/1/17.
@@ -23,19 +26,23 @@ public class ChangeAvatarActivity extends AppCompatActivity implements View.OnCl
     LinearLayout linear_layout_change_avatar;
     LinearLayout linear_layout_change_cover;
     TextView text_view_save_change;
+    LinearLayout back_button_change_avatar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_avatar_user);
 
+        back_button_change_avatar=(LinearLayout)findViewById(R.id.back_button_change_avatar);
         linear_layout_change_avatar=(LinearLayout)findViewById(R.id.linear_layout_change_avatar);
         linear_layout_change_cover=(LinearLayout)findViewById(R.id.linear_layout_change_cover);
         text_view_save_change=(TextView)findViewById(R.id.text_view_save_change);
 
+
         linear_layout_change_avatar.setOnClickListener(this);
         linear_layout_change_cover.setOnClickListener(this);
         text_view_save_change.setOnClickListener(this);
+        back_button_change_avatar.setOnClickListener(this);
     }
 
     private void showPopup(View v) {
@@ -50,7 +57,14 @@ public class ChangeAvatarActivity extends AppCompatActivity implements View.OnCl
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.select_from_gallery:
-                    break;
+                    if(PermissionUtil.isReadWritePermission(ChangeAvatarActivity.this.getApplicationContext())){
+                        Intent intent=new Intent(ChangeAvatarActivity.this, GalleryFolderActivity.class);
+                        intent.putExtra("mode",GalleryFolderActivity.SINGLE_SELECT);
+                        startActivity(intent);
+                        return true;
+                    }
+                    PermissionUtil.marshmallowReadWritePermissionCheck(ChangeAvatarActivity.this);
+                    return true;
                 case R.id.select_from_camera:
                     break;
             }
@@ -58,9 +72,14 @@ public class ChangeAvatarActivity extends AppCompatActivity implements View.OnCl
         }
     };
 
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.back_button_change_avatar:
+                finish();
+                break;
             case R.id.linear_layout_change_avatar:
                 showPopup(v);
                 break;

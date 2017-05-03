@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -435,8 +434,6 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
             String id_restype = getIdTabSelected(Type.CATEGORY);
 
             String id_newest = getIdTabSelected(Type.LATEST);
-            Log.d("DISTRICT_TEST",id_district);
-
 
             foodList = foodController.getListFood(id_province, id_district,id_street, id_restype, id_newest);
 

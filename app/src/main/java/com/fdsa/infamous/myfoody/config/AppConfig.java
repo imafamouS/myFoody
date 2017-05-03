@@ -9,32 +9,19 @@ package com.fdsa.infamous.myfoody.config;
  **/
 public class AppConfig {
 
-    /**
-     * Giá trị của requestcode khi thay đổi tỉnh thành
-     **/
     public static final int REQUEST_CODE_CHANGE_PROVINCE = 1;
-
-    /**
-     * Giá trị của resultcode khi thay đổi tỉnh thành
-     **/
     public static final int RESULT_CODE_CHANGE_PROVINCE = -REQUEST_CODE_CHANGE_PROVINCE;
 
-    /**
-     * Giá trị của requestcode khi login
-     **/
     public static final int REQUEST_CODE_LOGIN = 2;
-
-    /**
-     * Giá trị của requestcode khi login
-     **/
     public static final int RESULT_CODE_LOGIN = -REQUEST_CODE_LOGIN;
 
     public static final int REQUEST_CODE_REGISTER=3;
-
     public static final int RESULT_CODE_REGISTER=-REQUEST_CODE_REGISTER;
 
     public static  final int REQUEST_CODE_CHANGE_INFO_1=4;
     public static  final int RESULT_CODE_CHANGE_INFO_1=-REQUEST_CODE_CHANGE_INFO_1;
+
+    public static  final int REQUEST_READ_WRITE_PERMISSION_CODE=5;
 
     /**
      * Tên của icon mặc định nếu ảnh khi load không tồn tại

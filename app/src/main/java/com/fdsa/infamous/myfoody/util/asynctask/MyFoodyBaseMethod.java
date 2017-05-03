@@ -3,7 +3,6 @@ package com.fdsa.infamous.myfoody.util.asynctask;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
 import com.fdsa.infamous.myfoody.util.JsonHTTPHelper;
@@ -37,7 +36,6 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
     @Override
     protected void onPostExecute(JsonObject jsonObject) {
         super.onPostExecute(jsonObject);
-        Log.d("POST_EXECUTE", jsonObject.toString());
     }
 
     @Override

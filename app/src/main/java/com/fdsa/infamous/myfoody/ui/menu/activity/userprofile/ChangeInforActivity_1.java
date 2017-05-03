@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.menu.activity;
+package com.fdsa.infamous.myfoody.ui.menu.activity.userprofile;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -201,7 +201,7 @@ public class ChangeInforActivity_1 extends AppCompatActivity implements View.OnC
                 finish();
 
             } else {
-                Toast.makeText(getApplicationContext(), "FAILLL", Toast.LENGTH_SHORT).show();
+
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -270,7 +270,8 @@ public class ChangeInforActivity_1 extends AppCompatActivity implements View.OnC
     }
 
     private void updateBirthDay() {
-        this.text_view_date_of_birth.setText(String.format("%d/%d/%d", new Object[]{Integer.valueOf(this.dayofmonth), Integer.valueOf(this.month), Integer.valueOf(this.year)}));
+        this.text_view_date_of_birth.setText(String.format("%d/%d/%d",
+                new Object[]{Integer.valueOf(this.dayofmonth), Integer.valueOf(this.month), Integer.valueOf(this.year)}));
     }
 
     private int checkDateValid(int value, int type) {

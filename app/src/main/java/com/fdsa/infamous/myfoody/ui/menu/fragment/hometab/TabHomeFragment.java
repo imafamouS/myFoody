@@ -23,8 +23,8 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     TopMenuBarFragment mTopMenuBarFragment;
     Context context;
     LinearLayout linear_layout_top_menu_bar;
-    WhereToGoFragment whereToGoFragment;
-    WhatToDoFragment whatToDoFragment;
+   public  WhereToGoFragment whereToGoFragment;
+    public    WhatToDoFragment whatToDoFragment;
     ViewPager viewPager;
     LinearLayout linear_layout_home_fragment_menu_parent;
 

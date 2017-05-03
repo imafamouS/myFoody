@@ -1,11 +1,10 @@
-package com.fdsa.infamous.myfoody.ui.menu.activity;
+package com.fdsa.infamous.myfoody.ui.menu.activity.userprofile;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -93,7 +92,6 @@ public class LoginByEmailActivity extends AppCompatActivity implements View.OnCl
             if (out != null) {
                 GlobalStaticData.LOGINFLAG = true;
                 GlobalStaticData.setCurrentUser(out);
-                Log.d("CURRENT USER",out.toString());
                 Intent intent = new Intent();
                 intent.putExtra("result_login_success", true);
                 setResult(AppConfig.RESULT_CODE_LOGIN, intent);

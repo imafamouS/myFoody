@@ -2,11 +2,10 @@ package com.fdsa.infamous.myfoody.util.controller_F1;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
+import com.fdsa.infamous.myfoody.common.bean_F1.Comment;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.util.database.DataAccess;
-import com.fdsa.infamous.myfoody.common.bean_F1.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,6 @@ public class CommentController extends DataAccess {
             cursor.close();
             this.close();
         }
-        Log.d(TAG, "Get list ok");
 
         return list;
     }

@@ -36,8 +36,8 @@ public class RestaurantController {
         if(wheretype!=null&&!wheretype.equals("")){
             url+="&wheretype="+wheretype;
         }
-        if(sorttype!=null&&!sorttype.equals("")){
-            url+="&sort="+sorttype;
+        if(sorttype!=null&&!sorttype.equals("")) {
+            url += "&sort=" + sorttype;
         }
         Log.d("URL",url);
         JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();

@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.ui.menu.activity;
+package com.fdsa.infamous.myfoody.ui.menu.activity.userprofile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,11 +111,9 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
     //Hàm thay đổi vị trí các tab
     public void setNotify(int currentPageIndex) {
         if (tab_where2go_top_menu == null || tab_what2do_top_menu == null) {
-            Log.d("NULL", "null");
             return;
         }
 
-        Log.d("RUNNNIN", "Index: " + currentPageIndex + "");
         if (currentPageIndex == 0) {
             tab_where2go_top_menu.select();
             return;

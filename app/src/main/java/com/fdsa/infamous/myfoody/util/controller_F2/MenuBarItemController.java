@@ -1,7 +1,6 @@
 package com.fdsa.infamous.myfoody.util.controller_F2;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.config.api.APIAction;
@@ -33,7 +32,6 @@ public class MenuBarItemController {
     }
     public List<MenuBarItemBean> getListMenuBar_Category() throws ExecutionException, InterruptedException {
         JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
-        Log.d("OUTTTTTT0",output.toString());
         List<MenuBarItemBean> menuBarItemList=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();

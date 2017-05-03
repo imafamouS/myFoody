@@ -16,15 +16,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fdsa.infamous.myfoody.common.bean_F2.ProvinceBean;
-import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.common.bean_F2.ProvinceBean;
+import com.fdsa.infamous.myfoody.common.myinterface.IOnSetDefaultProvince;
+import com.fdsa.infamous.myfoody.ui.menu.adapter.ChooseProvinceAdapter;
 import com.fdsa.infamous.myfoody.util.controller_F2.ProvinceController;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
-import com.fdsa.infamous.myfoody.ui.menu.adapter.ChooseProvinceAdapter;
-import com.fdsa.infamous.myfoody.common.myinterface.IOnSetDefaultProvince;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -166,7 +164,7 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         // Toast.makeText(getApplicationContext(),GlobalStaticData.getCurrentProvince_What2do().getTitleProvince(),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
         intent.putExtra("changed_province", true);
-        setResult(AppConfig.RESULT_CODE_CHANGE_PROVINCE, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

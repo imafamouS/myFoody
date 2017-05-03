@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import com.fdsa.infamous.myfoody.common.myinterface.IRestaurantItemClick;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.config.api.APIAction;
 import com.fdsa.infamous.myfoody.ui.menu.activity.ChooseProvinceActivity;
-import com.fdsa.infamous.myfoody.ui.menu.activity.LoginChooserActivity;
+import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.LoginChooserActivity;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.ChooseDistrictAdapter;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.HomeWhereToGoAdapter;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.MenuBarAdapter;
@@ -296,7 +295,6 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == AppConfig.RESULT_CODE_CHANGE_PROVINCE) {
-
             if (data.getBooleanExtra("changed_province", false) == true) {
                 currentProvinceBean = GlobalStaticData.getCurrentProvinceBean();
 
@@ -729,7 +727,6 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
                 list.get(posSelected).setSelected(true);
             }
         }
-        Log.d("TAG_CATEGORY",list.size()+"");
         return list;
     }
 

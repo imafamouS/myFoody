@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,18 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ui.menu.activity.DomainActivity"></activity>
         <activity android:name=".ui.menu.activity.ChooseProvinceActivity"></activity>
-        <activity android:name=".ui.menu.activity.LoginChooserActivity" android:launchMode="standard"></activity>
-        <activity android:name=".ui.menu.activity.LoginByEmailActivity" ></activity>
-        <activity android:name=".ui.menu.activity.RegisterActivity" ></activity>
-        <activity android:name=".ui.menu.activity.ChangeInforActivity_1" android:launchMode="standard"></activity>
-        <activity android:name=".ui.menu.activity.ChangeInforActivity_2" android:launchMode="standard"></activity>
-        <activity android:name=".ui.menu.activity.ChangeAvatarActivity"></activity>
-        <activity android:name=".ui.menu.activity.ChangePasswordActivity"></activity>
-
+        <activity android:name=".ui.menu.activity.userprofile.LoginChooserActivity"></activity>
+        <activity android:name=".ui.menu.activity.userprofile.LoginByEmailActivity"></activity>
+        <activity android:name=".ui.menu.activity.userprofile.RegisterActivity"></activity>
+        <activity android:name=".ui.menu.activity.userprofile.ChangeInforActivity_1"></activity>
+        <activity android:name=".ui.menu.activity.userprofile.ChangeInforActivity_2"></activity>
+        <activity android:name=".ui.menu.activity.userprofile.ChangeAvatarActivity"></activity>
+        <activity android:name=".ui.menu.activity.userprofile.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.menu.activity.gallery.GalleryFolderActivity"></activity>
+        <activity android:name=".ui.menu.activity.gallery.GalleryFileActivity"></activity>
     </application>
     <meta-data
         android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"

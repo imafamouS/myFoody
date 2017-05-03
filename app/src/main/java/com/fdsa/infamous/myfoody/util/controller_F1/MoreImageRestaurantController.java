@@ -2,7 +2,6 @@ package com.fdsa.infamous.myfoody.util.controller_F1;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.fdsa.infamous.myfoody.util.database.DataAccess;
 
@@ -59,7 +58,6 @@ public class MoreImageRestaurantController extends DataAccess {
             cursor.close();
             this.close();
         }
-        Log.d(TAG, "get list ok");
 
         return list;
     }

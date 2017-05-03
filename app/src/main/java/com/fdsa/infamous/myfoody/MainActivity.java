@@ -1,6 +1,5 @@
 package com.fdsa.infamous.myfoody;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,11 +7,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.collectiontab.ColectionTabFragment;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.hometab.TabHomeFragment;
 import com.fdsa.infamous.myfoody.ui.menu.fragment.notifytab.NotifyTabFragment;
@@ -46,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     }
+
     /***
      * Hàm bắt sự kiện Activity dược khởi tạo (Khởi tạo layout cho activity)
      *
@@ -99,26 +97,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationMenu.enableItemShiftingMode(false); //Ẩn đi hiệu hứng chuyển tab
 
 
-
         menu = bottomNavigationMenu.getMenu();
 
         setTab(0);
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener(this);
         this.onNavigationItemSelected(bottomNavigationMenu.getMenu().getItem(0));
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if(resultCode== AppConfig.RESULT_CODE_LOGIN){
-            this.onNavigationItemSelected(bottomNavigationMenu.getMenu().getItem(4));
-            userTab.onTabVisible();
-        }else if(resultCode==AppConfig.RESULT_CODE_CHANGE_INFO_1){
-            Log.d("MAINACTIVITY",GlobalStaticData.getCurrentUser().toString());
-            userTab.onTabVisible();
-        }
-
     }
 
     /***
@@ -163,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 //change the icon
                 setTab(4);
                 transaction.show(userTab);
+                userTab.onTabVisible();
                 break;
             default:
                 break;

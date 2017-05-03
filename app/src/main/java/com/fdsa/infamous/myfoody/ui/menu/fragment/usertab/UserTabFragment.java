@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,9 @@ import android.widget.TextView;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.config.AppConfig;
-import com.fdsa.infamous.myfoody.ui.menu.activity.ChangeInforActivity_1;
-import com.fdsa.infamous.myfoody.ui.menu.activity.ChangeInforActivity_2;
-import com.fdsa.infamous.myfoody.ui.menu.activity.LoginChooserActivity;
+import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.ChangeInforActivity_1;
+import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.ChangeInforActivity_2;
+import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.LoginChooserActivity;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 
 /**
@@ -66,6 +65,11 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
         return v;
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -136,7 +140,6 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
         if (GlobalStaticData.getCurrentUser() != null) {
             linear_layout_logout.setVisibility(View.VISIBLE);
             user = GlobalStaticData.getCurrentUser();
-            Log.d("TAG_USER", user.toString());
             textView7.setText(user.getName());
             return;
         }
