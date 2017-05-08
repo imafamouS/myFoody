@@ -49,4 +49,17 @@ public class RestaurantController {
         return restaurantList;
 
     }
+    public RestaurantBean getRestaurantById(String id) throws ExecutionException, InterruptedException {
+        url="api/restaurant/getbyid/"+id;
+        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        RestaurantBean restaurant=new RestaurantBean();
+        if(output.get("success").toString().equals("true")){
+            Gson gson = new Gson();
+            restaurant=gson.fromJson(output.get("data"), RestaurantBean.class);
+        }
+
+        Log.d("TAGGGG_RES",output.toString());
+        return restaurant;
+
+    }
 }

@@ -17,6 +17,8 @@ import com.fdsa.infamous.myfoody.config.api.APIConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by FDSA on 4/8/2017.
  */
@@ -123,7 +125,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
         private TextView text_view_name_food_1;
         private TextView text_view_name_res_1;
         private TextView text_view_add_res_1;
-        private ImageView image_view_avatar_user_food_1;
+        private CircleImageView image_view_avatar_user_food_1;
         private TextView text_view_name_user_food_1;
         private TextView text_view_day_user_food_1;
 
@@ -136,7 +138,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
             text_view_name_food_1 = (TextView) item.findViewById(R.id.text_view_name_food_1);
             text_view_name_res_1 = (TextView) item.findViewById(R.id.text_view_name_res_1);
             text_view_add_res_1 = (TextView) item.findViewById(R.id.text_view_add_res_1);
-            image_view_avatar_user_food_1 = (ImageView) item.findViewById(R.id.image_view_avatar_user_food_1);
+            image_view_avatar_user_food_1 = (CircleImageView) item.findViewById(R.id.image_view_avatar_user_food_1);
             text_view_name_user_food_1 = (TextView) item.findViewById(R.id.text_view_name_user_food_1);
             text_view_day_user_food_1 = (TextView) item.findViewById(R.id.text_view_day_user_food_1);
         }

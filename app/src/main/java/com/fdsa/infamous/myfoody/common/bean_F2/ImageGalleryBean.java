@@ -60,4 +60,12 @@ public class ImageGalleryBean  implements Parcelable {
             return new ImageGalleryBean[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ImageGalleryBean{" +
+                "path='" + path + '\'' +
+                ", isSelected=" + isSelected +
+                '}';
+    }
 }

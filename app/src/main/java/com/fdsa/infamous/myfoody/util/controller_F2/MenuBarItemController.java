@@ -1,6 +1,7 @@
 package com.fdsa.infamous.myfoody.util.controller_F2;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.config.api.APIAction;
@@ -19,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 public class MenuBarItemController {
     private String url;
     private Context context;
-    public MenuBarItemController(Context context, int action){
+    public MenuBarItemController(Context context,@Nullable int action){
         this.context=context;
 
         if(action== APIAction.GET_CATEGORY_WHAT2DO){
@@ -38,5 +39,23 @@ public class MenuBarItemController {
             menuBarItemList=gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>(){}.getType());
         }
        return menuBarItemList;
+    }
+    public List<MenuBarItemBean> getListMenuBar_WHERE() throws ExecutionException, InterruptedException {
+        JsonObject output=new MyFoodyGetMethod(null, context).execute("api/menubar/get/category_where2go").get();
+        List<MenuBarItemBean> menuBarItemList=null;
+        if(output.get("success").toString().equals("true")){
+            Gson gson = new Gson();
+            menuBarItemList=gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>(){}.getType());
+        }
+        return menuBarItemList;
+    }
+    public List<MenuBarItemBean> getListMenuBar_WHHAT() throws ExecutionException, InterruptedException {
+        JsonObject output=new MyFoodyGetMethod(null, context).execute("api/menubar/get/category_what2do").get();
+        List<MenuBarItemBean> menuBarItemList=null;
+        if(output.get("success").toString().equals("true")){
+            Gson gson = new Gson();
+            menuBarItemList=gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>(){}.getType());
+        }
+        return menuBarItemList;
     }
 }

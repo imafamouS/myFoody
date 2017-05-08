@@ -63,11 +63,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         image_view_background=(ImageView)findViewById(R.id.image_view_background);
 
-        if(GlobalStaticData.BACKGROUND_LOGIN==null){
-            GlobalStaticData.BACKGROUND_LOGIN=GlobalFunction.decodeSampledBitmapFromResource(getResources(), R.drawable.img_background_login, 500, 500);
-        }
-        image_view_background.setImageBitmap(GlobalStaticData.BACKGROUND_LOGIN);
-
         linear_layout_back_button_register.setOnClickListener(this);
         text_view_register.setOnClickListener(this);
         text_view_login_register.setOnClickListener(this);

@@ -4,13 +4,20 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.fdsa.infamous.myfoody.R;
+import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.UUID;
 
 /**
  * Created by FDSA on 4/2/2017.
@@ -70,5 +77,50 @@ public class GlobalFunction {
         }
 
         return inSampleSize;
+    }
+    public static JsonObject createImageInputObject(String path) {
+        JsonObject outputObject = null;
+
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(myBitmap, 500, 500, true);
+        //File directory = new File(path);
+        //InputStream inputStream = new FileInputStream(directory);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        scaledBitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] byteArray = bos.toByteArray();
+
+
+        String str = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+
+        outputObject = new JsonObject();
+
+        outputObject.addProperty("id", UUID.randomUUID().toString());
+
+        outputObject.addProperty("image", str);
+
+
+        return outputObject;
+    }
+    public static boolean isRestaurantOpening(String opentime,String closetime){
+
+        try {
+            SimpleDateFormat format=new SimpleDateFormat("hh:mm");
+            Calendar calendar1= Calendar.getInstance();
+            calendar1.setTime(format.parse("9:0"));
+            Calendar calendar2=Calendar.getInstance();
+            calendar2.setTime(format.parse("21:50"));
+            Calendar currentTime=Calendar.getInstance();
+            currentTime.setTime(format.parse(currentTime.get(Calendar.HOUR_OF_DAY) + ":" + currentTime.get(Calendar.MINUTE)));
+
+            if(currentTime.compareTo(calendar1)>0 && currentTime.compareTo(calendar2)<0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

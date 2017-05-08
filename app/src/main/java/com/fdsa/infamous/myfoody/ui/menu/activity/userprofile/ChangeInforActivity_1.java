@@ -227,6 +227,7 @@ public class ChangeInforActivity_1 extends AppCompatActivity implements View.OnC
         alertDialogBuilder.show();
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

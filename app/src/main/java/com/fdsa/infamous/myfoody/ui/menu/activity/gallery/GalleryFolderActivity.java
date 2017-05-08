@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.FolderGalleryBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.ImageGalleryBean;
+import com.fdsa.infamous.myfoody.config.AppConfig;
 
 import java.util.ArrayList;
 
@@ -125,6 +126,21 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
 
         return list;
     }
+    ArrayList<ImageGalleryBean> imageGalleryBeen;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode== AppConfig.RESULT_CODE_MULTISELECT||
+                resultCode== AppConfig.RESULT_CODE_SINGLESELECT){
+            imageGalleryBeen=data.getParcelableArrayListExtra("images");
+        }
+    }
+    public void sendData(){
+        Intent intent=new Intent();
+        intent.putParcelableArrayListExtra("images",imageGalleryBeen);
+        setResult(AppConfig.RESULT_CODE_FROM_GALLERY_FOLDER,intent);
+        finish();
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -132,13 +148,14 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
         intent.putExtra("namefolder", ((FolderGalleryBean) this.adapter.getItem(position)).getFolder());
         intent.putExtra("mode", this.mode);
         intent.putParcelableArrayListExtra("data", ((FolderGalleryBean) this.adapter.getItem(position)).getImageInFolder());
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.text_view_done:
+                sendData();
                 break;
             case R.id.back_button_gallery:
                 finish();

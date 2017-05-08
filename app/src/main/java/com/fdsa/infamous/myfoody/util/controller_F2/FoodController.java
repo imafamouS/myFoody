@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.fdsa.infamous.myfoody.common.bean_F2.FoodBean;
-import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.util.asynctask.MyFoodyGetMethod;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -38,6 +37,7 @@ public class FoodController {
         if(sorttype!=null&&!sorttype.equals("")){
             url+="&sort="+sorttype;
         }
+        Log.d("FOOD",url);
 
         JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
 

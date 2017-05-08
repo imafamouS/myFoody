@@ -1,6 +1,7 @@
 package com.fdsa.infamous.myfoody.ui.menu.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.fdsa.infamous.myfoody.config.api.APIConfig;
 import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by FDSA on 4/8/2017.
@@ -116,7 +119,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         RestaurantBean item = this.restaurantList.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(this.context).inflate(R.layout.restaurent_item_where_to_go, parent, false);
-            holder = new RestaurentViewHolder(convertView,restaurantItemClick);
+            holder = new RestaurentViewHolder(convertView,restaurantItemClick,position);
             convertView.setTag(holder);
         } else {
             holder = (RestaurentViewHolder) convertView.getTag();
@@ -142,12 +145,12 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         private ImageView image_view_sub_img_res_3;
         private LinearLayout linear_layout_parent_comment_res;
         private LinearLayout linear_layout_sub_comment_res_1;
-        private ImageView image_view_avatar_comment_1;
+        private CircleImageView image_view_avatar_comment_1;
         private TextView text_view_name_user_1;
         private TextView text_view_user_rate_1;
         private TextView text_view_comment_1;
         private LinearLayout linear_layout_sub_comment_res_2;
-        private ImageView image_view_avatar_comment_2;
+        private CircleImageView image_view_avatar_comment_2;
         private TextView text_view_name_user_2;
         private TextView text_view_user_rate_2;
         private TextView text_view_comment_2;
@@ -155,10 +158,18 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         private LinearLayout linear_layout_num_of_photo;
         private TextView text_view_num_of_review;
         private TextView text_view_num_of_photo;
-        private String requestReview;
+
+        private TextView text_status_res;
+        private TextView image_status_res;
         private IRestaurantItemClick restaurantItemClick;
+
+        private String requestReview;
+        private String resOpen;
+        private String resClose;
+
+        private int position;
         //Hàm khởi tạo
-        public RestaurentViewHolder(View item,IRestaurantItemClick restaurantItemClick) {
+        public RestaurentViewHolder(View item,IRestaurantItemClick restaurantItemClick,int position) {
             this.item = item;
             this.restaurantItemClick=restaurantItemClick;
             initView(item);
@@ -186,13 +197,13 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             linear_layout_parent_comment_res = (LinearLayout) item.findViewById(R.id.linear_layout_parent_comment_res);
 
             linear_layout_sub_comment_res_1 = (LinearLayout) item.findViewById(R.id.linear_layout_sub_comment_res_1);
-            image_view_avatar_comment_1 = (ImageView) item.findViewById(R.id.image_view_avatar_comment_1);
+            image_view_avatar_comment_1 = (CircleImageView) item.findViewById(R.id.image_view_avatar_comment_1);
             text_view_name_user_1 = (TextView) item.findViewById(R.id.text_view_name_user_1);
             text_view_user_rate_1 = (TextView) item.findViewById(R.id.text_view_user_rate_1);
             text_view_comment_1 = (TextView) item.findViewById(R.id.text_view_comment_1);
 
             linear_layout_sub_comment_res_2 = (LinearLayout) item.findViewById(R.id.linear_layout_sub_comment_res_2);
-            image_view_avatar_comment_2 = (ImageView) item.findViewById(R.id.image_view_avatar_comment_2);
+            image_view_avatar_comment_2 = (CircleImageView) item.findViewById(R.id.image_view_avatar_comment_2);
             text_view_name_user_2 = (TextView) item.findViewById(R.id.text_view_name_user_2);
             text_view_user_rate_2 = (TextView) item.findViewById(R.id.text_view_user_rate_2);
             text_view_comment_2 = (TextView) item.findViewById(R.id.text_view_comment_2);
@@ -203,13 +214,19 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             text_view_num_of_photo = (TextView) item.findViewById(R.id.text_view_num_of_photo);
 
             requestReview = item.getResources().getString(R.string.REQUEST_REVIEW);
+            resOpen=item.getResources().getString(R.string.RES_OPEN);
+            resClose=item.getResources().getString(R.string.RES_CLOSE);
+
+            text_status_res=(TextView)item.findViewById(R.id.text_status_res);
+            image_status_res=(TextView)item.findViewById(R.id.image_status_res);
+
 
             layout_parent_restaurant.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            restaurantItemClick.RestaurantItemCLick();
+            restaurantItemClick.RestaurantItemCLick(this.position);
         }
 
         //Hàm hiện dữ liệu lên view
@@ -329,6 +346,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         private void loadComment1(CommentResBean comment1) {
             if(comment1.getUser()!=null ){
                 if(comment1.getUser().getAvatar()!=null){
+                    Log.d("TAG_COMMENT1_AVATAR",comment1.getUser().getAvatar());
                     Glide.with(context).load(APIConfig.BASE_URL_IMAGE+comment1.getUser().getAvatar()).into(image_view_avatar_comment_1);
                 }
 
@@ -367,6 +385,13 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
                 text_view_num_of_photo.setText(numOfPhoto);
             }
 
+            if(GlobalFunction.isRestaurantOpening(restaurant.getOpenTime(),restaurant.getCloseTime())){
+                text_status_res.setText(resOpen);
+                image_status_res.setBackgroundResource(R.drawable.border_circle_rate);
+            }else{
+                text_status_res.setText(resClose);
+                image_status_res.setBackgroundResource(R.drawable.border_circle_not_open);
+            }
 
         }
     }

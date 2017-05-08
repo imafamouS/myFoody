@@ -23,6 +23,12 @@ public class AppConfig {
 
     public static  final int REQUEST_READ_WRITE_PERMISSION_CODE=5;
 
+    public static  final int RESULT_CODE_MULTISELECT=11;
+    public static  final int RESULT_CODE_SINGLESELECT=12;
+    public static  final int RESULT_CODE_FROM_GALLERY_FOLDER=13;
+
+    public static  final int REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE=14;
+    public static  final int RESULT_CODE_LOGIN_TO_ADD_NEW_PLACE=-14;
     /**
      * Tên của icon mặc định nếu ảnh khi load không tồn tại
      **/

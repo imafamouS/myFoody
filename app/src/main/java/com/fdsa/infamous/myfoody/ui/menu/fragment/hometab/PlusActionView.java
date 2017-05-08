@@ -1,9 +1,10 @@
-package com.fdsa.infamous.myfoody.ui.menu.views;
+package com.fdsa.infamous.myfoody.ui.menu.fragment.hometab;
 
 /**
  * Created by FDSA on 3/24/2017.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.config.AppConfig;
+import com.fdsa.infamous.myfoody.ui.menu.activity.AddNewPlaceActivity;
+import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.LoginChooserActivity;
+import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 
 public class PlusActionView extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -51,6 +56,13 @@ public class PlusActionView extends BottomSheetDialogFragment implements View.On
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE){
+            linear_layout_add_place_plus_menu.performClick();
+        }
+    }
+
     /***
      * Hàm bắt sự kiện khi click các menu của PlusActionView
      *
@@ -61,23 +73,31 @@ public class PlusActionView extends BottomSheetDialogFragment implements View.On
         String str = "You clicked ";
         switch (v.getId()) {
             case R.id.linear_layout_add_place_plus_menu:
-                str = str + "Thêm địa điểm";
+                if(GlobalStaticData.isLogined()){
+                    getActivity().startActivity(new Intent(this.getActivity(), AddNewPlaceActivity.class));
+                }else{
+                    startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE);
+                }
                 break;
             case R.id.linear_layout_checkin_plus_menu:
                 str = str + "Checkin";
+                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_ecoupon_plus_menu:
                 str = str + "Ecoupon";
+                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_review_plus_menu:
                 str = str + "Viết bình luận";
+                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_upload_image_plus_menu:
                 str = str + "Đăng ảnh";
+                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
-        Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+
     }
 }

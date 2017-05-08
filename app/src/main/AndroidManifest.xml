@@ -19,18 +19,48 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ui.menu.activity.DomainActivity"></activity>
-        <activity android:name=".ui.menu.activity.ChooseProvinceActivity"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.LoginChooserActivity"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.LoginByEmailActivity"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.RegisterActivity"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.ChangeInforActivity_1"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.ChangeInforActivity_2"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.ChangeAvatarActivity"></activity>
-        <activity android:name=".ui.menu.activity.userprofile.ChangePasswordActivity"></activity>
-        <activity android:name=".ui.menu.activity.gallery.GalleryFolderActivity"></activity>
-        <activity android:name=".ui.menu.activity.gallery.GalleryFileActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.DomainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.ChooseProvinceActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.LoginChooserActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.LoginByEmailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.RegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.ChangeInforActivity_1"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.ChangeInforActivity_2"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.ChangeAvatarActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.userprofile.ChangePasswordActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.gallery.GalleryFolderActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.gallery.GalleryFileActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.RestaurantDetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.menu.activity.AddNewPlaceActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
     <meta-data
         android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"

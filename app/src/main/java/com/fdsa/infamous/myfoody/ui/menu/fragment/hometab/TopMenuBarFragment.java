@@ -18,7 +18,6 @@ import com.fdsa.infamous.myfoody.MainActivity;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.myinterface.IOnTopMenuBarChange;
 import com.fdsa.infamous.myfoody.ui.menu.activity.DomainActivity;
-import com.fdsa.infamous.myfoody.ui.menu.views.PlusActionView;
 
 /**
  * Created by FDSA on 3/26/2017.

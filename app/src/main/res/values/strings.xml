@@ -98,6 +98,23 @@
     <string name="TEXT_YES">Có</string>
     <string name="TEXT_NO">Không</string>
     <string name="TEXT_PERMISSION_STORAGE">"Truy cập ảnh, phương tiện và tệp trên thiết bị của bạn"</string>
+    <string name="TEXT_UPDATE_INFO_SUCCESS_AVATAR">Cập nhật tài khoản thành công</string>
 
+    <string name="TEXT_CHOOSE_PROVINCE">Chọn Tỉnh/Thành phố</string>
+    <string name="TEXT_CHOOSE_DISTRICT">Chọn quận</string>
+    <string name="TEXT_REQUIRED_INFORMATION">Thông tin bắt buộc</string>
+    <string name="TEXT_BUSSINESS_NAME">Tên địa điểm *</string>
+    <string name="TEXT_BUSSINESS_TYPE">Loại hình địa điểm *</string>
+    <string name="TEXT_ADDRESS">Địa chỉ *</string>
+    <string name="TEXT_MORE_INFO">Thông tin khác</string>
+    <string name="TEXT_MAP_LOCATION">Vị trí bản đồ</string>
+    <string name="TEXT_OPEN_TIME">Giờ mở cửa</string>
+    <string name="TEXT_PRICE">Mức giá</string>
+    <string name="TEXT_MIN_PRICE">Giá thấp nhất</string>
+    <string name="TEXT_MAX_PRICE">Giá cao nhất</string>
+    <string name="TEXT_SHORT_DESCRIPTION">Mô tả ngắn</string>
+    <string name="TEXT_ADD_NEW_PLACE">Thêm địa điểm</string>
+    <string name="TEXT_ACTION_SEND">Gửi</string>
+    <string name="TEXT_PHONE_NUMBER">Số điện thoại</string>
 
 </resources>

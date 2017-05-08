@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/black"
 
     >
     <ImageView
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"/>¬
     <LinearLayout
         android:id="@+id/linear_layout_login_with"
         android:layout_width="fill_parent"

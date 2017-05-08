@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.config.AppConfig;
-import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
-import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 
 /**
  * Created by apple on 4/25/17.
@@ -74,10 +72,10 @@ public class LoginChooserActivity extends AppCompatActivity implements View.OnCl
 
         text_view_button_register.setOnClickListener(this);
 
-        if(GlobalStaticData.BACKGROUND_LOGIN==null){
-            GlobalStaticData.BACKGROUND_LOGIN=GlobalFunction.decodeSampledBitmapFromResource(getResources(), R.drawable.img_background_login, 500, 500);
-        }
-        image_view_background.setImageBitmap(GlobalStaticData.BACKGROUND_LOGIN);
+//        if(GlobalStaticData.BACKGROUND_LOGIN==null){
+//            GlobalStaticData.BACKGROUND_LOGIN=GlobalFunction.decodeSampledBitmapFromResource(getResources(), R.drawable.img_background_login, 500, 500);
+//        }
+//        image_view_background.setImageBitmap(GlobalStaticData.BACKGROUND_LOGIN);
 
 
     }

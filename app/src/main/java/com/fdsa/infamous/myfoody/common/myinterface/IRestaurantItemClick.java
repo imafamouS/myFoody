@@ -5,5 +5,5 @@ package com.fdsa.infamous.myfoody.common.myinterface;
  */
 
 public interface IRestaurantItemClick {
-    void RestaurantItemCLick();
+    void RestaurantItemCLick(int position);
 }

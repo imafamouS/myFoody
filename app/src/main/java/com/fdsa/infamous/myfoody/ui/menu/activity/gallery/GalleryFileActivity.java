@@ -1,5 +1,6 @@
 package com.fdsa.infamous.myfoody.ui.menu.activity.gallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.ImageGalleryBean;
 import com.fdsa.infamous.myfoody.common.myinterface.IOnClickImage;
+import com.fdsa.infamous.myfoody.config.AppConfig;
 
 import java.util.ArrayList;
 
@@ -105,8 +107,12 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void showData() {
-
+    private void sendData() {
+        ArrayList<ImageGalleryBean> selectedImage=this.adapter.imageSelected;
+        Intent intent=new Intent();
+        intent.putParcelableArrayListExtra("images",selectedImage);
+        setResult(this.mode==GalleryFolderActivity.SINGLE_SELECT? AppConfig.RESULT_CODE_SINGLESELECT:AppConfig.RESULT_CODE_MULTISELECT,intent);
+        finish();
     }
 
     @Override
@@ -116,7 +122,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
             case R.id.text_view_done:
-                //
+                sendData();
                 break;
             default:
                 break;

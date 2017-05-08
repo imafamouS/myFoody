@@ -73,5 +73,18 @@ public class UserController {
         }
         return false;
     }
+    public synchronized boolean changeAvatar(JsonObject input,int action,String token)throws ExecutionException, InterruptedException {
+        if(action==0){
+            url="user/changeavatar";
+        }else if(action==1){
+            url="user/changecover";
+        }
+        url+="?token="+token;
+        JsonObject output=new MyFoodyPostMethod(input, context).execute(url).get();
+        if(output.get("success").toString().equals("true")){
+            return true;
+        }
+        return false;
+    }
 
 }

@@ -63,13 +63,14 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
         onTabVisible();
 
         return v;
-
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==AppConfig.REQUEST_CODE_LOGIN ||resultCode==AppConfig.RESULT_CODE_CHANGE_INFO_1){
+            reload();
+            this.onTabVisible();
+        }
     }
 
     @Override

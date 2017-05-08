@@ -220,7 +220,11 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
             this.list_view_city.collapseGroup(groupPosition);
         } else {
             isStreetShow=true;
-            this.list_view_city.expandGroup(groupPosition);
+            if(groupPosition!=-1){
+                this.list_view_city.expandGroup(groupPosition);
+            }else{
+                this.list_view_city.collapseGroup(groupPosition);
+            }
         }
     }
 
@@ -235,6 +239,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         this.selectedPositionMenu.put(Type.STREET, -1);
 
         reloadData(Type.DISTRICT,false);
+        showBottomBar();
     }
 
     @Override
@@ -248,6 +253,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         this.selectedPositionMenu.put(Type.STREET, chlidPosion);
 
         reloadData(Type.STREET,false);
+        showBottomBar();
     }
 
 
@@ -280,6 +286,8 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
 
                 this.selectedPositionMenu.put(Type.DISTRICT,-1);
                 this.selectedPositionMenu.put(Type.STREET,-1);
+                this.groupPosition=-1;
+                this.isStreetShow=false;
 
 
                 reloadData(Type.DISTRICT, true);
@@ -290,9 +298,16 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
 
     //Hàm thực hiện khi tỉnh thành được thay đổi
     public void onChangeProvince() {
+        isNeedLoadArea = true;
+        isStreetShow=false;
+        resetStateTabMenu();
+        hideMenuItem();
+        hideStreetList();
+        this.selectedPositionMenu.put(Type.DISTRICT,-1);
+        this.selectedPositionMenu.put(Type.STREET,-1);
         this.setCurrentProvinceBean(GlobalStaticData.getCurrentProvinceBean());
-        updateTitleMenu(Type.DISTRICT, true);
-        loadFood();
+
+        reloadData(Type.DISTRICT,true);
     }
 
     //Hàm thực hiện việc click item trên tab menu

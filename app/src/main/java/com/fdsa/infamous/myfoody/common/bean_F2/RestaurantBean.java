@@ -21,11 +21,19 @@ public class RestaurantBean {
     private String photo;
     private List<CommentResBean> listComment;
     private List<MoreImageRestaurantBean> listImage;
+    private PositionBean position;
+    private String openTime;
+    private String closeTime;
+    private double minCash;
+    private double maxCash;
 
+    public RestaurantBean(){}
     public RestaurantBean(String id, String title, String address,
                           double avg_rating, String phone, int total_review,
-                          String id_province,String id_district,String id_street,
-                          String where_type, String res_type, String photo) {
+                          String id_province, String id_district, String id_street,
+                          String where_type, String res_type, String photo, PositionBean position,
+                          String openTime, String closeTime, double minCash, double maxCash) {
+
         this.id = id;
         this.title = title;
         this.address = address;
@@ -34,16 +42,20 @@ public class RestaurantBean {
         this.total_review = total_review;
         this.where_type = where_type;
         this.res_type = res_type;
-        this.id_province=id_province;
-        this.id_district=id_district;
-        this.id_street=id_street;
+        this.id_province = id_province;
+        this.id_district = id_district;
+        this.id_street = id_street;
         this.photo = photo;
+        this.position = position;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.minCash = minCash;
+        this.maxCash = maxCash;
     }
 
-
-
     public RestaurantBean(String id, String title, String address, double avg_rating, String phone, int total_review,
-                          String photo) {
+                          String photo, PositionBean position,
+                          String openTime, String closeTime, double minCash, double maxCash) {
         super();
         this.id = id;
         this.title = title;
@@ -52,9 +64,28 @@ public class RestaurantBean {
         this.phone = phone;
         this.total_review = total_review;
         this.photo = photo;
+        this.position = position;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.minCash = minCash;
+        this.maxCash = maxCash;
     }
 
+    public double getMinCash() {
+        return minCash;
+    }
 
+    public void setMinCash(double minCash) {
+        this.minCash = minCash;
+    }
+
+    public double getMaxCash() {
+        return maxCash;
+    }
+
+    public void setMaxCash(double maxCash) {
+        this.maxCash = maxCash;
+    }
 
     public String getId() {
         return id;
@@ -165,23 +196,48 @@ public class RestaurantBean {
     }
 
 
-
     public void setListImage(List<MoreImageRestaurantBean> listImage) {
         this.listImage = listImage;
     }
 
 
+    public PositionBean getPosition() {
+        return position;
+    }
+
+
+    public void setPosition(PositionBean position) {
+        this.position = position;
+    }
+
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
+    }
 
     @Override
     public String toString() {
         return "RestaurantBean [id=" + id + ", title=" + title + ", address=" + address + ", avg_rating=" + avg_rating
                 + ", phone=" + phone + ", total_review=" + total_review + ", id_province=" + id_province
                 + ", id_district=" + id_district + ", id_street=" + id_street + ", where_type=" + where_type
-                + ", res_type=" + res_type + ", photo=" + photo + "]";
+                + ", res_type=" + res_type + ", photo=" + photo + ", listComment=" + listComment + ", listImage="
+                + listImage + ", position=" + position + ", openTime=" + openTime + ", closeTime=" + closeTime
+                + ", minCash=" + minCash + ", maxCash=" + maxCash + "]";
     }
-
-
-
-
 
 }

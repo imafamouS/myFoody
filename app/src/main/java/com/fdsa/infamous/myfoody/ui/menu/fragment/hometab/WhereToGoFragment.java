@@ -33,6 +33,7 @@ import com.fdsa.infamous.myfoody.common.myinterface.IRestaurantItemClick;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.config.api.APIAction;
 import com.fdsa.infamous.myfoody.ui.menu.activity.ChooseProvinceActivity;
+import com.fdsa.infamous.myfoody.ui.menu.activity.RestaurantDetailActivity;
 import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.LoginChooserActivity;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.ChooseDistrictAdapter;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.HomeWhereToGoAdapter;
@@ -243,7 +244,8 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
             this.list_view_city.collapseGroup(groupPosition);
         } else {
             isStreetShow=true;
-            this.list_view_city.expandGroup(groupPosition);
+            if(groupPosition!=-1)
+                this.list_view_city.expandGroup(groupPosition);
         }
     }
 
@@ -303,6 +305,8 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
                 this.selectedPositionMenu.put(Type.DISTRICT,-1);
                 this.selectedPositionMenu.put(Type.STREET,-1);
+                this.groupPosition=-1;
+                this.isStreetShow=false;
 
                 reloadData(Type.DISTRICT, true);
             }
@@ -311,16 +315,30 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
     //Hàm thực hiện khi tỉnh thành được thay đổi
     public void onChangeProvince() {
+        isNeedLoadArea = true;
+        isStreetShow=false;
+        resetStateTabMenu();
+        hideMenuItem();
+        hideStreetList();
+        this.selectedPositionMenu.put(Type.DISTRICT,-1);
+        this.selectedPositionMenu.put(Type.STREET,-1);
         this.setCurrentProvinceBean(GlobalStaticData.getCurrentProvinceBean());
-        updateTitleMenu(Type.DISTRICT, true);
-        loadRestaurant();
+
+        reloadData(Type.DISTRICT,true);
     }
 
     @Override
-    public void RestaurantItemCLick() {
+    public void RestaurantItemCLick(int position) {
         if(!GlobalStaticData.isLogined()){
             Intent intent = new Intent(this.getActivity(), LoginChooserActivity.class);
             startActivityForResult(intent, AppConfig.REQUEST_CODE_LOGIN);
+        }else{
+            Intent intent=new Intent(this.getActivity(), RestaurantDetailActivity.class);
+
+
+            intent.putExtra("resid",((RestaurantBean)this.adapter.getItem(position)).getId());
+            getActivity().startActivity(intent);
+
         }
     }
 
