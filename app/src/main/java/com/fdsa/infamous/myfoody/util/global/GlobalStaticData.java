@@ -10,6 +10,7 @@ import com.fdsa.infamous.myfoody.common.bean_F2.ProvinceBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.common.myenum.MoreItemCode;
 import com.fdsa.infamous.myfoody.ui.menu.views.MoreItemView;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class GlobalStaticData {
     public static void setCurrentUser(UserBean currentUser) {
         GlobalStaticData.currentUser = currentUser;
     }
+    public static String SHARED_PREFERENCES_NAME="my_shared_preferences";
 
     //Hàm get tỉnh hiện tại
     public static ProvinceBean getCurrentProvinceBean() {
@@ -202,4 +204,8 @@ public class GlobalStaticData {
         return items;
     }
     public static Bitmap BACKGROUND_LOGIN;
+
+    public static final LatLng getDefaultMyLocation(){
+        return new LatLng(10.8510617, 106.7698235);
+    }
 }

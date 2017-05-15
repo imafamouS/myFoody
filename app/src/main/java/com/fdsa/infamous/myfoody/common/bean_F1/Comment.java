@@ -13,6 +13,8 @@ public class Comment {
     private String resid;
     private double rate;
     private String text;
+    
+    private String ABBBB;
 
     //Hàm khởi tạo bình luận
     public Comment(String id, UserBean uid, String resid, double rate, String text) {

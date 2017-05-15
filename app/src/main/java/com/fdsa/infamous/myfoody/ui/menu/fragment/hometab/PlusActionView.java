@@ -59,7 +59,10 @@ public class PlusActionView extends BottomSheetDialogFragment implements View.On
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE){
-            linear_layout_add_place_plus_menu.performClick();
+            if(GlobalStaticData.isLogined()){
+                linear_layout_add_place_plus_menu.performClick();
+            }
+
         }
     }
 

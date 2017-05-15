@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 
+import com.fdsa.infamous.myfoody.common.myinterface.ICallBackAsynsTask;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
 import com.fdsa.infamous.myfoody.util.JsonHTTPHelper;
 import com.google.gson.JsonObject;
@@ -16,14 +17,21 @@ import java.util.concurrent.ExecutionException;
 
 public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObject> {
 
+    private boolean type;
+    private JsonObject jsonObjectInput;
+    private Context activity;
+    private ICallBackAsynsTask callBackAsynsTask;
+
     public MyFoodyBaseMethod(@Nullable boolean type,
                              @Nullable JsonObject jsonObjectInput,
-                             @Nullable Context activity
+                             @Nullable Context activity,
+                             @Nullable ICallBackAsynsTask callback
                             ){
         super();
         this.type=type;
         this.jsonObjectInput=jsonObjectInput;
         this.activity=activity;
+        this.callBackAsynsTask=callback;
     }
     public JsonObject getOuput() throws ExecutionException, InterruptedException {
         return this.get();
@@ -35,7 +43,15 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
 
     @Override
     protected void onPostExecute(JsonObject jsonObject) {
+        if(callBackAsynsTask!=null){
+            if(jsonObject.get("success").toString().equals("true")){
+                callBackAsynsTask.onSuccess();
+            }else{
+                callBackAsynsTask.onFail();
+            }
+        }
         super.onPostExecute(jsonObject);
+
     }
 
     @Override
@@ -58,9 +74,7 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
         return JsonHTTPHelper.makeHttpResponse(absolutePath, type, jsonObjectInput);
     }
 
-    private boolean type;
-    private JsonObject jsonObjectInput;
-    private Context activity;
+
 
     public boolean isType() {
         return type;
@@ -86,4 +100,11 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
         this.activity = activity;
     }
 
+    public ICallBackAsynsTask getCallBackAsynsTask() {
+        return callBackAsynsTask;
+    }
+
+    public void setCallBackAsynsTask(ICallBackAsynsTask callBackAsynsTask) {
+        this.callBackAsynsTask = callBackAsynsTask;
+    }
 }

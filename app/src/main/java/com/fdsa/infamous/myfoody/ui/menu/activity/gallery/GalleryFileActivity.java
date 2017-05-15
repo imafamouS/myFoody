@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,16 +40,25 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
 
     int mode;
     ArrayList<ImageGalleryBean> data;
-    GalleryFileAdapter adapter;
+    GalleryFileAdapter adapterPhotoChooser;
     String namefolder;
 
-    ImageView test;
+    RecyclerView recycle_view_choose;
+    TextView text_view_not_media;
+
+    ArrayList<ImageGalleryBean> selectedImage = new ArrayList<>();
+    GalleryFileAdapter adapterReviewPhoto;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_image_layout);
+        initViewChooseImage();
+        initViewSelectedImage();
+    }
 
+    private void initViewChooseImage() {
         text_view_name_folder_image_item = (TextView) findViewById(R.id.text_view_name_folder_image_item);
         back_button_gallery = (LinearLayout) findViewById(R.id.back_button_gallery);
         grid_view_file = (RecyclerView) findViewById(R.id.recycle_view);
@@ -63,55 +71,112 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         this.mode = getIntent().getIntExtra("mode", 0);
 
         this.data = getIntent().getParcelableArrayListExtra("data");
-        Log.d(TAG, this.mode + "");
+        this.selectedImage = getIntent().getParcelableArrayListExtra("images");
         text_view_name_folder_image_item.setText(namefolder);
 
-        adapter = new GalleryFileAdapter(getApplicationContext(), data);
-        adapter.setiOnClickImage(this);
+        adapterPhotoChooser = new GalleryFileAdapter(getApplicationContext(), data, GalleryFileAdapter.CHOOSE_PHOTO);
+        adapterPhotoChooser.setiOnClickImage(this);
 
         grid_view_file.setLayoutManager(new GridLayoutManager(this, 3));
-        grid_view_file.setAdapter(adapter);
+        grid_view_file.setAdapter(adapterPhotoChooser);
+    }
 
+    private void initViewSelectedImage() {
+        recycle_view_choose = (RecyclerView) findViewById(R.id.recycle_view_choose);
+        text_view_not_media = (TextView) findViewById(R.id.text_view_not_media);
+
+        adapterReviewPhoto = new GalleryFileAdapter(this.getApplicationContext(), selectedImage, GalleryFileAdapter.REVIEW_PHOTO);
+        adapterReviewPhoto.setiOnClickImage(this);
+
+        recycle_view_choose.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        recycle_view_choose.setAdapter(adapterReviewPhoto);
+
+        adapterPhotoChooser.removeAllSelectedSingleClick();
+
+        for (int i = 0; i < selectedImage.size(); i++) {
+            this.adapterPhotoChooser.addSelected(selectedImage.get(i));
+        }
+
+        if (selectedImage != null && selectedImage.size() > 0) {
+            text_view_not_media.setVisibility(View.GONE);
+        }
 
     }
 
-    int lastPosition = -1;
-    private int selectedPosition(ImageGalleryBean item){
-        for(int i=0;i<this.adapter.imageSelected.size();i++){
-            ImageGalleryBean im=this.adapter.imageSelected.get(i);
-            if(item.getPath().equals(im.getPath())){
+    private int selectedPosition(ImageGalleryBean item, GalleryFileAdapter adapter) {
+        for (int i = 0; i < adapter.imageSelected.size(); i++) {
+            ImageGalleryBean im = adapter.imageSelected.get(i);
+            if (item.getPath().equals(im.getPath())) {
                 return i;
             }
         }
         return -1;
     }
+
     @Override
     public void onClickImage(View v, int index) {
-        int selectedItemPosition=selectedPosition(this.data.get(index));
+        int selectedItemPosition = selectedPosition(this.data.get(index), adapterPhotoChooser);
         if (this.mode == GalleryFolderActivity.MULTI_SELECT) {
-            if(selectedItemPosition!=-1){
-                this.adapter.removeSelectedPosition(selectedItemPosition,index);
-            }else {
-                this.adapter.addSelected(this.data.get(index));
-            }
-        }else if(this.mode==GalleryFolderActivity.SINGLE_SELECT){
-            if(selectedItemPosition!=-1){
-                this.adapter.removeSelectedPosition(selectedItemPosition,index);
-            }else{
-                if(this.adapter.imageSelected.size()>0){
-                    this.adapter.removeAllSelectedSingleClick();
-                }
-                this.adapter.addSelected(this.data.get(index));
+            if (selectedItemPosition != -1) {
+                this.adapterReviewPhoto.removeSelectedPosition(this.adapterPhotoChooser.imageSelected.get(selectedItemPosition), selectedItemPosition);
+                this.adapterPhotoChooser.removeSelectedPosition(selectedItemPosition, index);
+            } else {
+
+                this.adapterPhotoChooser.addSelected(this.data.get(index));
+                this.adapterReviewPhoto.addSelected(this.data.get(index));
 
             }
+        } else if (this.mode == GalleryFolderActivity.SINGLE_SELECT) {
+            if (selectedItemPosition != -1) {
+                this.adapterPhotoChooser.removeSelectedPosition(selectedItemPosition, index);
+            } else {
+                if (this.adapterPhotoChooser.imageSelected.size() > 0) {
+                    this.adapterPhotoChooser.removeAllSelectedSingleClick();
+                }
+                this.adapterPhotoChooser.addSelected(this.data.get(index));
+            }
         }
+        if (this.adapterPhotoChooser.imageSelected != null && this.adapterPhotoChooser.imageSelected.size() > 0)
+            this.text_view_not_media.setVisibility(View.GONE);
+        else
+            this.text_view_not_media.setVisibility(View.VISIBLE);
+    }
+
+    private int getImageFromPath(String path) {
+        for (int i = 0; i < this.data.size(); i++) {
+            if (path.equals(this.data.get(i).getPath()))
+                return i;
+        }
+        return -1;
+    }
+
+    @Override
+    public void onClickReviewImage(View v, int index) {
+        ImageGalleryBean itemDelte = this.adapterReviewPhoto.data.get(index);
+
+        this.adapterReviewPhoto.notifyItemRemoved(this.adapterReviewPhoto.data.indexOf(itemDelte));
+        this.adapterReviewPhoto.data.remove(itemDelte);
+        this.adapterReviewPhoto.imageSelected.remove(itemDelte);
+        int indexInFolder = -1;
+        if (this.data.indexOf(itemDelte) > 0) {
+            indexInFolder = selectedPosition(this.data.get(this.data.indexOf(itemDelte)), adapterPhotoChooser);
+        } else {
+            indexInFolder = getImageFromPath(itemDelte.getPath());
+        }
+
+        this.adapterPhotoChooser.removeSelectedPosition(itemDelte, getImageFromPath(itemDelte.getPath()));
+
+        if (this.adapterReviewPhoto.data != null && this.adapterReviewPhoto.data.size() > 0)
+            this.text_view_not_media.setVisibility(View.GONE);
+        else
+            this.text_view_not_media.setVisibility(View.VISIBLE);
     }
 
     private void sendData() {
-        ArrayList<ImageGalleryBean> selectedImage=this.adapter.imageSelected;
-        Intent intent=new Intent();
-        intent.putParcelableArrayListExtra("images",selectedImage);
-        setResult(this.mode==GalleryFolderActivity.SINGLE_SELECT? AppConfig.RESULT_CODE_SINGLESELECT:AppConfig.RESULT_CODE_MULTISELECT,intent);
+        ArrayList<ImageGalleryBean> selectedImage = this.adapterPhotoChooser.imageSelected;
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("images", selectedImage);
+        setResult(this.mode == GalleryFolderActivity.SINGLE_SELECT ? AppConfig.RESULT_CODE_SINGLESELECT : AppConfig.RESULT_CODE_MULTISELECT, intent);
         finish();
     }
 
@@ -119,7 +184,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button_gallery:
-                finish();
+                sendData();
                 break;
             case R.id.text_view_done:
                 sendData();

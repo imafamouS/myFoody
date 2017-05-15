@@ -56,7 +56,8 @@
     <string name="TEXT_LOGIN_WITH_TWITTER">Twitter</string>
     <string name="TEXT_LOGIN_WITH_PHONE_NUMBER">Đăng nhập với số điện thoại</string>
     <string name="TEXT_LOGIN_WITH_EMAIL">Đăng nhập với Email</string>
-    <string name="TEXT_LOGIN_NO_USE_INFO">Chúng tôi sẽ không sử dụng thông tin của bạn với bất kỳ mục đích nào </string>khác
+    <string name="TEXT_LOGIN_NO_USE_INFO">Chúng tôi sẽ không sử dụng thông tin của bạn với bất kỳ mục đích nào </string>
+    khác
     <string name="TEXT_REGISTER">Đăng ký</string>
     <string name="TEXT_LOGIN_TO_APP">Đăng nhập Foody</string>
 
@@ -116,5 +117,12 @@
     <string name="TEXT_ADD_NEW_PLACE">Thêm địa điểm</string>
     <string name="TEXT_ACTION_SEND">Gửi</string>
     <string name="TEXT_PHONE_NUMBER">Số điện thoại</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="TEXT_PERMISSION_GPS">"Truy cập vị trí của thiết bị này"</string>
+    <string name="TEXT_MY_LOCATION">Vị trí của tôi</string>
+    <string name="TEXT_PLACE">Địa điểm</string>
+    <string name="TEXT_CHOOSE_PLACE">Chọn địa điểm</string>
+    <string name="TEXT_ACTION_SELECT">Chọn</string>
+    <string name="TEXT_NO_MEDIA_SELECT">Bạn chưa chọn file</string>
 
 </resources>

@@ -15,21 +15,19 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center">
-
+            <!--SEARCH-->
             <ImageView
-                android:layout_width="30.0dip"
-                android:layout_height="30.0dip"
-                android:visibility="gone" />
-
-            <ImageView
+                android:id="@+id/image_view_back"
                 android:layout_width="30.0dip"
                 android:layout_height="30.0dip"
                 android:layout_marginLeft="10.0dip"
                 android:focusableInTouchMode="false"
+                android:src="@drawable/icon_back_dialog"
                 android:visibility="gone" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5.0dip"
@@ -41,6 +39,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/edit_text_quick_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3.0dip"
@@ -59,6 +58,7 @@
         </EditText>
 
         <ImageView
+            android:id="@+id/image_view_icon"
             android:layout_width="35.0dip"
             android:layout_height="35.0dip"
             android:padding="8.0dip"
@@ -73,6 +73,7 @@
         android:orientation="vertical" />
 
     <ListView
+        android:id="@+id/list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
@@ -84,6 +85,7 @@
         android:overScrollMode="never" />
 
     <LinearLayout
+        android:id="@+id/linear_layout_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dip"
@@ -92,6 +94,7 @@
         android:padding="5.0dip">
 
         <Button
+            android:id="@+id/left_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3.0dip"
@@ -104,9 +107,11 @@
             android:text="@string/TEXT_ACTION_CANCEL"
             android:textColor="#ffaaaaaa"
             android:textSize="@dimen/text_size_title"
+            android:visibility="gone"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/right_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="3.0dip"
@@ -119,6 +124,7 @@
             android:text="@string/TEXT_ACTION_DONE"
             android:textColor="#ffffffff"
             android:textSize="@dimen/text_size_title"
+            android:visibility="gone"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

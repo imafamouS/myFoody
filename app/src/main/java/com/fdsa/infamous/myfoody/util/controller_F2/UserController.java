@@ -26,7 +26,7 @@ public class UserController {
     public UserBean checkLogin(JsonObject loginJson) throws ExecutionException, InterruptedException {
         url="login";
 
-        JsonObject output=new MyFoodyPostMethod(loginJson, context).execute(url).get();
+        JsonObject output=new MyFoodyPostMethod(loginJson, context,null).execute(url).get();
         UserBean user=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();
@@ -37,7 +37,7 @@ public class UserController {
     public boolean register(JsonObject loginJson) throws ExecutionException, InterruptedException {
         url="user/register";
 
-        JsonObject output=new MyFoodyPostMethod(loginJson, context).execute(url).get();
+        JsonObject output=new MyFoodyPostMethod(loginJson, context,null).execute(url).get();
         if(output.get("success").toString().equals("true")){
            return true;
         }
@@ -46,7 +46,7 @@ public class UserController {
     public boolean update(JsonObject updateJson) throws ExecutionException, InterruptedException {
         url="user/update";
 
-        JsonObject output=new MyFoodyPostMethod(updateJson, context).execute(url).get();
+        JsonObject output=new MyFoodyPostMethod(updateJson, context,null).execute(url).get();
         if(output.get("success").toString().equals("true")){
             return true;
         }
@@ -56,7 +56,7 @@ public class UserController {
         url="user?userid="+userid;
         url+="&token="+token;
 
-        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
         UserBean user=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();
@@ -67,7 +67,7 @@ public class UserController {
     public boolean changePass(JsonObject input) throws ExecutionException, InterruptedException {
         url="user/changepass";
 
-        JsonObject output=new MyFoodyPostMethod(input, context).execute(url).get();
+        JsonObject output=new MyFoodyPostMethod(input, context,null).execute(url).get();
         if(output.get("success").toString().equals("true")){
             return true;
         }
@@ -80,7 +80,7 @@ public class UserController {
             url="user/changecover";
         }
         url+="?token="+token;
-        JsonObject output=new MyFoodyPostMethod(input, context).execute(url).get();
+        JsonObject output=new MyFoodyPostMethod(input, context,null).execute(url).get();
         if(output.get("success").toString().equals("true")){
             return true;
         }

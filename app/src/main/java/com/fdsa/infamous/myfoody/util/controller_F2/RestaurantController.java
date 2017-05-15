@@ -40,7 +40,7 @@ public class RestaurantController {
             url += "&sort=" + sorttype;
         }
         Log.d("URL",url);
-        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
         List<RestaurantBean> restaurantList=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();
@@ -51,7 +51,7 @@ public class RestaurantController {
     }
     public RestaurantBean getRestaurantById(String id) throws ExecutionException, InterruptedException {
         url="api/restaurant/getbyid/"+id;
-        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
         RestaurantBean restaurant=new RestaurantBean();
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();

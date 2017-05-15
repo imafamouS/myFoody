@@ -3,6 +3,7 @@ package com.fdsa.infamous.myfoody.util.asynctask;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.fdsa.infamous.myfoody.common.myinterface.ICallBackAsynsTask;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
 import com.google.gson.JsonObject;
 
@@ -14,8 +15,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MyFoodyPostMethod extends MyFoodyBaseMethod {
 
-    public MyFoodyPostMethod(@Nullable JsonObject jsonObjectInput, @Nullable Context activity) {
-        super(APIConfig.POST, jsonObjectInput, activity);
+    public MyFoodyPostMethod(@Nullable JsonObject jsonObjectInput, @Nullable Context activity, ICallBackAsynsTask callBackAsynsTask) {
+        super(APIConfig.POST, jsonObjectInput, activity,callBackAsynsTask);
     }
     @Override
     public JsonObject getOuput() throws ExecutionException, InterruptedException {

@@ -29,6 +29,8 @@ public class AppConfig {
 
     public static  final int REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE=14;
     public static  final int RESULT_CODE_LOGIN_TO_ADD_NEW_PLACE=-14;
+    public static final int REQUEST_CODE_FODLER_GALLERY=15;
+    public static final int REQUEST_LOCATION_PERMISSION_CODE=90;
     /**
      * Tên của icon mặc định nếu ảnh khi load không tồn tại
      **/

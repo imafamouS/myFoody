@@ -100,13 +100,13 @@ public class ChangeAvatarActivity extends AppCompatActivity implements View.OnCl
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.select_from_gallery:
-                    if (PermissionUtil.isReadWritePermission(ChangeAvatarActivity.this.getApplicationContext())) {
+                    if (PermissionUtil.isReadWritePermission_LowAPI(ChangeAvatarActivity.this)) {
                         Intent intent = new Intent(ChangeAvatarActivity.this, GalleryFolderActivity.class);
                         intent.putExtra("mode", GalleryFolderActivity.SINGLE_SELECT);
                         startActivityForResult(intent, 1);
                         return true;
                     }
-                    PermissionUtil.marshmallowReadWritePermissionCheck(ChangeAvatarActivity.this);
+                    PermissionUtil.isReadWritePermission_HighAPI(ChangeAvatarActivity.this);
                     return true;
                 case R.id.select_from_camera:
                     break;

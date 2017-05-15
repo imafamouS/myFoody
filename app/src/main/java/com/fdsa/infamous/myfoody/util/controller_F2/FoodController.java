@@ -39,7 +39,7 @@ public class FoodController {
         }
         Log.d("FOOD",url);
 
-        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
 
         List<FoodBean> foodList=null;
         if(output.get("success").toString().equals("true")){

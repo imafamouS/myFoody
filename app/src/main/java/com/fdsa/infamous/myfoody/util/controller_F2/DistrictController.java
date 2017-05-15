@@ -22,7 +22,7 @@ public class DistrictController {
     }
     public List<DistrictBean> getListDistrict(String provinceID) throws ExecutionException, InterruptedException {
         url="api/district/get/"+provinceID;
-        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
 
         List<DistrictBean> districtList=null;
         if(output.get("success").toString().equals("true")){

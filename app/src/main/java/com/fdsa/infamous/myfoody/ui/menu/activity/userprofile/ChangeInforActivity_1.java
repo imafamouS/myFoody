@@ -271,7 +271,8 @@ public class ChangeInforActivity_1 extends AppCompatActivity implements View.OnC
     }
 
     private void updateBirthDay() {
-        this.text_view_date_of_birth.setText(String.format("%d/%d/%d",
+        this.text_view_date_of_birth.setText(
+                String.format("%d/%d/%d",
                 new Object[]{Integer.valueOf(this.dayofmonth), Integer.valueOf(this.month), Integer.valueOf(this.year)}));
     }
 

@@ -86,7 +86,7 @@ public class GlobalFunction {
         //File directory = new File(path);
         //InputStream inputStream = new FileInputStream(directory);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        scaledBitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        scaledBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
         byte[] byteArray = bos.toByteArray();
 
 
@@ -94,7 +94,29 @@ public class GlobalFunction {
 
 
         outputObject = new JsonObject();
+        outputObject.addProperty("id", UUID.randomUUID().toString());
 
+        outputObject.addProperty("image", str);
+
+
+        return outputObject;
+    }
+    public static JsonObject createImageInputObject_test(String path) {
+        JsonObject outputObject = null;
+
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(myBitmap, 500, 500, true);
+        //File directory = new File(path);
+        //InputStream inputStream = new FileInputStream(directory);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        scaledBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        byte[] byteArray = bos.toByteArray();
+
+
+        String str = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+
+        outputObject = new JsonObject();
         outputObject.addProperty("id", UUID.randomUUID().toString());
 
         outputObject.addProperty("image", str);
@@ -123,4 +145,5 @@ public class GlobalFunction {
             return false;
         }
     }
+
 }

@@ -32,7 +32,7 @@ public class MenuBarItemController {
         }
     }
     public List<MenuBarItemBean> getListMenuBar_Category() throws ExecutionException, InterruptedException {
-        JsonObject output=new MyFoodyGetMethod(null, context).execute(url).get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
         List<MenuBarItemBean> menuBarItemList=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();
@@ -41,7 +41,7 @@ public class MenuBarItemController {
        return menuBarItemList;
     }
     public List<MenuBarItemBean> getListMenuBar_WHERE() throws ExecutionException, InterruptedException {
-        JsonObject output=new MyFoodyGetMethod(null, context).execute("api/menubar/get/category_where2go").get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute("api/menubar/get/category_where2go").get();
         List<MenuBarItemBean> menuBarItemList=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();
@@ -50,7 +50,7 @@ public class MenuBarItemController {
         return menuBarItemList;
     }
     public List<MenuBarItemBean> getListMenuBar_WHHAT() throws ExecutionException, InterruptedException {
-        JsonObject output=new MyFoodyGetMethod(null, context).execute("api/menubar/get/category_what2do").get();
+        JsonObject output=new MyFoodyGetMethod(null, context,null).execute("api/menubar/get/category_what2do").get();
         List<MenuBarItemBean> menuBarItemList=null;
         if(output.get("success").toString().equals("true")){
             Gson gson = new Gson();

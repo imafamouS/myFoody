@@ -86,7 +86,7 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
                 if (GlobalStaticData.isLogined()) {
                     startActivityForResult(new Intent(this.getActivity(), ChangeInforActivity_1.class), AppConfig.REQUEST_CODE_CHANGE_INFO_1);
                 } else {
-                    startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_CHANGE_INFO_1);
+                    startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_LOGIN);
                 }
 
                 break;
@@ -94,7 +94,7 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
                 if (GlobalStaticData.isLogined()) {
                     startActivityForResult(new Intent(this.getActivity(), ChangeInforActivity_2.class), AppConfig.REQUEST_CODE_CHANGE_INFO_1);
                 } else {
-                    startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_CHANGE_INFO_1);
+                    startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_LOGIN);
                 }
                 break;
             case R.id.linear_layout_logout:

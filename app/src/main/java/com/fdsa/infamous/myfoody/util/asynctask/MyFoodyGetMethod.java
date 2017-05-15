@@ -1,10 +1,9 @@
 package com.fdsa.infamous.myfoody.util.asynctask;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.fdsa.infamous.myfoody.common.myinterface.ICallBackAsynsTask;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
 import com.google.gson.JsonObject;
 
@@ -16,8 +15,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MyFoodyGetMethod extends MyFoodyBaseMethod{
 
-    public MyFoodyGetMethod(@Nullable JsonObject jsonObjectInput, @Nullable Context activity) {
-        super(APIConfig.GET, jsonObjectInput, activity);
+    public MyFoodyGetMethod(@Nullable JsonObject jsonObjectInput, @Nullable Context activity, ICallBackAsynsTask callBackAsynsTask) {
+        super(APIConfig.GET, jsonObjectInput, activity,callBackAsynsTask);
     }
 
     @Override

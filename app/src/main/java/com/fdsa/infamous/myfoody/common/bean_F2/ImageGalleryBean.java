@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class ImageGalleryBean  implements Parcelable {
+
     String path;
     boolean isSelected;
 

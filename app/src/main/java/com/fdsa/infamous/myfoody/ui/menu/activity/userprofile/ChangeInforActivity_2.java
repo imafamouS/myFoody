@@ -44,8 +44,6 @@ public class ChangeInforActivity_2 extends AppCompatActivity implements View.OnC
             Glide.with(this.getApplicationContext()).load(R.drawable.icon_user_avatar).into(image_view_avatar);
         }
 
-
-
         back_button_change_infor_user_2.setOnClickListener(this);
         linear_layout_change_avatar_user.setOnClickListener(this);
         linear_layout_change_password.setOnClickListener(this);
