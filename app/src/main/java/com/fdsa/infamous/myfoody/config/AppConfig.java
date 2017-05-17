@@ -15,22 +15,24 @@ public class AppConfig {
     public static final int REQUEST_CODE_LOGIN = 2;
     public static final int RESULT_CODE_LOGIN = -REQUEST_CODE_LOGIN;
 
-    public static final int REQUEST_CODE_REGISTER=3;
-    public static final int RESULT_CODE_REGISTER=-REQUEST_CODE_REGISTER;
+    public static final int REQUEST_CODE_REGISTER = 3;
+    public static final int RESULT_CODE_REGISTER = -REQUEST_CODE_REGISTER;
 
-    public static  final int REQUEST_CODE_CHANGE_INFO_1=4;
-    public static  final int RESULT_CODE_CHANGE_INFO_1=-REQUEST_CODE_CHANGE_INFO_1;
+    public static final int REQUEST_CODE_CHANGE_INFO_1 = 4;
+    public static final int RESULT_CODE_CHANGE_INFO_1 = -REQUEST_CODE_CHANGE_INFO_1;
 
-    public static  final int REQUEST_READ_WRITE_PERMISSION_CODE=5;
+    public static final int REQUEST_READ_WRITE_PERMISSION_CODE = 5;
 
-    public static  final int RESULT_CODE_MULTISELECT=11;
-    public static  final int RESULT_CODE_SINGLESELECT=12;
-    public static  final int RESULT_CODE_FROM_GALLERY_FOLDER=13;
+    public static final int RESULT_CODE_MULTISELECT = 11;
+    public static final int RESULT_CODE_SINGLESELECT = 12;
+    public static final int RESULT_CODE_FROM_GALLERY_FOLDER = 13;
 
-    public static  final int REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE=14;
-    public static  final int RESULT_CODE_LOGIN_TO_ADD_NEW_PLACE=-14;
-    public static final int REQUEST_CODE_FODLER_GALLERY=15;
-    public static final int REQUEST_LOCATION_PERMISSION_CODE=90;
+    public static final int REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE = 14;
+    public static final int RESULT_CODE_LOGIN_TO_ADD_NEW_PLACE = -14;
+    public static final int REQUEST_CODE_FODLER_GALLERY = 15;
+    public static final int REQUEST_LOCATION_PERMISSION_CODE = 90;
+
+    public static final int RESULT_CODE_CHOOSE_LOCATION = 16;
     /**
      * Tên của icon mặc định nếu ảnh khi load không tồn tại
      **/
@@ -55,7 +57,6 @@ public class AppConfig {
      * Giá trị của requestcode khi muốn lấy danh sách các huyện
      */
     public static final String REQUEST_CODE_LIST_AREA = "get_area";
-
 
 
     /**

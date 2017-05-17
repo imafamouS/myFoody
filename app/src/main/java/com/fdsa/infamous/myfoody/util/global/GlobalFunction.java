@@ -37,7 +37,8 @@ public class GlobalFunction {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    public static void shakeView(Context context,View v){
+
+    public static void shakeView(Context context, View v) {
         v.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake));
     }
 
@@ -78,6 +79,7 @@ public class GlobalFunction {
 
         return inSampleSize;
     }
+
     public static JsonObject createImageInputObject(String path) {
         JsonObject outputObject = null;
 
@@ -101,6 +103,17 @@ public class GlobalFunction {
 
         return outputObject;
     }
+
+    public static String decodeImage2Base64(String path) {
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(myBitmap, 300, 300, true);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        scaledBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        byte[] byteArray = bos.toByteArray();
+        String str = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return  str;
+    }
+
     public static JsonObject createImageInputObject_test(String path) {
         JsonObject outputObject = null;
 
@@ -124,20 +137,21 @@ public class GlobalFunction {
 
         return outputObject;
     }
-    public static boolean isRestaurantOpening(String opentime,String closetime){
+
+    public static boolean isRestaurantOpening(String opentime, String closetime) {
 
         try {
-            SimpleDateFormat format=new SimpleDateFormat("hh:mm");
-            Calendar calendar1= Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+            Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(format.parse("9:0"));
-            Calendar calendar2=Calendar.getInstance();
+            Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(format.parse("21:50"));
-            Calendar currentTime=Calendar.getInstance();
+            Calendar currentTime = Calendar.getInstance();
             currentTime.setTime(format.parse(currentTime.get(Calendar.HOUR_OF_DAY) + ":" + currentTime.get(Calendar.MINUTE)));
 
-            if(currentTime.compareTo(calendar1)>0 && currentTime.compareTo(calendar2)<0){
+            if (currentTime.compareTo(calendar1) > 0 && currentTime.compareTo(calendar2) < 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (ParseException e) {

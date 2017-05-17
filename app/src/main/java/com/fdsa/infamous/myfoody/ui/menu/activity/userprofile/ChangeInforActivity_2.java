@@ -3,13 +3,13 @@ package com.fdsa.infamous.myfoody.ui.menu.activity.userprofile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
+import com.fdsa.infamous.myfoody.ui.menu.activity.BaseSlideActivity;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -18,7 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by apple on 4/30/17.
  */
 
-public class ChangeInforActivity_2 extends AppCompatActivity implements View.OnClickListener{
+public class ChangeInforActivity_2 extends BaseSlideActivity implements View.OnClickListener{
     public ChangeInforActivity_2(){
 
     }

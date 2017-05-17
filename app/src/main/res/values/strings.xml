@@ -124,5 +124,7 @@
     <string name="TEXT_CHOOSE_PLACE">Chọn địa điểm</string>
     <string name="TEXT_ACTION_SELECT">Chọn</string>
     <string name="TEXT_NO_MEDIA_SELECT">Bạn chưa chọn file</string>
+    <string name="TEXT_ACTION_BOQUA">BỎ QUA</string>
+    <string name="TEXT_NOT_FOUND_ADDRESS">Không tìm thấy địa chỉ</string>
 
 </resources>

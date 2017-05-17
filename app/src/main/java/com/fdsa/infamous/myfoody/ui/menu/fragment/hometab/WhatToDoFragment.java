@@ -29,9 +29,12 @@ import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.ProvinceBean;
 import com.fdsa.infamous.myfoody.common.myenum.Type;
 import com.fdsa.infamous.myfoody.common.myinterface.IChooseDistrict;
+import com.fdsa.infamous.myfoody.common.myinterface.IRestaurantItemClick;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.config.api.APIAction;
 import com.fdsa.infamous.myfoody.ui.menu.activity.ChooseProvinceActivity;
+import com.fdsa.infamous.myfoody.ui.menu.activity.RestaurantDetailActivity;
+import com.fdsa.infamous.myfoody.ui.menu.activity.userprofile.LoginChooserActivity;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.ChooseDistrictAdapter;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.HomeWhatToDoAdapter;
 import com.fdsa.infamous.myfoody.ui.menu.adapter.MenuBarAdapter;
@@ -50,7 +53,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
-public class WhatToDoFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener,IChooseDistrict {
+public class WhatToDoFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener,IChooseDistrict,IRestaurantItemClick {
 
     Context context;
     WhereToGoFragment whereToGoFragment;
@@ -210,6 +213,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
         linear_layout_change_district.setOnClickListener(this);
 
     }
+
     int groupPosition;
     boolean isStreetShow=false;
     @Override
@@ -243,6 +247,19 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
+    public void RestaurantItemCLick(int position) {
+        if(!GlobalStaticData.isLogined()){
+            Intent intent = new Intent(this.getActivity(), LoginChooserActivity.class);
+            startActivityForResult(intent, AppConfig.REQUEST_CODE_LOGIN);
+        }else{
+            Intent intent=new Intent(this.getActivity(), RestaurantDetailActivity.class);
+            intent.putExtra("resid",((FoodBean)this.adapter.getItem(position)).getRes_id());
+            getActivity().startActivity(intent);
+
+        }
+    }
+
+    @Override
     public void onSelectStreet(int groupPosition, int chlidPosion) {
         resetStateTabMenu();
         hideMenuItem();
@@ -267,7 +284,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
             if(foodList!=null && foodList.size()>0){
                 Toast.makeText(context, "Đã load thành công các cửa hàng", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(context, "Đã có lỗi xảy ra, vui lòng xem lại kết nối :)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -458,6 +475,7 @@ public class WhatToDoFragment extends Fragment implements View.OnClickListener, 
             } else {
                 if (adapter == null) {
                     adapter = new HomeWhatToDoAdapter(context, foodList);
+                    adapter.setRestaurantItemClick(this);
                 }
 
                 adapter.setFoodList(foodList);

@@ -15,6 +15,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -204,6 +205,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
 
         list_view_main_menu.setOnItemClickListener(this);
+        list_view_main_menu.setOnScrollListener(onScrollListener);
 
 
 
@@ -287,7 +289,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
             if(restaurantList!=null && restaurantList.size()>0){
                 Toast.makeText(context, "Đã load thành công các cửa hàng", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(context, "Đã có lỗi xảy ra, vui lòng xem lại kết nối :)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -335,12 +337,24 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         }else{
             Intent intent=new Intent(this.getActivity(), RestaurantDetailActivity.class);
 
-
             intent.putExtra("resid",((RestaurantBean)this.adapter.getItem(position)).getId());
             getActivity().startActivity(intent);
 
         }
     }
+
+    public AbsListView.OnScrollListener onScrollListener =new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            Toast.makeText(context, visibleItemCount+"", Toast.LENGTH_SHORT).show();
+        }
+    };
+    
 
     //Hàm thực hiện việc click item trên tab menu
     @Override

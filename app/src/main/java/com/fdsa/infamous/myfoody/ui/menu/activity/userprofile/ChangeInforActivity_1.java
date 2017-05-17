@@ -10,7 +10,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -25,6 +24,7 @@ import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.config.AppConfig;
+import com.fdsa.infamous.myfoody.ui.menu.activity.BaseSlideActivity;
 import com.fdsa.infamous.myfoody.util.controller_F2.UserController;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 import com.google.gson.JsonObject;
@@ -39,7 +39,7 @@ import java.util.concurrent.ExecutionException;
  * Created by apple on 4/30/17.
  */
 
-public class ChangeInforActivity_1 extends AppCompatActivity implements View.OnClickListener, OnDateSetListener {
+public class ChangeInforActivity_1 extends BaseSlideActivity implements View.OnClickListener, OnDateSetListener {
 
     public ChangeInforActivity_1() {
 

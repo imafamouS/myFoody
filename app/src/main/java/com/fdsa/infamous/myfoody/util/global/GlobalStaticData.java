@@ -206,6 +206,6 @@ public class GlobalStaticData {
     public static Bitmap BACKGROUND_LOGIN;
 
     public static final LatLng getDefaultMyLocation(){
-        return new LatLng(10.8510617, 106.7698235);
+        return new LatLng(10.851035, 106.772001);//
     }
 }

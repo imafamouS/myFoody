@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +18,7 @@ import com.fdsa.infamous.myfoody.common.bean_F2.ImageGalleryBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
+import com.fdsa.infamous.myfoody.ui.menu.activity.BaseSlideActivity;
 import com.fdsa.infamous.myfoody.ui.menu.activity.gallery.GalleryFolderActivity;
 import com.fdsa.infamous.myfoody.util.controller_F2.UserController;
 import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
@@ -36,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by apple on 5/1/17.
  */
 
-public class ChangeAvatarActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnClickListener {
     public ChangeAvatarActivity() {
 
     }
@@ -71,8 +70,6 @@ public class ChangeAvatarActivity extends AppCompatActivity implements View.OnCl
         back_button_change_avatar.setOnClickListener(this);
         userController = new UserController(this.getApplicationContext());
         currentUser = GlobalStaticData.getCurrentUser();
-
-        Log.d("TAGG",currentUser.getCover());
 
         if (currentUser.getAvatar()!=null) {
             Glide.with(this.getApplicationContext()).load(APIConfig.BASE_URL_IMAGE + currentUser.getAvatar()).into(profile_image);

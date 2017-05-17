@@ -36,7 +36,6 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
     public JsonObject getOuput() throws ExecutionException, InterruptedException {
         return this.get();
     }
-
     @Override
     protected void onPreExecute() {
     }
@@ -45,9 +44,9 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
     protected void onPostExecute(JsonObject jsonObject) {
         if(callBackAsynsTask!=null){
             if(jsonObject.get("success").toString().equals("true")){
-                callBackAsynsTask.onSuccess();
+                callBackAsynsTask.onSuccess(jsonObject);
             }else{
-                callBackAsynsTask.onFail();
+                callBackAsynsTask.onFail(jsonObject);
             }
         }
         super.onPostExecute(jsonObject);
@@ -56,7 +55,7 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
 
     @Override
     protected void onProgressUpdate(String... values) {
-
+        callBackAsynsTask.onRunnin();
     }
 
     @Override

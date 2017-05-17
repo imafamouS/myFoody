@@ -24,13 +24,30 @@ import com.fdsa.infamous.myfoody.R;
 
 public class ListItemDialog extends Dialog {
 
+    public static int SEARCH = 1;
+    public static int NO_SEARCH = 0;
+
+    ImageView image_view_back;
+    TextView text_view_title;
+    EditText edit_text_quick_search;
+    ImageView image_view_icon;
+    ListView list_view;
+    Button left_button;
+    Button right_button;
+    LinearLayout linear_layout_button;
+    BaseAdapter adapter;
+    Context context;
+
+
+    View view;
+
+    int mode;
 
     public ListItemDialog(@NonNull Context context) {
         super(context, 0);
         this.context = context;
         this.view = LayoutInflater.from(context).inflate(R.layout.list_dialog_layout, null);
         setContentView(this.view);
-
         this.mode = NO_SEARCH;
         image_view_back = (ImageView) findViewById(R.id.image_view_back);
         text_view_title = (TextView) findViewById(R.id.text_view_title);
@@ -66,24 +83,6 @@ public class ListItemDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
-    public static int SEARCH = 1;
-    public static int NO_SEARCH = 0;
-
-    ImageView image_view_back;
-    TextView text_view_title;
-    EditText edit_text_quick_search;
-    ImageView image_view_icon;
-    ListView list_view;
-    Button left_button;
-    Button right_button;
-    LinearLayout linear_layout_button;
-    BaseAdapter adapter;
-    Context context;
-
-
-    View view;
-
-    int mode;
 
     private void onSearchCLick() {
 
@@ -136,6 +135,10 @@ public class ListItemDialog extends Dialog {
         this.text_view_title.setText(title);
         return this;
     }
+    public ListItemDialog setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
+        this.list_view.setOnItemClickListener(onItemClickListener);
+        return this;
+    }
 
     public ListItemDialog setMode(int mode) {
         if (this.mode != mode) {
@@ -149,10 +152,8 @@ public class ListItemDialog extends Dialog {
 
         return this;
     }
-    public ListItemDialog setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener){
-        this.list_view.setOnItemClickListener(onItemClickListener);
-        return this;
-    }
+
+
 
     public void refreshData() {
         this.adapter.notifyDataSetChanged();

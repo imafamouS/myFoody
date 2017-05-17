@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
@@ -51,6 +52,7 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
     public ArrayList<FolderGalleryBean> imageGalleyList = new ArrayList<>();
     boolean isFile;
 
+   RelativeLayout relative_layout_review_photo;
     RecyclerView recycle_view_choose;
     TextView text_view_not_media;
 
@@ -74,11 +76,18 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
     }
 
     private void initView() {
+        relative_layout_review_photo=(RelativeLayout)findViewById(R.id.relative_layout_review_photo);
         back_button_gallery = (LinearLayout) findViewById(R.id.back_button_gallery);
         text_view_done = (TextView) findViewById(R.id.text_view_done);
         grid_view_folder = (GridView) findViewById(R.id.grid_view_folder);
 
-        initViewSelectedImage();
+        if(mode==MULTI_SELECT){
+            relative_layout_review_photo.setVisibility(View.VISIBLE);
+            initViewSelectedImage();
+        }else{
+            relative_layout_review_photo.setVisibility(View.GONE);
+        }
+
     }
 
     private void initEvent() {
@@ -193,7 +202,11 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
     }
     public void sendData(){
         Intent intent=new Intent();
-        intent.putParcelableArrayListExtra("images",this.adapterReviewPhoto.data);
+        if(mode==GalleryFolderActivity.MULTI_SELECT){
+            intent.putParcelableArrayListExtra("images",this.adapterReviewPhoto.data);
+        }else if(mode==GalleryFolderActivity.SINGLE_SELECT){
+            intent.putParcelableArrayListExtra("images",this.imageGalleryBeen);
+        }
         setResult(AppConfig.RESULT_CODE_FROM_GALLERY_FOLDER,intent);
         finish();
     }
@@ -204,7 +217,9 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
         intent.putExtra("namefolder", ((FolderGalleryBean) this.adapter.getItem(position)).getFolder());
         intent.putExtra("mode", this.mode);
         intent.putParcelableArrayListExtra("data", ((FolderGalleryBean) this.adapter.getItem(position)).getImageInFolder());
-        intent.putParcelableArrayListExtra("images", this.adapterReviewPhoto.data);
+        if(mode==MULTI_SELECT){
+            intent.putParcelableArrayListExtra("images", this.adapterReviewPhoto.data);
+        }
         startActivityForResult(intent,1);
     }
 

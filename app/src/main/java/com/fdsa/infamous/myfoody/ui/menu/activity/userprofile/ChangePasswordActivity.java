@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
+import com.fdsa.infamous.myfoody.ui.menu.activity.BaseSlideActivity;
 import com.fdsa.infamous.myfoody.util.controller_F2.UserController;
 import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
  * Created by apple on 5/1/17.
  */
 
-public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChangePasswordActivity extends BaseSlideActivity implements View.OnClickListener {
     public ChangePasswordActivity() {
 
     }

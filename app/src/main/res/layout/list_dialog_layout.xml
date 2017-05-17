@@ -66,11 +66,12 @@
             android:visibility="gone" />
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="2.0dip"
         android:background="#ff2e8ff1"
-        android:orientation="vertical" />
+        android:orientation="vertical"></LinearLayout>
 
     <ListView
         android:id="@+id/list_view"

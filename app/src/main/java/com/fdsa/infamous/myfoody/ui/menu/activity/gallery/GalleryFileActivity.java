@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fdsa.infamous.myfoody.R;
@@ -49,13 +50,21 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
     ArrayList<ImageGalleryBean> selectedImage = new ArrayList<>();
     GalleryFileAdapter adapterReviewPhoto;
 
+    RelativeLayout relative_layout_review_photo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_image_layout);
         initViewChooseImage();
-        initViewSelectedImage();
+        relative_layout_review_photo = (RelativeLayout) findViewById(R.id.relative_layout_review_photo);
+        if (mode == GalleryFolderActivity.MULTI_SELECT) {
+            relative_layout_review_photo.setVisibility(View.VISIBLE);
+
+            initViewSelectedImage();
+        } else {
+            relative_layout_review_photo.setVisibility(View.GONE);
+        }
     }
 
     private void initViewChooseImage() {
@@ -126,6 +135,10 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
                 this.adapterReviewPhoto.addSelected(this.data.get(index));
 
             }
+            if (this.adapterPhotoChooser.imageSelected != null && this.adapterPhotoChooser.imageSelected.size() > 0)
+                this.text_view_not_media.setVisibility(View.GONE);
+            else
+                this.text_view_not_media.setVisibility(View.VISIBLE);
         } else if (this.mode == GalleryFolderActivity.SINGLE_SELECT) {
             if (selectedItemPosition != -1) {
                 this.adapterPhotoChooser.removeSelectedPosition(selectedItemPosition, index);
@@ -136,10 +149,6 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
                 this.adapterPhotoChooser.addSelected(this.data.get(index));
             }
         }
-        if (this.adapterPhotoChooser.imageSelected != null && this.adapterPhotoChooser.imageSelected.size() > 0)
-            this.text_view_not_media.setVisibility(View.GONE);
-        else
-            this.text_view_not_media.setVisibility(View.VISIBLE);
     }
 
     private int getImageFromPath(String path) {

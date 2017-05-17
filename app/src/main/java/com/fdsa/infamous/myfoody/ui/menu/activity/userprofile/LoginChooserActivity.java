@@ -84,7 +84,6 @@ public class LoginChooserActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        if(requestCode==AppConfig.REQUEST_CODE_LOGIN && resultCode==AppConfig.RESULT_CODE_LOGIN){
            if (data.getBooleanExtra("result_login_success", false) == true){
-
                setResult(resultCode);
                finish();
            }

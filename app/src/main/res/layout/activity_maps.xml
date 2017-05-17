@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/choose_location_bar"
@@ -41,6 +42,7 @@
             android:textColor="#ffffffff"
             android:textSize="@dimen/text_size_big_title"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/text_view_select"
             android:layout_width="wrap_content"
@@ -54,94 +56,94 @@
             android:text="@string/TEXT_ACTION_SELECT"
             android:textColor="#ffffffff"
             android:textSize="@dimen/text_size_big_title" />
-
-
     </RelativeLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/map"
-        android:layout_marginTop="@dimen/actionBarSize"
-        android:layout_below="@+id/choose_location_bar"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="98.0dip">
-
-        <FrameLayout
-
+        <fragment
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/text_view_name_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16.0dip"
-                android:layout_marginRight="16.0dip"
-                android:background="@drawable/round_border"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:lines="2"
-                android:minWidth="100.0dip"
-                android:padding="5.0dip" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="20.0dip"
-                android:layout_height="20.0dip"
-                android:layout_gravity="center" />
-        </FrameLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/icon_pointer_location" />
-    </LinearLayout>
-
-
-    <LinearLayout
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10.0dip"
-        android:layout_marginLeft="5.0dip"
-        android:layout_marginRight="5.0dip"
-        android:gravity="center">
+            android:layout_height="fill_parent" />
 
         <LinearLayout
-            android:id="@+id/linear_layout_my_location"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_location_selector"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:padding="6.0dip">
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="98.0dip">
+
+            <FrameLayout
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_view_name_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:background="@drawable/round_border"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:minWidth="100.0dip"
+                    android:padding="5.0dip" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_gravity="center" />
+            </FrameLayout>
 
             <ImageView
-                android:layout_width="30.0dip"
-                android:layout_height="fill_parent"
-                android:scaleType="centerInside"
-                android:src="@drawable/icon_my_location" />
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_pointer_location" />
+        </LinearLayout>
 
-            <TextView
+
+        <LinearLayout
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_my_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@string/TEXT_MY_LOCATION"
-                android:textColor="#ff000000"
-                android:textSize="13sp" />
+                android:background="@drawable/button_location_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="6.0dip">
+
+                <ImageView
+                    android:layout_width="30.0dip"
+                    android:layout_height="fill_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_my_location" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/TEXT_MY_LOCATION"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+    </FrameLayout>
+</LinearLayout>
 

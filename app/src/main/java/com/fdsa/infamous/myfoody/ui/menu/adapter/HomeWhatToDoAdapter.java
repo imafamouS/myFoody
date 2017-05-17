@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.FoodBean;
+import com.fdsa.infamous.myfoody.common.myinterface.IRestaurantItemClick;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
 
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
 
     static Context context;
     private List<FoodBean> foodList;
+    IRestaurantItemClick restaurantItemClick;
+
+    public void setRestaurantItemClick(IRestaurantItemClick restaurantItemClick) {
+        this.restaurantItemClick = restaurantItemClick;
+    }
 
     //Hàm khởi tạo
     public HomeWhatToDoAdapter(Context context, List<FoodBean> foodList) {
@@ -106,7 +112,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
         FoodBean item = this.foodList.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(this.context).inflate(R.layout.food_item_what_to_do, parent, false);
-            holder = new HomeWhatToDoAdapter.FoodViewHolder(convertView);
+            holder = new HomeWhatToDoAdapter.FoodViewHolder(convertView,this.restaurantItemClick,position);
             convertView.setTag(holder);
         } else {
             holder = (HomeWhatToDoAdapter.FoodViewHolder) convertView.getTag();
@@ -118,7 +124,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
     }
 
     /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
-    static class FoodViewHolder {
+    static class FoodViewHolder implements  View.OnClickListener{
         public View item;
         private LinearLayout linear_layout_food_item_1;
         private ImageView image_view_pic_food_1;
@@ -128,10 +134,14 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
         private CircleImageView image_view_avatar_user_food_1;
         private TextView text_view_name_user_food_1;
         private TextView text_view_day_user_food_1;
+        IRestaurantItemClick restaurantItemClick;
+        int position;
 
         //Hàm khởi tạo
-        public FoodViewHolder(View item) {
+        public FoodViewHolder(View item,IRestaurantItemClick restaurantItemClick,int position) {
             this.item = item;
+            this.restaurantItemClick=restaurantItemClick;
+            this.position=position;
 
             linear_layout_food_item_1 = (LinearLayout) item.findViewById(R.id.linear_layout_food_item_1);
             image_view_pic_food_1 = (ImageView) item.findViewById(R.id.image_view_pic_food_1);
@@ -141,6 +151,7 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
             image_view_avatar_user_food_1 = (CircleImageView) item.findViewById(R.id.image_view_avatar_user_food_1);
             text_view_name_user_food_1 = (TextView) item.findViewById(R.id.text_view_name_user_food_1);
             text_view_day_user_food_1 = (TextView) item.findViewById(R.id.text_view_day_user_food_1);
+            item.setOnClickListener(this);
         }
 
         //Hàm hiện dữ liệu từ đối tượng món ăn lên view
@@ -164,13 +175,15 @@ public class HomeWhatToDoAdapter extends BaseAdapter {
                     text_view_name_user_food_1.setText(food.getListComment().get(0).getUser().getName());
                     text_view_day_user_food_1.setText(food.getListComment().get(0).getComment());
                 }
-
-
-
             } else {
                 text_view_name_user_food_1.setVisibility(View.GONE);
                 text_view_day_user_food_1.setVisibility(View.GONE);
             }
+        }
+
+        @Override
+        public void onClick(View v) {
+            restaurantItemClick.RestaurantItemCLick(this.position);
         }
     }
 }
