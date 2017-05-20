@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.util.controller_F1;
+package com.fdsa.infamous.myfoody.util.controller_Foody1_do_not_use;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -22,7 +22,7 @@ public class ProvinceController extends DataAccess {
     //Hàm khởi tạo
     public ProvinceController(Context context) {
         super(context);
-        this.context=context;
+        this.context = context;
     }
 
     //Hàm mở kết nối
@@ -40,15 +40,15 @@ public class ProvinceController extends DataAccess {
     //Hàm lấy danh sách các tỉnh hoặc danh sách các huyện
     @Override
     public List<?> executeSelect(String... params) {
-        List<?> list=new ArrayList<>();
+        List<?> list = new ArrayList<>();
         String query = "";
         String db = "";
         if (params[0].equals(AppConfig.REQUEST_CODE_LIST_AREA)) {
             this.open();
-            List<DistrictBean> listDistrictBeen =new ArrayList<>();
+            List<DistrictBean> listDistrictBeen = new ArrayList<>();
 
             db = "tbl_district";
-            query = "SELECT * FROM " + db +" WHERE id_province = '" +params[1]+"'";
+            query = "SELECT * FROM " + db + " WHERE id_province = '" + params[1] + "'";
 
             Cursor cursor = this.database.rawQuery(query, null);
             try {
@@ -56,9 +56,9 @@ public class ProvinceController extends DataAccess {
                     String id = cursor.getString(0);
                     String name = cursor.getString(1);
                     int countstreet = cursor.getInt(2);
-                   // String idProvince=cursor.getString(3);
+                    // String idProvince=cursor.getString(3);
                     //public DistrictBean(String idDistrict, String titleDistrict, int numofStreet, boolean isSelected, String idProvince) {
-                    DistrictBean item = new DistrictBean(id,name,countstreet,false);
+                    DistrictBean item = new DistrictBean(id, name, countstreet, false);
 
                     listDistrictBeen.add(item);
                 }
@@ -66,13 +66,13 @@ public class ProvinceController extends DataAccess {
                 cursor.close();
                 this.close();
             }
-            list= listDistrictBeen;
+            list = listDistrictBeen;
 
         } else if (params[0].equals(AppConfig.REQUEST_CODE_LIST_PROVINCE)) {
             this.open();
-            List<ProvinceBean> listProvinceBean =new ArrayList<>();
+            List<ProvinceBean> listProvinceBean = new ArrayList<>();
             db = "tbl_province";
-            query = "SELECT * FROM " + db ;
+            query = "SELECT * FROM " + db;
 
             Cursor cursor = this.database.rawQuery(query, null);
             try {
@@ -80,14 +80,14 @@ public class ProvinceController extends DataAccess {
                     String id = cursor.getString(0);
                     String name = cursor.getString(1);
                     //public DistrictBean(String idDistrict, String titleDistrict, int numofStreet, boolean isSelected, String idProvince) {
-                    ProvinceBean item = new ProvinceBean(id,name,null);
+                    ProvinceBean item = new ProvinceBean(id, name, null);
                     listProvinceBean.add(item);
                 }
             } finally {
                 cursor.close();
                 this.close();
             }
-            list= listProvinceBean;
+            list = listProvinceBean;
         }
         return list;
     }

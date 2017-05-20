@@ -1,10 +1,10 @@
 package com.fdsa.infamous.myfoody.util.controller_F2;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.fdsa.infamous.myfoody.common.bean_F2.FoodBean;
 import com.fdsa.infamous.myfoody.util.asynctask.MyFoodyGetMethod;
+import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -19,32 +19,37 @@ import java.util.concurrent.ExecutionException;
 public class FoodController {
     private Context context;
     private String url;
-    public FoodController(Context context){
-        this.context=context;
+    //Hàm khởi tạo
+    public FoodController(Context context) {
+        this.context = context;
     }
-    public List<FoodBean> getListFood(String provinceid,String districtid,String streetid,String restype,String sorttype) throws ExecutionException, InterruptedException {
+    //Hàm lấy danh sách món ăn
+    public List<FoodBean> getListFood(String provinceid, String districtid, String streetid, String restype, String sorttype) throws ExecutionException, InterruptedException {
 
-        url="api/food/get?provinceid="+provinceid;
-        if(districtid!=null &&!districtid.equals("")){
-            url+="&districtid="+districtid;
+        url = "api/food/get?provinceid=" + provinceid;
+        if (districtid != null && !districtid.equals("")) {
+            url += "&districtid=" + districtid;
         }
-        if(streetid!=null&&!streetid.equals("")){
-            url+="&streetid="+streetid;
+        if (streetid != null && !streetid.equals("")) {
+            url += "&streetid=" + streetid;
         }
-        if(restype!=null&&!restype.equals("")){
-            url+="&restype="+restype;
+        if (restype != null && !restype.equals("")) {
+            url += "&restype=" + restype;
         }
-        if(sorttype!=null&&!sorttype.equals("")){
-            url+="&sort="+sorttype;
+        if (sorttype != null && !sorttype.equals("")) {
+            url += "&sort=" + sorttype;
+            if (sorttype.equals("ganday")) {
+                url += "&lat" + GlobalStaticData.getMYLOCATION().getLatitude() + "&long" + GlobalStaticData.getMYLOCATION().getLongitude();
+            }
         }
-        Log.d("FOOD",url);
 
-        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
+        JsonObject output = new MyFoodyGetMethod(null, context, null).execute(url).get();
 
-        List<FoodBean> foodList=null;
-        if(output.get("success").toString().equals("true")){
+        List<FoodBean> foodList = null;
+        if (output.get("success").toString().equals("true")) {
             Gson gson = new Gson();
-            foodList=gson.fromJson(output.get("data"), new TypeToken<List<FoodBean>>(){}.getType());
+            foodList = gson.fromJson(output.get("data"), new TypeToken<List<FoodBean>>() {
+            }.getType());
         }
         return foodList;
     }

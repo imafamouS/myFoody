@@ -42,9 +42,9 @@ public class ListItemDialog extends Dialog {
     View view;
 
     int mode;
-
+    //hàm khởi tạo
     public ListItemDialog(@NonNull Context context) {
-        super(context, 0);
+        super(context);
         this.context = context;
         this.view = LayoutInflater.from(context).inflate(R.layout.list_dialog_layout, null);
         setContentView(this.view);
@@ -74,16 +74,16 @@ public class ListItemDialog extends Dialog {
         });
 
     }
-
+    //hàm khởi tạo
     public ListItemDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, false, null);
     }
-
+    //hàm khởi tạo
     protected ListItemDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-
+    //Sau khi nhấn vào icon search
     private void onSearchCLick() {
 
         this.image_view_back.setVisibility(View.VISIBLE);
@@ -91,7 +91,7 @@ public class ListItemDialog extends Dialog {
         this.text_view_title.setVisibility(View.GONE);
         this.image_view_icon.setVisibility(View.GONE);
     }
-
+    //Sau khí nhấn vào iconBack
     private void onBackClick() {
         this.image_view_back.setVisibility(View.GONE);
         this.edit_text_quick_search.setVisibility(View.GONE);
@@ -104,7 +104,7 @@ public class ListItemDialog extends Dialog {
 
         this.text_view_title.setVisibility(View.VISIBLE);
     }
-
+    //Khởi tạo left Button cho popup
     public ListItemDialog setLeftButton(String title, View.OnClickListener onClickListener) {
         this.left_button.setVisibility(View.VISIBLE);
         this.left_button.setText(title);
@@ -114,7 +114,7 @@ public class ListItemDialog extends Dialog {
         return this;
 
     }
-
+    //Khởi tạo right Button cho popup
     public ListItemDialog setRightButton(String title, View.OnClickListener onClickListener) {
         this.right_button.setVisibility(View.VISIBLE);
         this.right_button.setText(title);
@@ -123,23 +123,24 @@ public class ListItemDialog extends Dialog {
         this.right_button.setOnClickListener(onClickListener);
         return this;
     }
-
+    //Gán adapter cho listview của popup
     public ListItemDialog setAdapter(BaseAdapter adapter) {
         this.adapter = adapter;
         this.list_view.setAdapter(adapter);
         return this;
     }
-
+    //Gán tiêu đề cho popup
     public ListItemDialog setTitle(String title) {
         this.text_view_title.setVisibility(View.VISIBLE);
         this.text_view_title.setText(title);
         return this;
     }
+    //Gán sự kiện khi click vào item trên listview
     public ListItemDialog setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
         this.list_view.setOnItemClickListener(onItemClickListener);
         return this;
     }
-
+    //Gán các chế độ cho Popup (có dugn2 search hoặc không)
     public ListItemDialog setMode(int mode) {
         if (this.mode != mode) {
             this.mode = mode;
@@ -153,12 +154,11 @@ public class ListItemDialog extends Dialog {
         return this;
     }
 
-
-
+    //Làm mới dữ liệu
     public void refreshData() {
         this.adapter.notifyDataSetChanged();
     }
-
+    //Hiện popup
     @Override
     public void show() {
 

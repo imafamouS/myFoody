@@ -1,10 +1,10 @@
-package com.fdsa.infamous.myfoody.common.bean_F1;
+package com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use;
 
 /**
  * Created by FDSA on 4/3/2017.
  */
 
-public class Street{
+public class Street {
     private String idStreet;
     private String titleStreet;
 

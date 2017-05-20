@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckedTextView;
-import android.widget.ImageView;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.ImageGalleryBean;
@@ -33,17 +31,27 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
     IOnClickImage iOnClickImage;
     int type;
 
-    public void setiOnClickImage(IOnClickImage iOnClickImage) {
-        this.iOnClickImage = iOnClickImage;
-    }
 
+    //Hàm khởi tạo
     public GalleryFileAdapter(Context context, ArrayList<ImageGalleryBean> data, int type) {
         super();
         this.context = context;
         this.data = data;
         this.type = type;
     }
+    //Hàm gán sự kiện khi click vào ảnh
+    public void setiOnClickImage(IOnClickImage iOnClickImage) {
+        this.iOnClickImage = iOnClickImage;
+    }
 
+    /**
+     * Hàm tạo ViewHolder tương ứng với từng loại
+     * Choose_Photo:Chọn ảnh
+     * Review_Photo:các ảnh đã chọn
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public BaseGalleryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -59,13 +67,13 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
                 return null;
         }
     }
-
+    //Hàm ánh xạ dữ liệu lên ViewHolder
     @Override
     public void onBindViewHolder(BaseGalleryViewHolder holder, int position) {
-        if(type==CHOOSE_PHOTO){
+        if (type == CHOOSE_PHOTO) {
             ImageGalleryBean item = (ImageGalleryBean) this.data.get(position);
             holder.renderData(item, isSelected(item), position);
-        }else{
+        } else {
             ImageGalleryBean item = (ImageGalleryBean) this.data.get(position);
             holder.renderData(item, true, position);
         }
@@ -99,7 +107,7 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
 
         return;
     }*/
-
+    //Hàm kiểm tra ảnh đã được chọn hay chưa (đánh dấu)
     private boolean isSelected(ImageGalleryBean image) {
         for (ImageGalleryBean selectedImage : this.imageSelected) {
             if (selectedImage.getPath().equals(image.getPath())) {
@@ -108,28 +116,28 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
         }
         return false;
     }
-
+    //hàm lấy ID item tại position
     public long getItemId(int position) {
         return position;
     }
 
-
+    //Hàm đếm số lượng item trong adapter
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return data.size();
     }
-
+    //Hàm gán data cho adapter
     public void setData(List<ImageGalleryBean> images) {
         this.data.clear();
         this.data.addAll(images);
     }
-
+    //Hàm thêm dữ liệu vào data có sẵn của adapter
     public void addAll(List<ImageGalleryBean> images) {
         int startIndex = this.data.size();
         this.data.addAll(startIndex, images);
         notifyItemRangeInserted(startIndex, images.size());
     }
-
+    //Hàm thêm ảnh được chọn
     public void addSelected(ImageGalleryBean image) {
         for (int i = 0; i < imageSelected.size(); i++) {
             ImageGalleryBean item = imageSelected.get(i);
@@ -138,15 +146,15 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
             }
         }
         this.imageSelected.add(image);
-        if(type==CHOOSE_PHOTO){
+        if (type == CHOOSE_PHOTO) {
             notifyItemChanged(this.data.indexOf(image));
-        }else{
+        } else {
             add2Data(image);
-           notifyItemChanged(this.imageSelected.indexOf(image));
+            notifyItemChanged(this.imageSelected.indexOf(image));
         }
 
     }
-
+    //Hàm xóa ảnh được chọn
     public void removeSelectedImage(ImageGalleryBean image) {
         for (int i = 0; i < imageSelected.size(); i++) {
             ImageGalleryBean item = imageSelected.get(i);
@@ -157,7 +165,7 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
         }
         notifyItemChanged(this.data.indexOf(image));
     }
-
+    //Hàm xóa ảnh được chọn tại vị trí click
     public void removeSelectedPosition(int position, int clickPosition) {
         if (type == CHOOSE_PHOTO) {
             this.imageSelected.remove(position);
@@ -165,24 +173,24 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
         } else if (type == REVIEW_PHOTO) {
             this.data.remove(position);
             this.imageSelected.remove(position);
-          //  notifyItemChanged(clickPosition);
+            //  notifyItemChanged(clickPosition);
 
         }
 
     }
-
+    //Hàm xóa ảnh được chọn tại vị trí click
     public void removeSelectedPosition(ImageGalleryBean item, int clickPosition) {
-        if(type==CHOOSE_PHOTO){
+        if (type == CHOOSE_PHOTO) {
             this.imageSelected.remove(item);
             notifyItemChanged(clickPosition);
-        }else{
+        } else {
             this.notifyItemRemoved(this.data.indexOf(item));
             this.data.remove(item);
             this.imageSelected.remove(item);
         }
 
     }
-
+    //hàm xóa tất cả các ảnh được chọn
     public void removeAllSelectedSingleClick() {
         this.imageSelected.clear();
         notifyDataSetChanged();
@@ -197,29 +205,5 @@ public class GalleryFileAdapter extends RecyclerView.Adapter<BaseGalleryViewHold
         }
         this.data.add(image);
 
-    }
-
-
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        View v;
-        ImageView image_view;
-        CheckedTextView image_view_check;
-        public int position;
-        IOnClickImage iOnClickImage;
-
-        public ViewHolder(View v, IOnClickImage iOnClickImage) {
-            super(v);
-            this.v = v;
-            image_view = (ImageView) v.findViewById(R.id.image_view_file);
-            image_view_check = (CheckedTextView) v.findViewById(R.id.check_text_view);
-            image_view_check.bringToFront();
-            this.iOnClickImage = iOnClickImage;
-            this.v.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            iOnClickImage.onClickImage(v, getAdapterPosition());
-        }
     }
 }

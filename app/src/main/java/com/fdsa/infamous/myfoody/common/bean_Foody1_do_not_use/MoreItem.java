@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.common.bean_F1;
+package com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use;
 
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.myenum.MoreItemCode;
@@ -10,6 +10,7 @@ import com.fdsa.infamous.myfoody.common.myenum.MoreItemCode;
 public class MoreItem {
     private String tittle;
     private MoreItemCode code;
+
     public MoreItem(String tittle, MoreItemCode code) {
         this.tittle = tittle;
         this.code = code;

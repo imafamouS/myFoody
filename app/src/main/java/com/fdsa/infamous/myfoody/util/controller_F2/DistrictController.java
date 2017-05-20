@@ -18,16 +18,20 @@ import java.util.concurrent.ExecutionException;
 public class DistrictController {
     private Context context;
     private String url;
-    public DistrictController(Context context){
-    }
-    public List<DistrictBean> getListDistrict(String provinceID) throws ExecutionException, InterruptedException {
-        url="api/district/get/"+provinceID;
-        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
 
-        List<DistrictBean> districtList=null;
-        if(output.get("success").toString().equals("true")){
+    //hàm khởi tạo
+    public DistrictController(Context context) {
+    }
+    //hàm lấy danh sách huyện
+    public List<DistrictBean> getListDistrict(String provinceID) throws ExecutionException, InterruptedException {
+        url = "api/district/get/" + provinceID;
+        JsonObject output = new MyFoodyGetMethod(null, context, null).execute(url).get();
+
+        List<DistrictBean> districtList = null;
+        if (output.get("success").toString().equals("true")) {
             Gson gson = new Gson();
-            districtList=gson.fromJson(output.get("data"), new TypeToken<List<DistrictBean>>(){}.getType());
+            districtList = gson.fromJson(output.get("data"), new TypeToken<List<DistrictBean>>() {
+            }.getType());
         }
 
         return districtList;

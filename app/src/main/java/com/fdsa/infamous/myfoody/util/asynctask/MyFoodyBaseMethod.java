@@ -15,47 +15,52 @@ import java.util.concurrent.ExecutionException;
  * Created by FDSA on 4/19/2017.
  */
 
-public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObject> {
+public abstract class MyFoodyBaseMethod extends AsyncTask<String, String, JsonObject> {
 
     private boolean type;
     private JsonObject jsonObjectInput;
     private Context activity;
     private ICallBackAsynsTask callBackAsynsTask;
 
+    //Hàm khởi tạo
     public MyFoodyBaseMethod(@Nullable boolean type,
                              @Nullable JsonObject jsonObjectInput,
                              @Nullable Context activity,
                              @Nullable ICallBackAsynsTask callback
-                            ){
+    ) {
         super();
-        this.type=type;
-        this.jsonObjectInput=jsonObjectInput;
-        this.activity=activity;
-        this.callBackAsynsTask=callback;
+        this.type = type;
+        this.jsonObjectInput = jsonObjectInput;
+        this.activity = activity;
+        this.callBackAsynsTask = callback;
     }
+    //Hàm lấy giá trị trả về
     public JsonObject getOuput() throws ExecutionException, InterruptedException {
         return this.get();
     }
+
     @Override
     protected void onPreExecute() {
     }
 
+    //Hàm sau khi lấy dữ liệu thành công
     @Override
     protected void onPostExecute(JsonObject jsonObject) {
-        if(callBackAsynsTask!=null){
-            if(jsonObject.get("success").toString().equals("true")){
+        super.onPostExecute(jsonObject);
+        if (callBackAsynsTask != null) {
+            if (jsonObject.get("success").toString().equals("true")) {
                 callBackAsynsTask.onSuccess(jsonObject);
-            }else{
+            } else {
                 callBackAsynsTask.onFail(jsonObject);
             }
         }
-        super.onPostExecute(jsonObject);
+
 
     }
 
     @Override
     protected void onProgressUpdate(String... values) {
-        callBackAsynsTask.onRunnin();
+
     }
 
     @Override
@@ -65,14 +70,13 @@ public abstract class MyFoodyBaseMethod extends AsyncTask<String,String,JsonObje
     @Override
     protected void onCancelled() {
     }
-
+    //hàm lấy dữ liệu
     @Override
     protected JsonObject doInBackground(String... params) {
         String absolutePath = APIConfig.BASE_URL + params[0];
 
         return JsonHTTPHelper.makeHttpResponse(absolutePath, type, jsonObjectInput);
     }
-
 
 
     public boolean isType() {

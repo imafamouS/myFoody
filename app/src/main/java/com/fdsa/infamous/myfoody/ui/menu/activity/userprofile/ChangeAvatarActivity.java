@@ -36,13 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnClickListener {
-    public ChangeAvatarActivity() {
-
-    }
-
     public static final int CHANGE_AVATAR = 0;
     public static final int CHANGE_COVER = 1;
-
     LinearLayout linear_layout_change_avatar;
     LinearLayout linear_layout_change_cover;
     TextView text_view_save_change;
@@ -52,46 +47,7 @@ public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnCl
     UserController userController;
     UserBean currentUser;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_avatar_user);
-
-        back_button_change_avatar = (LinearLayout) findViewById(R.id.back_button_change_avatar);
-        linear_layout_change_avatar = (LinearLayout) findViewById(R.id.linear_layout_change_avatar);
-        linear_layout_change_cover = (LinearLayout) findViewById(R.id.linear_layout_change_cover);
-        text_view_save_change = (TextView) findViewById(R.id.text_view_save_change);
-        profile_image = (CircleImageView) findViewById(R.id.profile_image);
-        cover_image = (ImageView) findViewById(R.id.cover_image);
-
-        linear_layout_change_avatar.setOnClickListener(this);
-        linear_layout_change_cover.setOnClickListener(this);
-        text_view_save_change.setOnClickListener(this);
-        back_button_change_avatar.setOnClickListener(this);
-        userController = new UserController(this.getApplicationContext());
-        currentUser = GlobalStaticData.getCurrentUser();
-
-        if (currentUser.getAvatar()!=null) {
-            Glide.with(this.getApplicationContext()).load(APIConfig.BASE_URL_IMAGE + currentUser.getAvatar()).into(profile_image);
-        }else{
-
-            Glide.with(this.getApplicationContext()).load(R.drawable.icon_user_avatar).into(profile_image);
-        }
-
-        if (currentUser.getCover() != null) {
-            Glide.with(this.getApplicationContext()).load(APIConfig.BASE_URL_IMAGE + currentUser.getCover()).into(cover_image);
-        }else{
-            Glide.with(this.getApplicationContext()).load(R.drawable.icon_null).into(cover_image);
-        }
-    }
-
-    private void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.getMenuInflater().inflate(R.menu.select_photo_menu, popup.getMenu());
-        popup.setOnMenuItemClickListener(onMenuItemClickListener);
-        popup.show();
-    }
-
+    //Sự kiện khi click trên popup
     PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
@@ -111,24 +67,67 @@ public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnCl
             return false;
         }
     };
-
-
     ImageGalleryBean uploadAvatar = null;
     ImageGalleryBean uploadCover = null;
+    boolean changeavatar = false;
+    boolean changecover = false;
+    public ChangeAvatarActivity() {
 
+    }
+    //hàm xử lí sự kiện khi activity được khởi tạo (khởi tạo view)
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.change_avatar_user);
+
+        back_button_change_avatar = (LinearLayout) findViewById(R.id.back_button_change_avatar);
+        linear_layout_change_avatar = (LinearLayout) findViewById(R.id.linear_layout_change_avatar);
+        linear_layout_change_cover = (LinearLayout) findViewById(R.id.linear_layout_change_cover);
+        text_view_save_change = (TextView) findViewById(R.id.text_view_save_change);
+        profile_image = (CircleImageView) findViewById(R.id.profile_image);
+        cover_image = (ImageView) findViewById(R.id.cover_image);
+
+        linear_layout_change_avatar.setOnClickListener(this);
+        linear_layout_change_cover.setOnClickListener(this);
+        text_view_save_change.setOnClickListener(this);
+        back_button_change_avatar.setOnClickListener(this);
+        userController = new UserController(this.getApplicationContext());
+        currentUser = GlobalStaticData.getCurrentUser();
+
+        if (currentUser.getAvatar() != null) {
+            Glide.with(this.getApplicationContext()).load(APIConfig.BASE_URL_IMAGE + currentUser.getAvatar()).into(profile_image);
+        } else {
+
+            Glide.with(this.getApplicationContext()).load(R.drawable.icon_user_avatar).into(profile_image);
+        }
+
+        if (currentUser.getCover() != null) {
+            Glide.with(this.getApplicationContext()).load(APIConfig.BASE_URL_IMAGE + currentUser.getCover()).into(cover_image);
+        } else {
+            Glide.with(this.getApplicationContext()).load(R.drawable.icon_null).into(cover_image);
+        }
+    }
+    //Hiền popup
+    private void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.getMenuInflater().inflate(R.menu.select_photo_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(onMenuItemClickListener);
+        popup.show();
+    }
+    //Hàm xử lí sự kiện nhận kết quả trả về từ activity (Lấy Ảnh)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode == AppConfig.RESULT_CODE_FROM_GALLERY_FOLDER) {
             ArrayList<ImageGalleryBean> dataReponse = new ArrayList<>();
             dataReponse = data.getParcelableArrayListExtra("images");
-            if(dataReponse!=null && dataReponse.size()>0){
+            if (dataReponse != null && dataReponse.size() > 0) {
                 updateImageView(dataReponse.get(0));
             }
 
         }
     }
-
+    //Hiện thông báo
     private void showAlert(String mess) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -144,7 +143,7 @@ public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnCl
 
         alertDialogBuilder.show();
     }
-
+    //Hàm update lại các imageview sau khi chọn ảnh
     public void updateImageView(ImageGalleryBean image) {
         if (this.changeavatar) {
             this.changeavatar = false;
@@ -157,8 +156,7 @@ public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnCl
             Glide.with(this.getApplicationContext()).load("file://" + uploadCover.getPath()).into(cover_image);
         }
     }
-
-
+    //hàm thực hiện việc đưa dữ liệu lên server
     private void uploadImage() throws ExecutionException, InterruptedException {
         boolean isSuccess = false;
         JsonObject avatar = null;
@@ -180,10 +178,7 @@ public class ChangeAvatarActivity extends BaseSlideActivity implements View.OnCl
             GlobalStaticData.setCurrentUser(afterUpdateUser);
         }
     }
-
-    boolean changeavatar = false;
-    boolean changecover = false;
-
+    //hàm xử lí sự kiện onClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

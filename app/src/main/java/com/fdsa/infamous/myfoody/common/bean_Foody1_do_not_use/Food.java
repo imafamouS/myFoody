@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.common.bean_F1;
+package com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use;
 
 /**
  * Created by FDSA on 4/9/2017.

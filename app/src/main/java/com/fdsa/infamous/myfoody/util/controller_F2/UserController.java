@@ -18,70 +18,76 @@ public class UserController {
 
     private Context context;
     private String url;
-    public UserController(Context context){
-        this.context=context;
+
+    public UserController(Context context) {
+        this.context = context;
 
     }
-
+    //Hàm đăng nhập
     public UserBean checkLogin(JsonObject loginJson) throws ExecutionException, InterruptedException {
-        url="login";
+        url = "login";
 
-        JsonObject output=new MyFoodyPostMethod(loginJson, context,null).execute(url).get();
-        UserBean user=null;
-        if(output.get("success").toString().equals("true")){
+        JsonObject output = new MyFoodyPostMethod(loginJson, context, null).execute(url).get();
+        UserBean user = null;
+        if (output.get("success").toString().equals("true")) {
             Gson gson = new Gson();
-            user=gson.fromJson(output.get("data"), UserBean.class);
+            user = gson.fromJson(output.get("data"), UserBean.class);
         }
         return user;
     }
+    //Hàm đăng ký
     public boolean register(JsonObject loginJson) throws ExecutionException, InterruptedException {
-        url="user/register";
+        url = "user/register";
 
-        JsonObject output=new MyFoodyPostMethod(loginJson, context,null).execute(url).get();
-        if(output.get("success").toString().equals("true")){
-           return true;
-        }
-        return false;
-    }
-    public boolean update(JsonObject updateJson) throws ExecutionException, InterruptedException {
-        url="user/update";
-
-        JsonObject output=new MyFoodyPostMethod(updateJson, context,null).execute(url).get();
-        if(output.get("success").toString().equals("true")){
+        JsonObject output = new MyFoodyPostMethod(loginJson, context, null).execute(url).get();
+        if (output.get("success").toString().equals("true")) {
             return true;
         }
         return false;
     }
-    public UserBean getuser(String userid,String token) throws ExecutionException, InterruptedException {
-        url="user?userid="+userid;
-        url+="&token="+token;
+    //Hàm cập nhật thông tin
+    public boolean update(JsonObject updateJson) throws ExecutionException, InterruptedException {
+        url = "user/update";
 
-        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
-        UserBean user=null;
-        if(output.get("success").toString().equals("true")){
+        JsonObject output = new MyFoodyPostMethod(updateJson, context, null).execute(url).get();
+        if (output.get("success").toString().equals("true")) {
+            return true;
+        }
+        return false;
+    }
+    //Hàm lấy thông tin user
+    public UserBean getuser(String userid, String token) throws ExecutionException, InterruptedException {
+        url = "user?userid=" + userid;
+        url += "&token=" + token;
+
+        JsonObject output = new MyFoodyGetMethod(null, context, null).execute(url).get();
+        UserBean user = null;
+        if (output.get("success").toString().equals("true")) {
             Gson gson = new Gson();
-            user=gson.fromJson(output.get("data"), UserBean.class);
+            user = gson.fromJson(output.get("data"), UserBean.class);
         }
         return user;
     }
+    //hàm đổi mật khẩu user
     public boolean changePass(JsonObject input) throws ExecutionException, InterruptedException {
-        url="user/changepass";
+        url = "user/changepass";
 
-        JsonObject output=new MyFoodyPostMethod(input, context,null).execute(url).get();
-        if(output.get("success").toString().equals("true")){
+        JsonObject output = new MyFoodyPostMethod(input, context, null).execute(url).get();
+        if (output.get("success").toString().equals("true")) {
             return true;
         }
         return false;
     }
-    public synchronized boolean changeAvatar(JsonObject input,int action,String token)throws ExecutionException, InterruptedException {
-        if(action==0){
-            url="user/changeavatar";
-        }else if(action==1){
-            url="user/changecover";
+    //Hàm thay đổi avatar user
+    public synchronized boolean changeAvatar(JsonObject input, int action, String token) throws ExecutionException, InterruptedException {
+        if (action == 0) {
+            url = "user/changeavatar";
+        } else if (action == 1) {
+            url = "user/changecover";
         }
-        url+="?token="+token;
-        JsonObject output=new MyFoodyPostMethod(input, context,null).execute(url).get();
-        if(output.get("success").toString().equals("true")){
+        url += "?token=" + token;
+        JsonObject output = new MyFoodyPostMethod(input, context, null).execute(url).get();
+        if (output.get("success").toString().equals("true")) {
             return true;
         }
         return false;

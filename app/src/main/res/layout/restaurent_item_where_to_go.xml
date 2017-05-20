@@ -383,5 +383,9 @@
 
 
     </RelativeLayout>
+    <View
+        android:background="@color/back_ground_color"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
 </LinearLayout>

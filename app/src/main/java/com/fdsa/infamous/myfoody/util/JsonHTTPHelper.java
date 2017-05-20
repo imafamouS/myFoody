@@ -23,9 +23,10 @@ import java.net.URLConnection;
  */
 
 public class JsonHTTPHelper {
-    public static JsonObject makeHttpResponse(String url, boolean method, @Nullable JsonObject jsonObjectInput) {
+    //Hàm thực hiện việc gửi và nhận dữ liệu lên URL
+    public synchronized  static JsonObject makeHttpResponse(String url, boolean method, @Nullable JsonObject jsonObjectInput) {
         URLConnection connection = getHTTPConnection(url, method);
-        if(connection==null)
+        if (connection == null)
             return APIAction.GET_ERROR_OBJECT();
         if (jsonObjectInput != null) {
             postObject(jsonObjectInput, connection);
@@ -34,7 +35,7 @@ public class JsonHTTPHelper {
         return getJsonResponse(connection);
 
     }
-
+    //Hàm đưa dữ liệu lên server
     private static void postObject(JsonObject jsonObjectInput, URLConnection connection) {
 
         try {
@@ -46,14 +47,14 @@ public class JsonHTTPHelper {
         }
 
     }
-
+    //Hàm lấy kết quả trả về từ URL
     private static JsonObject getJsonResponse(URLConnection connection) {
 
         JSONObject jsonObject = getJSONObjectFromConnection(connection);
         return convertJSONObject2JSonObject(jsonObject);
 
     }
-
+    //Hàm chuyển đổi từ JSONObject sang JsonObject(Gson_Google)
     private static JsonObject convertJSONObject2JSonObject(JSONObject input) {
         if (input != null) {
             return (JsonObject) new JsonParser().parse(input.toString());
@@ -61,7 +62,7 @@ public class JsonHTTPHelper {
         return APIAction.GET_ERROR_OBJECT();
 
     }
-
+    //Hàm tạo kết nối đến URL
     private static URLConnection getHTTPConnection(String strURL, boolean method) {
         URL url = null;
         URLConnection connection = null;
@@ -81,16 +82,16 @@ public class JsonHTTPHelper {
         }
         return connection;
     }
-
+    //Hàm lấy JSONObject từ URL
     private static JSONObject getJSONObjectFromConnection(URLConnection connection) {
         JSONObject output = null;
-        if(connection!=null){
+        if (connection != null) {
             InputStream in = null;
             try {
                 in = new BufferedInputStream(connection.getInputStream());
                 String result = IOUtils.toString(in, "UTF-8");
                 output = new JSONObject(result);
-            } catch (IOException |JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
         }

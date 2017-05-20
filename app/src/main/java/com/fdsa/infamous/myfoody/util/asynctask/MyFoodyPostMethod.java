@@ -16,12 +16,14 @@ import java.util.concurrent.ExecutionException;
 public class MyFoodyPostMethod extends MyFoodyBaseMethod {
 
     public MyFoodyPostMethod(@Nullable JsonObject jsonObjectInput, @Nullable Context activity, ICallBackAsynsTask callBackAsynsTask) {
-        super(APIConfig.POST, jsonObjectInput, activity,callBackAsynsTask);
+        super(APIConfig.POST, jsonObjectInput, activity, callBackAsynsTask);
     }
+
     @Override
     public JsonObject getOuput() throws ExecutionException, InterruptedException {
         return super.getOuput();
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();

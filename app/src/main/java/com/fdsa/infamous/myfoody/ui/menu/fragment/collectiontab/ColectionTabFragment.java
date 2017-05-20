@@ -68,6 +68,7 @@ public class ColectionTabFragment extends Fragment implements IOnTopMenuBarChang
 
     /**
      * Hàm xử lí sự kiện khi thay đổi vị trí của viewpager
+     *
      * @param position
      */
     @Override
@@ -83,6 +84,7 @@ public class ColectionTabFragment extends Fragment implements IOnTopMenuBarChang
 
     /**
      * Hàm xử lí sự kiện khi click vào các view trên top menu (thay đổi vị trí của viewpager)
+     *
      * @param index
      */
     @Override

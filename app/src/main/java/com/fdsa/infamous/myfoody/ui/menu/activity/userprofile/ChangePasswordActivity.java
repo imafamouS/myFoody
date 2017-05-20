@@ -26,20 +26,19 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ChangePasswordActivity extends BaseSlideActivity implements View.OnClickListener {
-    public ChangePasswordActivity() {
-
-    }
-
     LinearLayout back_button_change_password;
     TextView text_view_login_email;
     EditText edit_text_current_password;
     EditText edit_text_new_password;
     EditText edit_text_confirm_new_password;
     TextView text_view_save_change;
-
     UserBean currentUser;
     UserController userController;
+    //Hàm khởi tạo
+    public ChangePasswordActivity() {
 
+    }
+    //Hàm xử lí sự kiện khi View dược khởi tạo (Khởi tạo View)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,7 @@ public class ChangePasswordActivity extends BaseSlideActivity implements View.On
         }
 
     }
-
+    //Init View
     private void init() {
         back_button_change_password = (LinearLayout) findViewById(R.id.back_button_change_password);
         text_view_login_email = (TextView) findViewById(R.id.text_view_login_email);
@@ -65,7 +64,7 @@ public class ChangePasswordActivity extends BaseSlideActivity implements View.On
         back_button_change_password.setOnClickListener(this);
         text_view_save_change.setOnClickListener(this);
     }
-
+    //hàm thực hiện việc thay đổi mật khẩu (thay đổi thông tin)
     private void updatePassword() {
         String currentpass = edit_text_current_password.getText().toString().trim();
         String newpass = edit_text_new_password.getText().toString().trim();
@@ -105,7 +104,7 @@ public class ChangePasswordActivity extends BaseSlideActivity implements View.On
 
 
     }
-
+    //Hàm kiểm tra hợp lệ của dữ liệu đầu vào
     private String validate(String password, String confirmPass) {
 
         if (password.length() < 4 || confirmPass.length() < 4) {
@@ -116,7 +115,7 @@ public class ChangePasswordActivity extends BaseSlideActivity implements View.On
         }
         return "";
     }
-
+    //Hàm hiện thông báo
     private void showAlert(String mess) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChangePasswordActivity.this);
 
@@ -131,7 +130,7 @@ public class ChangePasswordActivity extends BaseSlideActivity implements View.On
                 });
         alertDialogBuilder.show();
     }
-
+    //Hàm xử lí sự kiện onclick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

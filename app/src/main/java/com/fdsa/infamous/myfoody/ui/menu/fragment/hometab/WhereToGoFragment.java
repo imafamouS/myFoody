@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import static com.fdsa.infamous.myfoody.config.AppConfig.REQUEST_CODE_LOGIN;
+
 
 public class WhereToGoFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, IRestaurantItemClick, IChooseDistrict {
 
@@ -75,6 +78,8 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     View slideShowBanner;
 
     View bottom_menu;
+    View footerView;
+    ProgressBar progressBar;
 
 
     /*AreaTabMenu*/
@@ -108,6 +113,16 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     List<RestaurantBean> restaurantList;
     RestaurantController restaurantController;
     NodataAdapter nodataAdapter;
+
+    int page = 0;
+    int groupPosition;
+    boolean isStreetShow = false;
+    boolean isLoading = false;
+    String curDistrict = "";
+    String curStreet = "";
+    String curWheretype = "";
+    String curNewest = "";
+    boolean isNeedReload = true;
 
     //Hàm khởi tạo
     public WhereToGoFragment() {
@@ -185,18 +200,23 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
         list_view_main_menu.addHeaderView(slideShowBanner);
         list_view_main_menu.addHeaderView(moreItemView);
+        list_view_main_menu.setAdapter(nodataAdapter);
+        this.footerView = inflater.inflate(R.layout.home_tab_menu_footer_view, null, false);
+        progressBar = (ProgressBar) footerView.findViewById(R.id.progress_bar);
+        this.list_view_main_menu.addFooterView(this.footerView);
+        progressBar.setVisibility(View.VISIBLE);
 
 
         try {
-            restaurantList=restaurantController.getListRestaurant(currentProvinceBean.getId(),null,null,null,null);
-            if(restaurantList!=null){
-                adapter=new HomeWhereToGoAdapter(context,restaurantList);
+            restaurantList = restaurantController.getListRestaurant(currentProvinceBean.getId(), null, null, null, null, page + "");
+            if (restaurantList != null) {
+                adapter = new HomeWhereToGoAdapter(context, null);
+                adapter.setRestaurantList(restaurantList);
                 list_view_main_menu.setAdapter(adapter);
                 adapter.setRestaurantItemClick(this);
-            }else{
+            } else {
                 list_view_main_menu.setAdapter(nodataAdapter);
             }
-
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -205,9 +225,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
 
 
         list_view_main_menu.setOnItemClickListener(this);
-        list_view_main_menu.setOnScrollListener(onScrollListener);
-
-
+        list_view_main_menu.setOnScrollListener(new EndlessScrollListener());
 
         linear_layout_tab_menu_1.setOnClickListener(this);
         linear_layout_tab_menu_2.setOnClickListener(this);
@@ -236,59 +254,60 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         linear_layout_change_district.setOnClickListener(this);
 
     }
-    int groupPosition;
-    boolean isStreetShow=false;
+    //Khi click vào số lượng đường (Hiện danh sách đường)
     @Override
     public void onExpand(int groupPosition) {
-        this.groupPosition=groupPosition;
+        this.groupPosition = groupPosition;
         if (this.list_view_city.isGroupExpanded(groupPosition)) {
-            isStreetShow=false;
+            isStreetShow = false;
             this.list_view_city.collapseGroup(groupPosition);
         } else {
-            isStreetShow=true;
-            if(groupPosition!=-1)
+            isStreetShow = true;
+            if (groupPosition != -1)
                 this.list_view_city.expandGroup(groupPosition);
         }
     }
-
+    //Khi click vào quận huyện (thay đổi dữ liệu)
     @Override
     public void onSelectDistrict(int groupPosition) {
         resetStateTabMenu();
         hideMenuItem();
         hideStreetList();
 
-        isStreetShow=false;
+        isStreetShow = false;
+        isNeedReload = true;
         this.selectedPositionMenu.put(Type.DISTRICT, groupPosition);
         this.selectedPositionMenu.put(Type.STREET, -1);
 
-        reloadData(Type.DISTRICT,false);
+        reloadData(Type.DISTRICT, false);
         showBottomBar();
     }
-
+    //Khi click vào đường (thay đổi dữ liệu)
     @Override
     public void onSelectStreet(int groupPosition, int chlidPosion) {
         resetStateTabMenu();
         hideMenuItem();
         hideStreetList();
 
-        isStreetShow=true;
+        isStreetShow = true;
+        isNeedReload = true;
         this.selectedPositionMenu.put(Type.DISTRICT, groupPosition);
         this.selectedPositionMenu.put(Type.STREET, chlidPosion);
 
-        reloadData(Type.STREET,false);
+        reloadData(Type.STREET, false);
         showBottomBar();
     }
 
     //Hàm thực hiện reload lại data khi được swipe refresh
     @Override
     public void onRefresh() {
-
+        page = 0;
         loadRestaurant();
         if (swipe_refresh_layout.isRefreshing()) {
             swipe_refresh_layout.setRefreshing(false);
-            if(restaurantList!=null && restaurantList.size()>0){
+            if (restaurantList != null && restaurantList.size() > 0) {
                 Toast.makeText(context, "Đã load thành công các cửa hàng", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(context, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
             }
 
@@ -305,10 +324,12 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
                 whatToDoFragment.onChangeProvince();
                 isNeedLoadArea = true;
 
-                this.selectedPositionMenu.put(Type.DISTRICT,-1);
-                this.selectedPositionMenu.put(Type.STREET,-1);
-                this.groupPosition=-1;
-                this.isStreetShow=false;
+                this.selectedPositionMenu.put(Type.DISTRICT, -1);
+                this.selectedPositionMenu.put(Type.STREET, -1);
+                this.groupPosition = -1;
+                this.isStreetShow = false;
+                this.page = 0;
+                isNeedReload = true;
 
                 reloadData(Type.DISTRICT, true);
             }
@@ -318,50 +339,36 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     //Hàm thực hiện khi tỉnh thành được thay đổi
     public void onChangeProvince() {
         isNeedLoadArea = true;
-        isStreetShow=false;
+        isStreetShow = false;
         resetStateTabMenu();
         hideMenuItem();
         hideStreetList();
-        this.selectedPositionMenu.put(Type.DISTRICT,-1);
-        this.selectedPositionMenu.put(Type.STREET,-1);
+        this.selectedPositionMenu.put(Type.DISTRICT, -1);
+        this.selectedPositionMenu.put(Type.STREET, -1);
         this.setCurrentProvinceBean(GlobalStaticData.getCurrentProvinceBean());
 
-        reloadData(Type.DISTRICT,true);
+        reloadData(Type.DISTRICT, true);
     }
-
+    //Khi click vào nhà hàng bất kỳ (Hiện thông tin nhà hàng)
     @Override
     public void RestaurantItemCLick(int position) {
-        if(!GlobalStaticData.isLogined()){
+        if (!GlobalStaticData.isLogined()) {
             Intent intent = new Intent(this.getActivity(), LoginChooserActivity.class);
-            startActivityForResult(intent, AppConfig.REQUEST_CODE_LOGIN);
-        }else{
-            Intent intent=new Intent(this.getActivity(), RestaurantDetailActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_LOGIN);
+        } else {
+            Intent intent = new Intent(this.getActivity(), RestaurantDetailActivity.class);
 
-            intent.putExtra("resid",((RestaurantBean)this.adapter.getItem(position)).getId());
+            intent.putExtra("resid", ((RestaurantBean) this.adapter.getItem(position)).getId());
             getActivity().startActivity(intent);
-
         }
     }
-
-    public AbsListView.OnScrollListener onScrollListener =new AbsListView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            Toast.makeText(context, visibleItemCount+"", Toast.LENGTH_SHORT).show();
-        }
-    };
-    
 
     //Hàm thực hiện việc click item trên tab menu
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Type type = null;
         if (parent.getId() == R.id.list_view_where2go_tab_menu && menuBarAdapter != null) {
-            if (menuBarAdapter.getType() == Type.LATEST && position != 0 && position != 2) {
+            if (menuBarAdapter.getType() == Type.LATEST && position != 0 && position != 2 && position != 1) {
                 Toast.makeText(context, "You clicked " + menuBarAdapter.getItem(position).getTittle(), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -371,12 +378,12 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         resetStateTabMenu();
         hideMenuItem();
         hideStreetList();
+        isNeedReload = true;
         this.selectedPositionMenu.put(type, position);
         showBottomBar();
+
         reloadData(type, false);
     }
-
-
 
     //Hàm thực hiện sự kiển onCLick
     @Override
@@ -441,76 +448,104 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
     //Hàm lấy danh sách các nhà hàng từ CSDL
     public void loadRestaurant() {
         try {
+            progressBar.setVisibility(View.VISIBLE);
+            boolean flag = false;
+
             String id_province = currentProvinceBean.getId();
 
+
             String id_district = getIdTabSelected(Type.DISTRICT);
-
-            String id_street=getIdTabSelected(Type.STREET);
-
+            curDistrict = id_district;
+            String id_street = getIdTabSelected(Type.STREET);
+            curStreet = id_street;
             String id_wheretype = getIdTabSelected(Type.CATEGORY);
-
+            curWheretype = id_wheretype;
             String id_newest = getIdTabSelected(Type.LATEST);
+            curNewest = id_newest;
+            if (isNeedReload) {
+                page = 0;
+            }
 
-            restaurantList = restaurantController.getListRestaurant(id_province, id_district, id_street, id_wheretype, id_newest);
+            restaurantList = restaurantController.getListRestaurant(id_province, id_district, id_street, id_wheretype, id_newest, page + "");
 
-            if (restaurantList == null || restaurantList.size() <= 0) {
+            if ((restaurantList == null || restaurantList.size() <= 0)) {
+
                 list_view_main_menu.setAdapter(nodataAdapter);
+
+                if (!isNeedReload) {
+                    adapter.notifyDataSetChanged();
+                }
             } else {
-                if (adapter == null && restaurantList!=null) {
+                if (adapter == null && restaurantList != null) {
                     adapter = new HomeWhereToGoAdapter(context, restaurantList);
                     adapter.setRestaurantItemClick(this);
+                    list_view_main_menu.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    if (!isNeedLoadCategory) {
+                        isNeedLoadCategory = true;
+
+                    }
+                    if (!isNeedLoadArea) {
+                        isNeedLoadArea = true;
+                    }
+                    return;
                 }
+                if (isNeedReload) {
+                    adapter.setRestaurantList(restaurantList);
+                    list_view_main_menu.setAdapter(adapter);
+                    list_view_main_menu.smoothScrollToPosition(0);
+                } else {
+                    for (int i = 0; i < restaurantList.size(); i++) {
+                        adapter.addItem(restaurantList.get(i));
+                    }
 
-                adapter.setRestaurantList(restaurantList);
-                adapter.notifyDataSetChanged();
-                list_view_main_menu.setAdapter(adapter);
+                }
+                //   adapter.notifyDataSetChanged();
 
-                list_view_main_menu.smoothScrollToPosition(0);
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
+
     //Hàm lấy id của các tab menu hiện tại để thực hiện việc lấy dữ liệu
     private String getIdTabSelected(Type type) {
         String id = "";
         int index = getIndexMenu(type);
 
-        if (index == -1 && (type == Type.DISTRICT ||type==Type.STREET)) {
+        if (index == -1 && (type == Type.DISTRICT || type == Type.STREET)) {
             return "";
         }
         List<?> list = (List) this.mapMenuBarItems.get(type);
-        if(type!=Type.STREET){
+        if (type != Type.STREET) {
             if (list == null || list.size() <= index || list.get(index) == null) {
 
                 if (type == Type.LATEST) {
                     id = "moinhat";
                 } else if (type == Type.CATEGORY) {
                     id = "l0";
-                } else if(type!=Type.DISTRICT) {
+                } else if (type != Type.DISTRICT) {
                     id = currentProvinceBean.getId();
                 }
                 return id;
             }
             if (type != Type.DISTRICT) {
                 id = ((MenuBarItemBean) list.get(index)).getId();
-            } else if(type==Type.DISTRICT) {
-                if(chooseDistrictAdapter!=null) {
-                    int indexDistrict=this.selectedPositionMenu.get(Type.DISTRICT);
-                    id=this.chooseDistrictAdapter.getGroup(indexDistrict).getId();
+            } else if (type == Type.DISTRICT) {
+                if (chooseDistrictAdapter != null) {
+                    int indexDistrict = this.selectedPositionMenu.get(Type.DISTRICT);
+                    id = this.chooseDistrictAdapter.getGroup(indexDistrict).getId();
                 }
             }
             return id;
-        }else{
-            if(chooseDistrictAdapter!=null){
-                int indexDistrict=this.selectedPositionMenu.get(Type.DISTRICT);
-                int indexStreet=this.selectedPositionMenu.get(Type.STREET);
-                if(chooseDistrictAdapter!=null){
-                    id=chooseDistrictAdapter.getChild(indexDistrict,indexStreet).getId();
+        } else {
+            if (chooseDistrictAdapter != null) {
+                int indexDistrict = this.selectedPositionMenu.get(Type.DISTRICT);
+                int indexStreet = this.selectedPositionMenu.get(Type.STREET);
+                if (chooseDistrictAdapter != null && indexDistrict != -1 && indexStreet != -1) {
+                    id = chooseDistrictAdapter.getChild(indexDistrict, indexStreet).getId();
                 }
             }
 
@@ -557,16 +592,15 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
                     title = chooseDistrictAdapter.getGroup(getIndexMenu(type)).getTitle();
                     text_view_tab_menu_3.setText(title);
                     text_view_tab_menu_3.setTextColor(ContextCompat.getColor(context, color));
-                }
-                 else {
+                } else {
                     title = text_view_parent_district.getText().toString();
                     text_view_tab_menu_3.setText(title);
                     text_view_tab_menu_3.setTextColor(ContextCompat.getColor(context, R.color.home_new_filter_text));
                 }
-            } else if(type == Type.STREET){
-                int indexDistrict=this.selectedPositionMenu.get(Type.DISTRICT);
-                int indexStreet=this.selectedPositionMenu.get(Type.STREET);
-                title = chooseDistrictAdapter.getChild(indexDistrict,indexStreet).getTitle();
+            } else if (type == Type.STREET) {
+                int indexDistrict = this.selectedPositionMenu.get(Type.DISTRICT);
+                int indexStreet = this.selectedPositionMenu.get(Type.STREET);
+                title = chooseDistrictAdapter.getChild(indexDistrict, indexStreet).getTitle();
                 text_view_tab_menu_3.setText(title);
                 text_view_tab_menu_3.setTextColor(ContextCompat.getColor(context, color));
             }
@@ -652,7 +686,7 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
                 this.chooseDistrictAdapter.notifyDataSetChanged();
                 this.list_view_city.setAdapter(chooseDistrictAdapter);
                 showStreetList();
-                if(isStreetShow){
+                if (isStreetShow) {
                     onExpand(this.groupPosition);
                 }
             }
@@ -819,27 +853,57 @@ public class WhereToGoFragment extends Fragment implements View.OnClickListener,
         }
     }
 
+    //Class thực hiện việc khi lăn đến hết listview (LazyLoad - Load thêm dữ liệu)
+    class EndlessScrollListener implements AbsListView.OnScrollListener {
+
+        public EndlessScrollListener() {
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem,
+                             int visibleItemCount, int totalItemCount) {
+            if (list_view_main_menu.getLastVisiblePosition() ==
+                    list_view_main_menu.getAdapter().getCount() - 1 &&
+                    list_view_main_menu.getChildAt(list_view_main_menu.getChildCount() - 1).getBottom() <= list_view_main_menu.getHeight()) {
+
+                progressBar.setVisibility(View.VISIBLE);
+                try {
+                    int resCount;
+                     try{
+                         resCount=Integer.parseInt(restaurantController.getCountResturant(currentProvinceBean.getId(),curDistrict,curStreet,curWheretype,curNewest));
+                     }catch (NumberFormatException e){
+                         resCount=0;
+                         e.printStackTrace();
+                     }
+
+                    if (adapter != null && adapter.getRestaurantList().size() <= resCount ) {
+
+                        isNeedReload = false;
+                    } else {
+                        isNeedReload = true;
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    if (isNeedReload == false) {
+
+                        page++;
+
+                        loadRestaurant();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        }
+    }
+
 }
-
-
-   /* private void changeHeaderViewMain(){
-        list_view_main_menu.removeHeaderView(slideShowBanner);
-        list_view_main_menu.removeHeaderView(moreItemView);
-        if (currentProvinceBean.getIdProvince().equals("vn1") //TPHCM
-                || currentProvinceBean.getIdProvince().equals("vn2")
-                || currentProvinceBean.getIdProvince().equals("vn3")
-                ) {
-            GlobalStaticData.TYPE_MOREITEM = MoreItemView.ITEM_DEFAULT;
-            GlobalStaticData.TYPE_SLIDESHOW= SlideShowBannerFragment.TYPE_HAVE_ADS;
-        } else {
-            GlobalStaticData.TYPE_MOREITEM = MoreItemView.ITEM_TYPE_1;
-            GlobalStaticData.TYPE_SLIDESHOW= SlideShowBannerFragment.TYPE_NO_ADS;
-        }
-        moreItemView = new MoreItemView(context);
-        if( GlobalStaticData.TYPE_SLIDESHOW==SlideShowBannerFragment.TYPE_HAVE_ADS){
-            slideShowBanner=null;
-            slideShowBanner=inflater.inflate(R.layout.banner_image_fragment, list_view_main_menu, false);
-            list_view_main_menu.addHeaderView(slideShowBanner);
-        }
-        list_view_main_menu.addHeaderView(moreItemView);
-    }*/

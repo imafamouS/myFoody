@@ -21,30 +21,30 @@ public class SlideShowBannerAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     List<Integer> mResources;
-
+    //hàm khởi tạo
     public SlideShowBannerAdapter(Context context, List<Integer> mResources) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mResources = mResources;
     }
-
+    //hàm trả về số lượng item trong adapter
     @Override
     public int getCount() {
         return mResources.size();
     }
-
+    //hàm kiểm tra xem view có phải là LinearLayout
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == ((LinearLayout) object);
     }
-
+    //Hàm dữ liệu lên View
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.banner_image_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.image_view_banner_image_item);
         Glide.with(mContext).load(mResources.get(position)).into(imageView);
-        // imageView.setImageResource(mResources.get(position));
+        //imageView.setBackgroundResource(mResources.get(position));
 
         container.addView(itemView);
 

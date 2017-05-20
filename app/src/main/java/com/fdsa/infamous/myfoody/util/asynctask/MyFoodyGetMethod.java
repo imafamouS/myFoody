@@ -13,10 +13,10 @@ import java.util.concurrent.ExecutionException;
  * Created by FDSA on 4/19/2017.
  */
 
-public class MyFoodyGetMethod extends MyFoodyBaseMethod{
+public class MyFoodyGetMethod extends MyFoodyBaseMethod {
 
     public MyFoodyGetMethod(@Nullable JsonObject jsonObjectInput, @Nullable Context activity, ICallBackAsynsTask callBackAsynsTask) {
-        super(APIConfig.GET, jsonObjectInput, activity,callBackAsynsTask);
+        super(APIConfig.GET, jsonObjectInput, activity, callBackAsynsTask);
     }
 
     @Override

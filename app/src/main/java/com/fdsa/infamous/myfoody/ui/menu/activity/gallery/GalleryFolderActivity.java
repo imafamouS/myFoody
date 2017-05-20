@@ -30,41 +30,38 @@ import java.util.ArrayList;
  */
 
 public class GalleryFolderActivity extends Activity implements View.OnClickListener, GridView.OnItemClickListener, IOnClickImage {
-    public GalleryFolderActivity() {
-
-    }
-
+    public static final int SINGLE_SELECT = 0; //Chọn 1 ảnh
+    public static final int MULTI_SELECT = 1;   //Chọn nhiều ảnh
     static String TAG;
-
-    public static final int SINGLE_SELECT = 0;
-    public static final int MULTI_SELECT = 1;
 
     static {
         TAG = GalleryFolderActivity.class.getSimpleName();
     }
 
+    public ArrayList<FolderGalleryBean> imageGalleyList = new ArrayList<>();
     LinearLayout back_button_gallery;
     TextView text_view_done;
     GridView grid_view_folder;
     GalleryFolderAdapter adapter;
     int mode;
-
-    public ArrayList<FolderGalleryBean> imageGalleyList = new ArrayList<>();
     boolean isFile;
-
-   RelativeLayout relative_layout_review_photo;
+    RelativeLayout relative_layout_review_photo;
     RecyclerView recycle_view_choose;
     TextView text_view_not_media;
-
     ArrayList<ImageGalleryBean> selectedImage = new ArrayList<>();
     GalleryFileAdapter adapterReviewPhoto;
+    ArrayList<ImageGalleryBean> imageGalleryBeen = new ArrayList<>();
 
+    //hàm khởi tạo
+    public GalleryFolderActivity() {
 
+    }
+    //hàm xử lí sự kiện khi activity được khởi tạo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_folder_layout);
-        this.mode=getIntent().getIntExtra("mode",0);
+        this.mode = getIntent().getIntExtra("mode", 0);
 
         initView();
         initEvent();
@@ -74,27 +71,27 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
         grid_view_folder.setAdapter(adapter);
         grid_view_folder.setOnItemClickListener(this);
     }
-
+    //Khởi tạo view
     private void initView() {
-        relative_layout_review_photo=(RelativeLayout)findViewById(R.id.relative_layout_review_photo);
+        relative_layout_review_photo = (RelativeLayout) findViewById(R.id.relative_layout_review_photo);
         back_button_gallery = (LinearLayout) findViewById(R.id.back_button_gallery);
         text_view_done = (TextView) findViewById(R.id.text_view_done);
         grid_view_folder = (GridView) findViewById(R.id.grid_view_folder);
 
-        if(mode==MULTI_SELECT){
+        if (mode == MULTI_SELECT) {
             relative_layout_review_photo.setVisibility(View.VISIBLE);
             initViewSelectedImage();
-        }else{
+        } else {
             relative_layout_review_photo.setVisibility(View.GONE);
         }
 
     }
-
+    //Khởi tạo các sự kiện cho view
     private void initEvent() {
         back_button_gallery.setOnClickListener(this);
         text_view_done.setOnClickListener(this);
     }
-
+    //Khởi tạo các view của Layout review các ảnh đã chọn
     private void initViewSelectedImage() {
         recycle_view_choose = (RecyclerView) findViewById(R.id.recycle_view_choose);
         text_view_not_media = (TextView) findViewById(R.id.text_view_not_media);
@@ -113,13 +110,13 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
         }
 
     }
-
+    //Hàm xử lí sự kiện khi click vào ảnh review (xóa ảnh)
     @Override
     public void onClickReviewImage(View v, int index) {
-            this.adapterReviewPhoto.data.remove(index);
-            this.adapterReviewPhoto.notifyDataSetChanged();
+        this.adapterReviewPhoto.data.remove(index);
+        this.adapterReviewPhoto.notifyDataSetChanged();
 
-        if(this.adapterReviewPhoto.data!=null && this.adapterReviewPhoto.data.size()>0)
+        if (this.adapterReviewPhoto.data != null && this.adapterReviewPhoto.data.size() > 0)
             this.text_view_not_media.setVisibility(View.GONE);
         else
             this.text_view_not_media.setVisibility(View.VISIBLE);
@@ -129,7 +126,7 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
     public void onClickImage(View v, int index) {
 
     }
-
+    //Hàm lấy danh sách folder và các file trong folder của Gallery
     public ArrayList<FolderGalleryBean> getData() {
         ArrayList<FolderGalleryBean> list = new ArrayList<>();
         int int_position = 0;
@@ -180,36 +177,43 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
 
         return list;
     }
-    ArrayList<ImageGalleryBean> imageGalleryBeen=new ArrayList<>();
+
+    /**
+     *   Hàm xử lí sự kiện khi có 1 activity kết thúc (Từ Activity GalleryFileActivity)
+     *   trả về các ảnh đã được chọn bến đấy
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode== AppConfig.RESULT_CODE_MULTISELECT||
-                resultCode== AppConfig.RESULT_CODE_SINGLESELECT){
+        if (resultCode == AppConfig.RESULT_CODE_MULTISELECT ||
+                resultCode == AppConfig.RESULT_CODE_SINGLESELECT) {
 
-            imageGalleryBeen=data.getParcelableArrayListExtra("images");
-            if(resultCode== AppConfig.RESULT_CODE_MULTISELECT){
+            imageGalleryBeen = data.getParcelableArrayListExtra("images");
+            if (resultCode == AppConfig.RESULT_CODE_MULTISELECT) {
                 this.adapterReviewPhoto.removeAllSelectedSingleClick();
-                this.adapterReviewPhoto.data=imageGalleryBeen;
-                if( this.adapterReviewPhoto!=null && this.adapterReviewPhoto.data.size()>0){
+                this.adapterReviewPhoto.data = imageGalleryBeen;
+                if (this.adapterReviewPhoto != null && this.adapterReviewPhoto.data.size() > 0) {
                     this.text_view_not_media.setVisibility(View.GONE);
-                }else{
+                } else {
                     this.text_view_not_media.setVisibility(View.VISIBLE);
                 }
 
             }
         }
     }
-    public void sendData(){
-        Intent intent=new Intent();
-        if(mode==GalleryFolderActivity.MULTI_SELECT){
-            intent.putParcelableArrayListExtra("images",this.adapterReviewPhoto.data);
-        }else if(mode==GalleryFolderActivity.SINGLE_SELECT){
-            intent.putParcelableArrayListExtra("images",this.imageGalleryBeen);
+    //hàm gửi data
+    public void sendData() {
+        Intent intent = new Intent();
+        if (mode == GalleryFolderActivity.MULTI_SELECT) {
+            intent.putParcelableArrayListExtra("images", this.adapterReviewPhoto.data);
+        } else if (mode == GalleryFolderActivity.SINGLE_SELECT) {
+            intent.putParcelableArrayListExtra("images", this.imageGalleryBeen);
         }
-        setResult(AppConfig.RESULT_CODE_FROM_GALLERY_FOLDER,intent);
+        setResult(AppConfig.RESULT_CODE_FROM_GALLERY_FOLDER, intent);
         finish();
     }
+    //Hàm xử lí sự kiện khi nhấn vào các folder ảnh (Khởi tạo Activity GalleryFileActiviity)
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -217,12 +221,12 @@ public class GalleryFolderActivity extends Activity implements View.OnClickListe
         intent.putExtra("namefolder", ((FolderGalleryBean) this.adapter.getItem(position)).getFolder());
         intent.putExtra("mode", this.mode);
         intent.putParcelableArrayListExtra("data", ((FolderGalleryBean) this.adapter.getItem(position)).getImageInFolder());
-        if(mode==MULTI_SELECT){
+        if (mode == MULTI_SELECT) {
             intent.putParcelableArrayListExtra("images", this.adapterReviewPhoto.data);
         }
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
     }
-
+//Hàm xử lí sự kiện onClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

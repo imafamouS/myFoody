@@ -1,20 +1,27 @@
-package com.fdsa.infamous.myfoody.util.controller_F1;
+package com.fdsa.infamous.myfoody.util.controller_Foody1_do_not_use;
 
 import android.content.Context;
 import android.database.Cursor;
 
 import com.fdsa.infamous.myfoody.util.database.DataAccess;
-import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by FDSA on 4/8/2017.
  */
 
-public class UserController extends DataAccess {
+public class MoreImageRestaurantController extends DataAccess {
+
+    static String TAG;
+
+    static {
+        TAG = "MoreImageResController";
+    }
+
     //Hàm khởi tạo
-    public UserController(Context context) {
+    public MoreImageRestaurantController(Context context) {
         super(context);
     }
 
@@ -35,26 +42,23 @@ public class UserController extends DataAccess {
         return null;
     }
 
-    //Hàm lấy UserBean thông qua uid
-    public UserBean getUser(String uid) {
+    //Hàm lấy thêm các ảnh của nhà hàng
+    public List<byte[]> getListMoreImage(String res_id) {
+        List<byte[]> list = new ArrayList<>();
         this.open();
-        UserBean userBean = null;
-        String db = "tbl_user";
-        String query = "SELECT * FROM " + db + " WHERE uid ='" + uid + "'";
+        String db = "tbl_moreImageRes";
+        String query = "SELECT * FROM " + db + " WHERE res_id ='" + res_id + "'";
         Cursor cursor = this.database.rawQuery(query, null);
         try {
-            if (cursor.moveToFirst()) {
-                String id = cursor.getString(0);
-                String name = cursor.getString(1);
-                byte[] avatar = cursor.getBlob(3);
-
-                userBean = new UserBean(id, name);
-               // userBean.setAvatar(avatar);
+            while (cursor.moveToNext()) {
+                byte[] img = cursor.getBlob(1);
+                list.add(img);
             }
         } finally {
             cursor.close();
             this.close();
         }
-        return userBean;
+
+        return list;
     }
 }

@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 public class PermissionUtil {
 
-    public  static boolean isReadWritePermission_LowAPI(Context context) {
+    public static boolean isReadWritePermission_LowAPI(Context context) {
         return VERSION.SDK_INT < 23 || (VERSION.SDK_INT >= 23 &&
                 context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                 context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -37,7 +37,7 @@ public class PermissionUtil {
                     && ActivityCompat.shouldShowRequestPermissionRationale(context, ManifestConfig.WRITE_EXTERNAL_STORAGE)) {
                 showPopupPermission(context,
                         new ArrayList(Arrays.asList(
-                                new String[]{context.getString(R.string.TEXT_PERMISSION_STORAGE)})),AppConfig.REQUEST_READ_WRITE_PERMISSION_CODE);
+                                new String[]{context.getString(R.string.TEXT_PERMISSION_STORAGE)})), AppConfig.REQUEST_READ_WRITE_PERMISSION_CODE);
                 return;
             }
             ActivityCompat.requestPermissions(context,
@@ -47,11 +47,12 @@ public class PermissionUtil {
                     AppConfig.REQUEST_READ_WRITE_PERMISSION_CODE);
         }
     }
-    public static boolean isReadWritePermission(Activity context){
-        if(VERSION.SDK_INT<23){
-           return isReadWritePermission_LowAPI(context.getApplicationContext());
+
+    public static boolean isReadWritePermission(Activity context) {
+        if (VERSION.SDK_INT < 23) {
+            return isReadWritePermission_LowAPI(context.getApplicationContext());
         }
-        if(VERSION.SDK_INT>=23){
+        if (VERSION.SDK_INT >= 23) {
             isReadWritePermission_HighAPI(context);
         }
         if (VERSION.SDK_INT >= 23) {
@@ -63,11 +64,10 @@ public class PermissionUtil {
     }
 
 
-
     public static boolean isGPSPermission_LowAPI(Context context) {
         return VERSION.SDK_INT < 23 || (VERSION.SDK_INT >= 23 &&
-                context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED  &&
-                context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED );
+                context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
     }
 
     public static void isGPSPermission_HighAPI(Activity context) {
@@ -79,7 +79,7 @@ public class PermissionUtil {
                 showPopupPermission(context,
                         new ArrayList(Arrays.asList(
                                 new String[]{
-                                        context.getString(R.string.TEXT_PERMISSION_GPS)})),AppConfig.REQUEST_LOCATION_PERMISSION_CODE);
+                                        context.getString(R.string.TEXT_PERMISSION_GPS)})), AppConfig.REQUEST_LOCATION_PERMISSION_CODE);
                 return;
             }
             ActivityCompat.requestPermissions(context,
@@ -104,7 +104,7 @@ public class PermissionUtil {
         return false;
     }
 
-    private static void showPopupPermission(final Activity context, ArrayList<String> listPermissions,int requestcode) {
+    private static void showPopupPermission(final Activity context, ArrayList<String> listPermissions, int requestcode) {
         String message = context.getString(R.string.TEXT_REQUEST_PERMISSION);
         if (listPermissions != null && listPermissions.size() > 0) {
             if (listPermissions.size() == 1) {

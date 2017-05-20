@@ -38,7 +38,6 @@ public class SlideShowBannerFragment extends Fragment {
     CircleIndicator indicator;
 
 
-
     //Hàm khởi tạo
     public SlideShowBannerFragment() {
         super();
@@ -78,6 +77,7 @@ public class SlideShowBannerFragment extends Fragment {
 
     /**
      * Hàm khởi tạo view
+     *
      * @param view
      */
     public void initView(View view) {

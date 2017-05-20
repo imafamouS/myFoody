@@ -30,12 +30,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeWhereToGoAdapter extends BaseAdapter {
 
     static Context context;
+    public IRestaurantItemClick restaurantItemClick;
+    private List<RestaurantBean> restaurantList;
+
+    //Hàm khởi tạo
+    public HomeWhereToGoAdapter(Context context, List<RestaurantBean> restaurantList) {
+        super();
+        this.context = context;
+        this.restaurantList = restaurantList;
+    }
 
     public List<RestaurantBean> getRestaurantList() {
         return restaurantList;
     }
 
-    private List<RestaurantBean> restaurantList;
+    //Hàm set lại danh sách nhà hàng (cập nhật adapter)
+    public void setRestaurantList(List<RestaurantBean> restaurantList) {
+        this.restaurantList = restaurantList;
+    }
 
     public IRestaurantItemClick getRestaurantItemClick() {
         return restaurantItemClick;
@@ -45,20 +57,6 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         this.restaurantItemClick = restaurantItemClick;
     }
 
-    public IRestaurantItemClick restaurantItemClick;
-
-    //Hàm khởi tạo
-    public HomeWhereToGoAdapter(Context context, List<RestaurantBean> restaurantList) {
-        super();
-        this.context = context;
-        this.restaurantList = restaurantList;
-    }
-
-    //Hàm set lại danh sách nhà hàng (cập nhật adapter)
-    public void setRestaurantList(List<RestaurantBean> restaurantList) {
-        this.restaurantList = restaurantList;
-    }
-
     /**
      * Hàm get số lượng phần tử của adapter
      *
@@ -66,11 +64,20 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return restaurantList.size();
+
+        if (this.restaurantList != null) {
+            return this.restaurantList.size();
+        }
+        return 0;
+    }
+
+    public void addItem(RestaurantBean item) {
+        this.restaurantList.add(item);
     }
 
     /**
      * Hàm trả về nhà hàng tại vị trí position
+     *
      * @param position
      * @return
      */
@@ -81,6 +88,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
     /**
      * Hàm trả về id của nhà hàng tại vị trí position
+     *
      * @param position
      * @return
      */
@@ -97,17 +105,18 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
     @Override
     public int getViewTypeCount() {
 
-        return getCount();
+        return getCount()==0?1:getCount();
     }
 
-    @Override
+   /* @Override
     public int getItemViewType(int position) {
 
-        return position;
-    }
+        return getViewTypeCount;
+    }*/
 
     /**
      * Hàm hiện dữ liệu lên view
+     *
      * @param position
      * @param convertView
      * @param parent
@@ -119,17 +128,20 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         RestaurantBean item = this.restaurantList.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(this.context).inflate(R.layout.restaurent_item_where_to_go, parent, false);
-            holder = new RestaurentViewHolder(convertView,restaurantItemClick,position);
+            holder = new RestaurentViewHolder(convertView, restaurantItemClick, position);
             convertView.setTag(holder);
         } else {
             holder = (RestaurentViewHolder) convertView.getTag();
         }
+        holder.position = position;
         holder.renderData(item);
         return convertView;
     }
 
-    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
-    static class RestaurentViewHolder implements View.OnClickListener{
+    /**
+     * Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần
+     **/
+    static class RestaurentViewHolder implements View.OnClickListener {
         View item;
         private LinearLayout layout_parent_restaurant;
         private RelativeLayout layout_parent_header_restaurant;
@@ -168,17 +180,18 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
         private String resClose;
 
         private int position;
+
         //Hàm khởi tạo
-        public RestaurentViewHolder(View item,IRestaurantItemClick restaurantItemClick,int position) {
+        public RestaurentViewHolder(View item, IRestaurantItemClick restaurantItemClick, int position) {
             this.item = item;
-            this.restaurantItemClick=restaurantItemClick;
+            this.restaurantItemClick = restaurantItemClick;
             initView(item);
 
         }
 
         //Hàm khởi tạo các view để hiện dũ liệu
         private void initView(View item) {
-            layout_parent_restaurant=(LinearLayout)item.findViewById(R.id.layout_parent_restaurant);
+            layout_parent_restaurant = (LinearLayout) item.findViewById(R.id.layout_parent_restaurant);
             layout_parent_header_restaurant = (RelativeLayout) item.findViewById(R.id.layout_parent_header_restaurant);
             text_view_rate_arg_restaurant = (TextView) item.findViewById(R.id.text_view_rate_arg_restaurant);
             linear_layout_header_restaurant = (LinearLayout) item.findViewById(R.id.linear_layout_header_restaurant);
@@ -214,11 +227,11 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             text_view_num_of_photo = (TextView) item.findViewById(R.id.text_view_num_of_photo);
 
             requestReview = item.getResources().getString(R.string.REQUEST_REVIEW);
-            resOpen=item.getResources().getString(R.string.RES_OPEN);
-            resClose=item.getResources().getString(R.string.RES_CLOSE);
+            resOpen = item.getResources().getString(R.string.RES_OPEN);
+            resClose = item.getResources().getString(R.string.RES_CLOSE);
 
-            text_status_res=(TextView)item.findViewById(R.id.text_status_res);
-            image_status_res=(TextView)item.findViewById(R.id.image_status_res);
+            text_status_res = (TextView) item.findViewById(R.id.text_status_res);
+            image_status_res = (TextView) item.findViewById(R.id.image_status_res);
 
 
             layout_parent_restaurant.setOnClickListener(this);
@@ -242,12 +255,12 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
         //Hàm load tên, địa chỉ, rating, và hình chính của của nhà hàng
         private void loadHeader(RestaurantBean restaurant) {
-            text_view_rate_arg_restaurant.setText(GlobalFunction.round(restaurant.getAvg_rating(),2) + "");
+            text_view_rate_arg_restaurant.setText(GlobalFunction.round(restaurant.getAvg_rating(), 2) + "");
             text_view_name_restaurant.setText(restaurant.getTitle());
             text_view_address_restaurant.setText(restaurant.getAddress());
 
             if (restaurant.getPhoto() != null) {
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getPhoto()).override(600, 200).into(image_view_main_img_restaurant);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getPhoto()).override(600, 200).into(image_view_main_img_restaurant);
             }
 
         }
@@ -282,7 +295,7 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
                 image_view_sub_img_res_1.setVisibility(View.VISIBLE);
 
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getListImage().get(0).getPhoto()).into(image_view_sub_img_res_1);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getListImage().get(0).getPhoto()).into(image_view_sub_img_res_1);
 
                 return;
             }
@@ -292,8 +305,8 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
                 image_view_sub_img_res_1.setVisibility(View.VISIBLE);
                 image_view_sub_img_res_2.setVisibility(View.VISIBLE);
 
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getListImage().get(0).getPhoto()).into(image_view_sub_img_res_1);
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getListImage().get(1).getPhoto()).into(image_view_sub_img_res_2);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getListImage().get(0).getPhoto()).into(image_view_sub_img_res_1);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getListImage().get(1).getPhoto()).into(image_view_sub_img_res_2);
 
                 return;
             }
@@ -302,9 +315,9 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
                 image_view_sub_img_res_2.setVisibility(View.VISIBLE);
                 image_view_sub_img_res_3.setVisibility(View.VISIBLE);
 
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getListImage().get(0).getPhoto()).into(image_view_sub_img_res_1);
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getListImage().get(1).getPhoto()).into(image_view_sub_img_res_2);
-                Glide.with(context).load(APIConfig.BASE_URL_IMAGE+restaurant.getListImage().get(2).getPhoto()).into(image_view_sub_img_res_3);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getListImage().get(0).getPhoto()).into(image_view_sub_img_res_1);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getListImage().get(1).getPhoto()).into(image_view_sub_img_res_2);
+                Glide.with(context).load(APIConfig.BASE_URL_IMAGE + restaurant.getListImage().get(2).getPhoto()).into(image_view_sub_img_res_3);
 
                 return;
 
@@ -344,10 +357,10 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
 
         //Hàm load bình luận của của hàng
         private void loadComment1(CommentResBean comment1) {
-            if(comment1.getUser()!=null ){
-                if(comment1.getUser().getAvatar()!=null){
-                    Log.d("TAG_COMMENT1_AVATAR",comment1.getUser().getAvatar());
-                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE+comment1.getUser().getAvatar()).into(image_view_avatar_comment_1);
+            if (comment1.getUser() != null) {
+                if (comment1.getUser().getAvatar() != null) {
+                    Log.d("TAG_COMMENT1_AVATAR", comment1.getUser().getAvatar());
+                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE + comment1.getUser().getAvatar()).into(image_view_avatar_comment_1);
                 }
 
                 text_view_name_user_1.setText(comment1.getUser().getName());
@@ -356,14 +369,13 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
             }
 
 
-
         }
 
         //Hàm load bình luận của của hàng
         private void loadComment2(CommentResBean comment2) {
-            if(comment2.getUser()!=null){
-                if(comment2.getUser().getAvatar()!=null){
-                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE+comment2.getUser().getAvatar()).into(image_view_avatar_comment_2);
+            if (comment2.getUser() != null) {
+                if (comment2.getUser().getAvatar() != null) {
+                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE + comment2.getUser().getAvatar()).into(image_view_avatar_comment_2);
                 }
                 text_view_name_user_2.setText(comment2.getUser().getName());
                 text_view_user_rate_2.setText(comment2.getRating() + "");
@@ -384,11 +396,10 @@ public class HomeWhereToGoAdapter extends BaseAdapter {
                 text_view_num_of_review.setText(numOfReview);
                 text_view_num_of_photo.setText(numOfPhoto);
             }
-
-            if(GlobalFunction.isRestaurantOpening(restaurant.getOpenTime(),restaurant.getCloseTime())){
+            if (GlobalFunction.isRestaurantOpening(restaurant.getOpenTime(), restaurant.getCloseTime())) {
                 text_status_res.setText(resOpen);
                 image_status_res.setBackgroundResource(R.drawable.border_circle_rate);
-            }else{
+            } else {
                 text_status_res.setText(resClose);
                 image_status_res.setBackgroundResource(R.drawable.border_circle_not_open);
             }

@@ -10,9 +10,14 @@ import com.fdsa.infamous.myfoody.common.bean_F2.ImageGalleryBean;
  */
 
 
-public abstract class BaseGalleryViewHolder extends RecyclerView.ViewHolder{
+public abstract class BaseGalleryViewHolder extends RecyclerView.ViewHolder {
+    /***
+     * hàm khởi tạo ViewHolder của RecycleView  trong việc lấy hình ảnh từ Gallery
+     * @param itemView
+     */
     public BaseGalleryViewHolder(View itemView) {
         super(itemView);
     }
-    public abstract  void renderData(ImageGalleryBean data, boolean isItemSelect,int position);
+
+    public abstract void renderData(ImageGalleryBean data, boolean isItemSelect, int position);
 }

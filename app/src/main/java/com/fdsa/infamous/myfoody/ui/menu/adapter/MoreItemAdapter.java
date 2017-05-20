@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.common.bean_F1.MoreItem;
+import com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use.MoreItem;
 import com.fdsa.infamous.myfoody.common.myinterface.IMoreItemClick;
 
 import java.util.List;
@@ -87,7 +87,9 @@ public class MoreItemAdapter extends Adapter<MoreItemAdapter.MoreItemViewHolder>
     }
 
 
-    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
+    /**
+     * Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần
+     **/
     static class MoreItemViewHolder extends ViewHolder implements View.OnClickListener {
         ImageView image_view_more_item_menu;
         TextView text_view_more_item_menu;

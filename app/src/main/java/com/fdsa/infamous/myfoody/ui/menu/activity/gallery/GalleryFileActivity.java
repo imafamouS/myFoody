@@ -31,27 +31,28 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         TAG = "GALLERYFILEACTIVITY";
     }
 
-    public GalleryFileActivity() {
-    }
-
     TextView text_view_name_folder_image_item;
     LinearLayout back_button_gallery;
     TextView text_view_done;
     RecyclerView grid_view_file;
-
     int mode;
     ArrayList<ImageGalleryBean> data;
     GalleryFileAdapter adapterPhotoChooser;
     String namefolder;
-
     RecyclerView recycle_view_choose;
     TextView text_view_not_media;
-
     ArrayList<ImageGalleryBean> selectedImage = new ArrayList<>();
     GalleryFileAdapter adapterReviewPhoto;
-
     RelativeLayout relative_layout_review_photo;
 
+    //Hàm khởi tạo
+    public GalleryFileActivity() {
+    }
+    /**
+     * Hàm xử lí sự kiện khi Activity được tạo (khởi tạo view)
+     *
+     * @return
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +61,12 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         relative_layout_review_photo = (RelativeLayout) findViewById(R.id.relative_layout_review_photo);
         if (mode == GalleryFolderActivity.MULTI_SELECT) {
             relative_layout_review_photo.setVisibility(View.VISIBLE);
-
             initViewSelectedImage();
         } else {
             relative_layout_review_photo.setVisibility(View.GONE);
         }
     }
-
+    //Khởi tạo view
     private void initViewChooseImage() {
         text_view_name_folder_image_item = (TextView) findViewById(R.id.text_view_name_folder_image_item);
         back_button_gallery = (LinearLayout) findViewById(R.id.back_button_gallery);
@@ -89,7 +89,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         grid_view_file.setLayoutManager(new GridLayoutManager(this, 3));
         grid_view_file.setAdapter(adapterPhotoChooser);
     }
-
+    //Khởi tạo view các ảnh đã chọn
     private void initViewSelectedImage() {
         recycle_view_choose = (RecyclerView) findViewById(R.id.recycle_view_choose);
         text_view_not_media = (TextView) findViewById(R.id.text_view_not_media);
@@ -111,7 +111,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         }
 
     }
-
+    //Hàm trả về vị trí tương ứng khi click vào ảnh
     private int selectedPosition(ImageGalleryBean item, GalleryFileAdapter adapter) {
         for (int i = 0; i < adapter.imageSelected.size(); i++) {
             ImageGalleryBean im = adapter.imageSelected.get(i);
@@ -121,7 +121,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         }
         return -1;
     }
-
+    //Sự kiện khi click vào ảnh (Đánh dấu ảnh đã chọn, nhấn lần nữa để bỏ chọn)
     @Override
     public void onClickImage(View v, int index) {
         int selectedItemPosition = selectedPosition(this.data.get(index), adapterPhotoChooser);
@@ -150,7 +150,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
             }
         }
     }
-
+    //Hàm trả về vị trí ảnh tương ứng với đường dẫn
     private int getImageFromPath(String path) {
         for (int i = 0; i < this.data.size(); i++) {
             if (path.equals(this.data.get(i).getPath()))
@@ -158,7 +158,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         }
         return -1;
     }
-
+    //Hàm sử lí sự kiện khi nhấn vào các ảnh đã được chọn (Xóa ảnh đã chọn)
     @Override
     public void onClickReviewImage(View v, int index) {
         ImageGalleryBean itemDelte = this.adapterReviewPhoto.data.get(index);
@@ -180,7 +180,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         else
             this.text_view_not_media.setVisibility(View.VISIBLE);
     }
-
+    //Hàm gửi dữ liệu về Activity cần dùng
     private void sendData() {
         ArrayList<ImageGalleryBean> selectedImage = this.adapterPhotoChooser.imageSelected;
         Intent intent = new Intent();
@@ -188,7 +188,7 @@ public class GalleryFileActivity extends AppCompatActivity implements View.OnCli
         setResult(this.mode == GalleryFolderActivity.SINGLE_SELECT ? AppConfig.RESULT_CODE_SINGLESELECT : AppConfig.RESULT_CODE_MULTISELECT, intent);
         finish();
     }
-
+    //hàm xử lí sự kiện Click
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -7,11 +7,11 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use.MoreItem;
+import com.fdsa.infamous.myfoody.common.myinterface.IMoreItemClick;
+import com.fdsa.infamous.myfoody.ui.menu.adapter.MoreItemAdapter;
 import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
-import com.fdsa.infamous.myfoody.ui.menu.adapter.MoreItemAdapter;
-import com.fdsa.infamous.myfoody.common.bean_F1.MoreItem;
-import com.fdsa.infamous.myfoody.common.myinterface.IMoreItemClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,13 @@ import java.util.List;
 
 public class MoreItemView extends LinearLayout implements IMoreItemClick {
 
-    public static final int ITEM_DEFAULT=0;
+    public static final int ITEM_DEFAULT = 0;
     public static final int ITEM_TYPE_1 = 1;
 
     private MoreItemAdapter adapter;
     private RecyclerView recyclerView;
     private List<MoreItem> moreItemList;
-    private  myGridLayoutManger myGridLayoutManger;
+    private myGridLayoutManger myGridLayoutManger;
     private int defaultPadding;
     private Context context;
 
@@ -44,7 +44,7 @@ public class MoreItemView extends LinearLayout implements IMoreItemClick {
     }
 
     public MoreItemView(Context context, AttributeSet attrs) {
-        super(context, attrs,0);
+        super(context, attrs, 0);
     }
 
     public MoreItemView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -58,10 +58,10 @@ public class MoreItemView extends LinearLayout implements IMoreItemClick {
      *
      * @param context
      */
-    private void init(Context context){
+    private void init(Context context) {
 
 
-        this.context=context;
+        this.context = context;
         this.moreItemList = new ArrayList<>();
         this.recyclerView = new RecyclerView(context);
         if (GlobalStaticData.TYPE_MOREITEM == -1) {
@@ -70,12 +70,12 @@ public class MoreItemView extends LinearLayout implements IMoreItemClick {
             moreItemList = GlobalStaticData.getListMoreItem(GlobalStaticData.TYPE_MOREITEM);
         }
 
-        defaultPadding= GlobalFunction.dpToPx(3.0f);
-        myGridLayoutManger=new myGridLayoutManger(context, 2);
+        defaultPadding = GlobalFunction.dpToPx(3.0f);
+        myGridLayoutManger = new myGridLayoutManger(context, 2);
 
         this.recyclerView.setLayoutManager(myGridLayoutManger);
         this.adapter = new MoreItemAdapter(context, moreItemList, this);
-        this.recyclerView.setPadding(defaultPadding, GlobalFunction.dpToPx(10),defaultPadding,GlobalFunction.dpToPx(10));
+        this.recyclerView.setPadding(defaultPadding, GlobalFunction.dpToPx(10), defaultPadding, GlobalFunction.dpToPx(10));
         this.recyclerView.setAdapter(this.adapter);
 
         this.addView(this.recyclerView);

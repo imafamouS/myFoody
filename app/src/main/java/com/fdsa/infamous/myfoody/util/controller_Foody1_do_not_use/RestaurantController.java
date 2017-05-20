@@ -1,10 +1,10 @@
-package com.fdsa.infamous.myfoody.util.controller_F1;
+package com.fdsa.infamous.myfoody.util.controller_Foody1_do_not_use;
 
 import android.content.Context;
 import android.database.Cursor;
 
-import com.fdsa.infamous.myfoody.common.bean_F1.Comment;
-import com.fdsa.infamous.myfoody.common.bean_F1.Restaurant;
+import com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use.Comment;
+import com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use.Restaurant;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.util.database.DataAccess;
 import com.fdsa.infamous.myfoody.util.global.GlobalFunction;

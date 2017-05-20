@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.fdsa.infamous.myfoody.R;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
 import com.fdsa.infamous.myfoody.config.AppConfig;
@@ -30,27 +37,25 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    public RegisterActivity() {
-
-    }
-
     LinearLayout linear_layout_back_button_register;
     TextView text_view_register;
     TextView text_view_login_register;
-
     EditText edit_text_email_register;
     EditText edit_text_password_register;
     EditText edit_text_pass_confirm_register;
     EditText edit_text_name_register;
     UserController userController;
+    ImageView image_view_background;
+    //Hàm khởi tạo
+    public RegisterActivity() {
 
-  ImageView image_view_background;
-
+    }
+    //Hàm xử lí sự kiện khi Activity được khởi tạo (Khởi tạo View)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
-        userController=new UserController(getApplicationContext());
+        userController = new UserController(getApplicationContext());
 
         linear_layout_back_button_register = (LinearLayout) findViewById(R.id.linear_layout_back_button_register);
         text_view_register = (TextView) findViewById(R.id.text_view_register);
@@ -61,15 +66,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         edit_text_pass_confirm_register = (EditText) findViewById(R.id.edit_text_pass_confirm_register);
         edit_text_name_register = (EditText) findViewById(R.id.edit_text_name_register);
 
-        image_view_background=(ImageView)findViewById(R.id.image_view_background);
+        image_view_background = (ImageView) findViewById(R.id.image_view_background);
 
         linear_layout_back_button_register.setOnClickListener(this);
         text_view_register.setOnClickListener(this);
         text_view_login_register.setOnClickListener(this);
 
-    }
+        Glide.with(this.getApplicationContext()).load(R.drawable.img_backgroud_login_1).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                Drawable drawable = new BitmapDrawable(resource);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    image_view_background.setBackground(drawable);
+                }
+            }
+        });
 
-    private void register() {
+    }
+    //Hàm thực hiện việc đưa dữ liệu đăng kí thành viên lên server
+    private synchronized void register() {
         try {
             String email = edit_text_email_register.getText().toString().trim();
             String password = edit_text_password_register.getText().toString().trim();
@@ -80,16 +95,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             if (!mess.equals("") || mess.length() > 0) {
                 showAlert(mess);
-                if(mess.equals(getString(R.string.TEXT_ERR_VALID_EMAIL))){
-                    GlobalFunction.shakeView(this.getApplicationContext(),edit_text_email_register);
+                if (mess.equals(getString(R.string.TEXT_ERR_VALID_EMAIL))) {
+                    GlobalFunction.shakeView(this.getApplicationContext(), edit_text_email_register);
                     return;
                 }
-                if(mess.equals(getString(R.string.TEXT_ERR_VALID_PASS_LENGHT))){
-                    GlobalFunction.shakeView(this.getApplicationContext(),edit_text_password_register);
+                if (mess.equals(getString(R.string.TEXT_ERR_VALID_PASS_LENGHT))) {
+                    GlobalFunction.shakeView(this.getApplicationContext(), edit_text_password_register);
                     return;
                 }
-                if(mess.equals(getString(R.string.TEXT_ERR_VALID_PASS_CONFIRM))){
-                    GlobalFunction.shakeView(this.getApplicationContext(),edit_text_pass_confirm_register);
+                if (mess.equals(getString(R.string.TEXT_ERR_VALID_PASS_CONFIRM))) {
+                    GlobalFunction.shakeView(this.getApplicationContext(), edit_text_pass_confirm_register);
                     return;
                 }
 
@@ -100,11 +115,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 jsonRegister.addProperty("password", password);
                 jsonRegister.addProperty("name", name);
 
-                if(userController.register(jsonRegister)){
+                if (userController.register(jsonRegister)) {
                     showAlert(getString(R.string.TEXT_RES_SUCCESS));
                     //LOGIN PAGE
                     login(jsonRegister);
-                }else{
+                } else {
                     showAlert(getString(R.string.TEXT_RES_FAIL));
                 }
             }
@@ -114,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             e.printStackTrace();
         }
     }
-
+    //Hàm kiểm tra tính hợp lệ của giá tri5 đầu vào
     private String validate(String email, String password, String confirmPass) {
 
         if (!EmailValidator.getInstance().isValid(email)) {
@@ -131,7 +146,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         return "";
     }
-    private void login(JsonObject jsonLogin){
+    //Hàm thực hiện việc đăng nhập sau khi đăng kí thành công
+    private synchronized void login(JsonObject jsonLogin) {
         UserBean out = null;
         try {
             out = userController.checkLogin(jsonLogin);
@@ -152,6 +168,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+    //hàm hiện thông báo
     private void showAlert(String mess) {
         Builder alertDialogBuilder = new AlertDialog.Builder(RegisterActivity.this);
 
@@ -166,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
         alertDialogBuilder.show();
     }
-
+    //hàm xự lí sự kiện onClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

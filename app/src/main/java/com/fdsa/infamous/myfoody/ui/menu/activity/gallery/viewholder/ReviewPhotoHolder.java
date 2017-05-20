@@ -15,18 +15,21 @@ import com.fdsa.infamous.myfoody.common.myinterface.IOnClickImage;
  * Created by apple on 5/12/17.
  */
 
+/**
+ * Viewholder của view xem danh sách ảnh đã chọn
+ */
 public class ReviewPhotoHolder extends BaseGalleryViewHolder implements View.OnClickListener {
-    View v;
     public ImageView image_view;
     public CheckedTextView image_view_check;
     public int position;
     public IOnClickImage iOnClickImage;
+    View v;
     Context context;
 
     public ReviewPhotoHolder(Context context, View v, IOnClickImage iOnClickImage) {
         super(v);
         this.v = v;
-        this.context=context;
+        this.context = context;
         image_view = (ImageView) v.findViewById(R.id.image_view_file);
         image_view_check = (CheckedTextView) v.findViewById(R.id.check_text_view);
         image_view_check.bringToFront();

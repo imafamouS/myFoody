@@ -40,6 +40,7 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
 
     /**
      * Hàm xử lí sự kiện khi fragment được khởi tạo (khởi tạo view)
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -63,6 +64,7 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
 
     /**
      * Hàm thay đổi  vị trí của các tab
+     *
      * @param currentPageIndex
      */
     public void setNotify(int currentPageIndex) {
@@ -79,6 +81,7 @@ public class HeaderCollectionFragment extends Fragment implements TabLayout.OnTa
 
     /**
      * Hàm xử lí sự kiện khi thay đổi vị trí các tab
+     *
      * @param tab
      */
     @Override

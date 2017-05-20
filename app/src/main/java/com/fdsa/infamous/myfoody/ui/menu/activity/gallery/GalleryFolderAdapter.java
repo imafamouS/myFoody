@@ -81,7 +81,7 @@ public class GalleryFolderAdapter extends BaseAdapter {
     class ViewHolder {
         ImageView image_view_sample;
         TextView text_view_name_folder;
-       // TextView text_view_num_of_file;
+        // TextView text_view_num_of_file;
         View v;
 
         public ViewHolder(View v) {

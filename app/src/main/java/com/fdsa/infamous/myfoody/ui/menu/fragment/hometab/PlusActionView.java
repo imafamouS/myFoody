@@ -58,8 +58,8 @@ public class PlusActionView extends BottomSheetDialogFragment implements View.On
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE){
-            if(GlobalStaticData.isLogined()){
+        if (requestCode == AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE) {
+            if (GlobalStaticData.isLogined()) {
                 linear_layout_add_place_plus_menu.performClick();
                 this.dismiss();
             }
@@ -77,9 +77,9 @@ public class PlusActionView extends BottomSheetDialogFragment implements View.On
         String str = "You clicked ";
         switch (v.getId()) {
             case R.id.linear_layout_add_place_plus_menu:
-                if(GlobalStaticData.isLogined()){
+                if (GlobalStaticData.isLogined()) {
                     getActivity().startActivity(new Intent(this.getActivity(), AddNewPlaceActivity.class));
-                }else{
+                } else {
                     startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE);
                 }
                 break;

@@ -27,19 +27,17 @@ import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
  */
 
 public class UserTabFragment extends Fragment implements View.OnClickListener {
+    TextView textView7;
+    UserBean user;
+    LinearLayout linear_layout_login;
+    RelativeLayout relative_layout_infor_contact;
+    RelativeLayout relative_layout_setting_account;
+    LinearLayout linear_layout_logout;
+
     //Hàm khởi tạo
     public UserTabFragment() {
         super();
     }
-
-    TextView textView7;
-    UserBean user;
-
-    LinearLayout linear_layout_login;
-    RelativeLayout relative_layout_infor_contact;
-    RelativeLayout relative_layout_setting_account;
-
-    LinearLayout linear_layout_logout;
 
     //Hàm xử lí sự kiện khi fragment được tạo (khởi tạo view)
     @Nullable
@@ -67,7 +65,7 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==AppConfig.REQUEST_CODE_LOGIN ||resultCode==AppConfig.RESULT_CODE_CHANGE_INFO_1){
+        if (requestCode == AppConfig.REQUEST_CODE_LOGIN || resultCode == AppConfig.RESULT_CODE_CHANGE_INFO_1) {
             reload();
             this.onTabVisible();
         }
@@ -122,7 +120,6 @@ public class UserTabFragment extends Fragment implements View.OnClickListener {
                     }
                 }).show();
     }
-
 
 
     private void reload() {

@@ -42,18 +42,18 @@ public class TopMenuBarFragment extends Fragment implements TabLayout.OnTabSelec
 
     MainActivity mainActivity;
 
+    //Hàm khởi tạo
+    public TopMenuBarFragment() {
+        super();
+
+    }
+
     public MainActivity getMainActivity() {
         return mainActivity;
     }
 
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-    }
-
-    //Hàm khởi tạo
-    public TopMenuBarFragment() {
-        super();
-
     }
 
     //Hàm set interface IontopMenuBarChange

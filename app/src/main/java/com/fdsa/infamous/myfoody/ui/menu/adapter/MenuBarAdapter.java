@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
-import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.R;
+import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.common.myenum.Type;
+import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.config.api.APIConfig;
 
 import java.util.ArrayList;
@@ -34,10 +34,10 @@ public class MenuBarAdapter extends BaseAdapter {
 
     //Hàm khởi tạo
     public MenuBarAdapter(Context aContext, List<MenuBarItemBean> listData, Type type) {
-        if(listData!=null){
+        if (listData != null) {
             this.menuBarItemBeen = listData;
-        }else{
-            this.menuBarItemBeen=new ArrayList<>();
+        } else {
+            this.menuBarItemBeen = new ArrayList<>();
         }
 
         this.context = aContext;
@@ -61,8 +61,9 @@ public class MenuBarAdapter extends BaseAdapter {
      */
     @Override
     public int getViewTypeCount() {
-        return getCount()==0?1:getCount();
+        return getCount() == 0 ? 1 : getCount();
     }
+
     @Override
     public int getItemViewType(int position) {
         return position;
@@ -133,7 +134,9 @@ public class MenuBarAdapter extends BaseAdapter {
         return convertView;
     }
 
-    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
+    /**
+     * Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần
+     **/
     static class ViewHolder {
         private ImageView imageView;
         private TextView textView;
@@ -167,32 +170,32 @@ public class MenuBarAdapter extends BaseAdapter {
                             //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_new_selected));
                             break;
                         case "gantoi":
-                            Glide.with(context).load( R.drawable.icon_tab_1_near_selected).into(imageView);
+                            Glide.with(context).load(R.drawable.icon_tab_1_near_selected).into(imageView);
                             //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_near_selected));
                             break;
                         case "phobien":
-                            Glide.with(context).load( R.drawable.icon_tab_1_popular_selected).into(imageView);
+                            Glide.with(context).load(R.drawable.icon_tab_1_popular_selected).into(imageView);
                             //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_popular_selected));
                             break;
                         case "dukhach":
-                            Glide.with(context).load( R.drawable.icon_tab_1_tourist_selected).into(imageView);
+                            Glide.with(context).load(R.drawable.icon_tab_1_tourist_selected).into(imageView);
                             //imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_tourist_selected));
                             break;
                         case "ecard":
-                            Glide.with(context).load( R.drawable.icon_tab_1_ecard_selected).into(imageView);
-                           // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_ecard_selected));
+                            Glide.with(context).load(R.drawable.icon_tab_1_ecard_selected).into(imageView);
+                            // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_ecard_selected));
                             break;
                         case "datcho":
-                            Glide.with(context).load( R.drawable.icon_tab_1_promote_selected).into(imageView);
-                           // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_book_selected));
+                            Glide.with(context).load(R.drawable.icon_tab_1_promote_selected).into(imageView);
+                            // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_book_selected));
                             break;
                         case "uudaithe":
-                            Glide.with(context).load( R.drawable.icon_tab_1_promote_selected).into(imageView);
-                          //  imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_promote_selected));
+                            Glide.with(context).load(R.drawable.icon_tab_1_promote_selected).into(imageView);
+                            //  imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_promote_selected));
                             break;
                         case "giaohang":
-                            Glide.with(context).load( R.drawable.icon_tab_1_delivery_selected).into(imageView);
-                           // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_delivery_selected));
+                            Glide.with(context).load(R.drawable.icon_tab_1_delivery_selected).into(imageView);
+                            // imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_tab_1_delivery_selected));
                             break;
                         default:
                             break;
@@ -203,13 +206,13 @@ public class MenuBarAdapter extends BaseAdapter {
             } else if (type == Type.CATEGORY) {
                 //Tab 2
                 textView.setText(item.getTittle());
-                if(!item.getId().equals("l0")){
+                if (!item.getId().equals("l0")) {
                    /* int img_id = context.getResources().getIdentifier(item.getImage(), "drawable", context.getPackageName()) == 0 ?
                             context.getResources().getIdentifier(AppConfig.IMAGE_NULL, "drawable", context.getPackageName()) :
                             context.getResources().getIdentifier(item.getImage(), "drawable", context.getPackageName());*/
 
-                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE+item.getImage()).into(imageView);
-                   // imageView.setImageDrawable(ContextCompat.getDrawable(context, img_id));
+                    Glide.with(context).load(APIConfig.BASE_URL_IMAGE + item.getImage()).into(imageView);
+                    // imageView.setImageDrawable(ContextCompat.getDrawable(context, img_id));
 
                     imageView.setVisibility(View.VISIBLE);
 
@@ -220,7 +223,7 @@ public class MenuBarAdapter extends BaseAdapter {
                 } else {
                     //Tab 3
                     imageView.setVisibility(View.GONE);
-                    if(item.isSelected()) {
+                    if (item.isSelected()) {
                         textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
                         this.isSelected.setVisibility(View.VISIBLE);
                     }

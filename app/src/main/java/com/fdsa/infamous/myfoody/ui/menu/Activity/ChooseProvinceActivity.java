@@ -124,10 +124,10 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
         linear_layout_action_change_country = (LinearLayout) headerListView.findViewById(R.id.linear_layout_action_change_country);
 
 
-        provinceController=new ProvinceController(getApplicationContext(),"vietnam",false);
-        provinceBeanList =provinceController.getListProvince();
+        provinceController = new ProvinceController(getApplicationContext(), "vietnam", false);
+        provinceBeanList = provinceController.getListProvince();
 
-        adapter=new ChooseProvinceAdapter(getApplicationContext(), provinceBeanList, currentProvinceBean,this);
+        adapter = new ChooseProvinceAdapter(getApplicationContext(), provinceBeanList, currentProvinceBean, this);
 
         list_view_choose_province.setAdapter(adapter);
         /*Event*/
@@ -152,10 +152,10 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
     public void onSetDefaultProvince() {
         int indexSelected = this.adapter.indexSelected;
         ProvinceBean provinceBean2SetDefault;
-        if(indexSelected!=-1){
+        if (indexSelected != -1) {
             provinceBean2SetDefault = provinceBeanList.get(indexSelected);
-        }else{
-            provinceBean2SetDefault=GlobalStaticData.getCurrentProvinceBean();
+        } else {
+            provinceBean2SetDefault = GlobalStaticData.getCurrentProvinceBean();
         }
 
 
@@ -170,6 +170,7 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
     /**
      * Hàm xử lí sự kiện khi chọn 1 đối tượng trên listview
+     *
      * @param parent
      * @param view
      * @param position
@@ -195,6 +196,7 @@ public class ChooseProvinceActivity extends AppCompatActivity implements View.On
 
     /**
      * Hàm sủ lí sự kiện khi click vào các view trên activity
+     *
      * @param v
      */
     @Override

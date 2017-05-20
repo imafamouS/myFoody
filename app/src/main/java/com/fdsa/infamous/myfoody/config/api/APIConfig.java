@@ -5,9 +5,10 @@ package com.fdsa.infamous.myfoody.config.api;
  */
 
 public class APIConfig {
-
+    //Base URL restful
     public static final String BASE_URL = "http://10.0.3.2:8080/MyFoodyWebService/rest/"; //Change
-    public static final String BASE_URL_IMAGE = BASE_URL+"image?id=";
+    //Base URL image restful
+    public static final String BASE_URL_IMAGE = BASE_URL + "image?id=";
 
     public static final boolean POST = true;
     public static final boolean GET = false;

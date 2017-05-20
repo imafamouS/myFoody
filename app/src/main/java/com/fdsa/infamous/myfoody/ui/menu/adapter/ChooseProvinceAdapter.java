@@ -31,18 +31,18 @@ public class ChooseProvinceAdapter extends BaseAdapter {
 
     //Hàm khởi tạo
     public ChooseProvinceAdapter(Context context, List<ProvinceBean> provinceBeanList, ProvinceBean currentProvinceBean, IOnSetDefaultProvince onSetDefaultProvince) {
-        this.context=context;
-        if(provinceBeanList!=null){
+        this.context = context;
+        if (provinceBeanList != null) {
             this.provinceBeanList = provinceBeanList;
             this.provinceBeanListDisplay = provinceBeanList;
-        }else{
+        } else {
             this.provinceBeanList = new ArrayList<>();
-            this.provinceBeanListDisplay=this.provinceBeanList;
+            this.provinceBeanListDisplay = this.provinceBeanList;
         }
 
         this.currentProvinceBean = currentProvinceBean;
-        this.onSetDefaultProvince=onSetDefaultProvince;
-        this.indexSelected=getIndexCurrentProvince();
+        this.onSetDefaultProvince = onSetDefaultProvince;
+        this.indexSelected = getIndexCurrentProvince();
 
 
     }
@@ -71,6 +71,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
 
     /**
      * Hàm trả về tỉnh tại vị trí position
+     *
      * @param position
      * @return
      */
@@ -81,6 +82,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
 
     /**
      * Hàm trả về id của món ăn trong apdater tại vị trí posion
+     *
      * @param position
      * @return
      */
@@ -97,7 +99,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
     @Override
     public int getViewTypeCount() {
 
-        return getCount()==0?1:getCount();
+        return getCount() == 0 ? 1 : getCount();
     }
 
     @Override
@@ -113,7 +115,7 @@ public class ChooseProvinceAdapter extends BaseAdapter {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(this.context).inflate(R.layout.choose_province_item, parent, false);
-            holder = new ChooseProvinceViewHolder(convertView,onSetDefaultProvince);
+            holder = new ChooseProvinceViewHolder(convertView, onSetDefaultProvince);
             convertView.setTag(holder);
         } else {
             holder = (ChooseProvinceViewHolder) convertView.getTag();
@@ -122,25 +124,25 @@ public class ChooseProvinceAdapter extends BaseAdapter {
         int indexCurrentProvince = getIndexCurrentProvince();
         holder = (ChooseProvinceViewHolder) convertView.getTag();
 
-        if(position==indexCurrentProvince){
+        if (position == indexCurrentProvince) {
             holder.image_view_check_status.setVisibility(View.VISIBLE);
         }
-        if(position==indexSelected){
-            if(position==indexCurrentProvince){
+        if (position == indexSelected) {
+            if (position == indexCurrentProvince) {
                 holder.text_view_province_name.setTextColor(ContextCompat.getColor(context, R.color.color_text_default_choose_province));
                 holder.text_view_set_default.setVisibility(View.GONE);
                 holder.image_view_check_status.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 holder.image_view_check_status.setVisibility(View.VISIBLE);
                 holder.text_view_set_default.setVisibility(View.VISIBLE);
             }
 
-        }else{
-            if(position==indexCurrentProvince){
+        } else {
+            if (position == indexCurrentProvince) {
                 holder.text_view_province_name.setTextColor(ContextCompat.getColor(context, R.color.color_text_default_choose_province));
                 holder.text_view_set_default.setVisibility(View.GONE);
                 holder.image_view_check_status.setVisibility(View.GONE);
-            }else{
+            } else {
                 holder.image_view_check_status.setVisibility(View.GONE);
                 holder.text_view_set_default.setVisibility(View.GONE);
             }
@@ -152,7 +154,9 @@ public class ChooseProvinceAdapter extends BaseAdapter {
     }
 
 
-    /**Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần**/
+    /**
+     * Class dùng trong việc lưu lại các view để được lấy ID để không cần phải thực hiện findViewById nhiều lần
+     **/
     public class ChooseProvinceViewHolder implements View.OnClickListener {
         public ImageView image_view_check_status;
         public TextView text_view_province_name;
@@ -165,8 +169,8 @@ public class ChooseProvinceAdapter extends BaseAdapter {
             item = view;
             this.image_view_check_status = (ImageView) view.findViewById(R.id.image_view_check_status);
             this.text_view_province_name = (TextView) view.findViewById(R.id.text_view_province_name);
-            this.text_view_set_default=(TextView) view.findViewById(R.id.text_view_set_default);
-            this.onSetDefaultProvince=onSetDefaultProvince;
+            this.text_view_set_default = (TextView) view.findViewById(R.id.text_view_set_default);
+            this.onSetDefaultProvince = onSetDefaultProvince;
 
             text_view_set_default.setOnClickListener(this);
         }

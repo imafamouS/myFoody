@@ -22,31 +22,36 @@ import java.util.List;
  * Created by apple on 5/11/17.
  */
 
-public class GallerySelectedFileAdapter extends  RecyclerView.Adapter<GallerySelectedFileAdapter.ViewHolder>{
+/**
+ * Adaper dùng trong AddNewPlaceAcitivty
+ */
+public class GallerySelectedFileAdapter extends RecyclerView.Adapter<GallerySelectedFileAdapter.ViewHolder> {
 
-    Context context;
     public ArrayList<ImageGalleryBean> imageSelected = new ArrayList<>();
+    Context context;
     IOnClickImage iOnClickImage;
     Type type;
 
-    public void setiOnClickImage(IOnClickImage iOnClickImage) {
-        this.iOnClickImage = iOnClickImage;
-    }
 
+    //Hàm khỏi  tạo adapter
     public GallerySelectedFileAdapter(Context context, ArrayList<ImageGalleryBean> imageSelected, Type type) {
         this.context = context;
         this.imageSelected = imageSelected;
         this.type = type;
     }
-
+    //hàm gán sự kiện click vào ảnh
+    public void setiOnClickImage(IOnClickImage iOnClickImage) {
+        this.iOnClickImage = iOnClickImage;
+    }
+    //hàm tạo ViewHolder cho adapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater
                         .from(parent.getContext())
-                        .inflate(R.layout.gallery_image_item, parent, false),iOnClickImage,type);
+                        .inflate(R.layout.gallery_image_item, parent, false), iOnClickImage, type);
     }
-
+    //Hàm ảnh xạ dữ liệu lên viewhodler
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -62,11 +67,11 @@ public class GallerySelectedFileAdapter extends  RecyclerView.Adapter<GallerySel
         } else {
             holder.image_view_check.setChecked(false);
         }
-        if(type== Type.IMAGESELECTED_INADDPLACE)
+        if (type == Type.IMAGESELECTED_INADDPLACE)
             holder.image_view_check.setCheckMarkDrawable(R.drawable.icon_remove2);
         return;
     }
-
+    //Hàm kiểm tra ảnh đã được chọn
     private boolean isSelected(ImageGalleryBean image) {
         for (ImageGalleryBean selectedImage : this.imageSelected) {
             if (selectedImage.getPath().equals(image.getPath())) {
@@ -75,94 +80,61 @@ public class GallerySelectedFileAdapter extends  RecyclerView.Adapter<GallerySel
         }
         return false;
     }
+    //Hàm lấy ID của item tại vị trí position
     public long getItemId(int position) {
         return position;
     }
 
-
-
+    //Hàm trả về số lượng item trong adapter
     @Override
     public int getItemCount() {
         return imageSelected.size();
     }
-
+    //Hàm gán data cho adapter
     public void setData(List<ImageGalleryBean> images) {
         this.imageSelected.clear();
         this.imageSelected.addAll(images);
     }
-
+    //Hàm thêm dữ lệu vào data có sẵn của adapter
     public void addAll(List<ImageGalleryBean> images) {
         int startIndex = this.imageSelected.size();
         this.imageSelected.addAll(startIndex, images);
         notifyItemRangeInserted(startIndex, images.size());
     }
-
-
-    public void addSelected(ImageGalleryBean image) {
-        for (int i = 0; i < imageSelected.size(); i++) {
-            ImageGalleryBean item = imageSelected.get(i);
-            if (item.getPath().equals(image.getPath())) {
-                return;
-            }
-        }
-        this.imageSelected.add(image);
-        notifyItemChanged(this.imageSelected.indexOf(image));
-    }
-
-    public void removeSelectedImage(ImageGalleryBean image) {
-        for (int i = 0; i < imageSelected.size(); i++) {
-            ImageGalleryBean item = imageSelected.get(i);
-            if (item.getPath().equals(image.getPath())) {
-                this.imageSelected.remove(i);
-                notifyItemRemoved(i);
-                break;
-            }
-        }
-        notifyItemChanged(this.imageSelected.indexOf(image));
-
-    }
+    //Hàm xóa ảnh đã chọn tại vị trí position;
     public void removeSelectedImage(int position) {
         this.imageSelected.remove(position);
-       notifyItemRemoved(position);
-
-
+        notifyItemRemoved(position);
     }
 
-    public void removeSelectedPosition(int position, int clickPosition) {
-        this.imageSelected.remove(position);
-        notifyItemChanged(clickPosition);
-    }
-    public void removeSelectedPosition(ImageGalleryBean item, int clickPosition) {
-        this.imageSelected.remove(item);
-        notifyItemChanged(clickPosition);
-    }
-
+    //hàm xóa tất cả các ảnh đã chọn
     public void removeAllSelectedSingleClick() {
         this.imageSelected.clear();
         notifyDataSetChanged();
     }
-
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    //ViewHodler
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public int position;
         View v;
         ImageView image_view;
         CheckedTextView image_view_check;
-        public int position;
         IOnClickImage iOnClickImage;
         Type type;
-        public ViewHolder(View v,IOnClickImage iOnClickImage,Type type) {
+        //Hàm khởi tạo
+        public ViewHolder(View v, IOnClickImage iOnClickImage, Type type) {
             super(v);
             this.v = v;
             this.type = type;
             image_view = (ImageView) v.findViewById(R.id.image_view_file);
             image_view_check = (CheckedTextView) v.findViewById(R.id.check_text_view);
             image_view_check.bringToFront();
-            this.iOnClickImage=iOnClickImage;
+            this.iOnClickImage = iOnClickImage;
             this.image_view_check.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            iOnClickImage.onClickImage(v,getAdapterPosition());
+            iOnClickImage.onClickImage(v, getAdapterPosition());
         }
     }
 }

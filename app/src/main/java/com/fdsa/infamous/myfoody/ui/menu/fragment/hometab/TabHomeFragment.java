@@ -20,11 +20,11 @@ import com.fdsa.infamous.myfoody.common.myinterface.IOnTopMenuBarChange;
  */
 
 public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeListener, View.OnClickListener, IOnTopMenuBarChange {
+    public WhereToGoFragment whereToGoFragment;
+    public WhatToDoFragment whatToDoFragment;
     TopMenuBarFragment mTopMenuBarFragment;
     Context context;
     LinearLayout linear_layout_top_menu_bar;
-   public  WhereToGoFragment whereToGoFragment;
-    public    WhatToDoFragment whatToDoFragment;
     ViewPager viewPager;
     LinearLayout linear_layout_home_fragment_menu_parent;
 
@@ -32,8 +32,8 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     public TabHomeFragment() {
         super();
         mTopMenuBarFragment = new TopMenuBarFragment();
-        whereToGoFragment=new WhereToGoFragment();
-        whatToDoFragment=new WhatToDoFragment();
+        whereToGoFragment = new WhereToGoFragment();
+        whatToDoFragment = new WhatToDoFragment();
 
         whereToGoFragment.setWhatToDoFragment(whatToDoFragment);
         whatToDoFragment.setWhereToGoFragment(whereToGoFragment);
@@ -61,12 +61,12 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     /**
      * Init
      */
-    private void init(View view){
+    private void init(View view) {
         // mTopMenuBar = new TopMenuBar(getActivity().getApplicationContext(), this.getFragmentManager());
         mTopMenuBarFragment.setContext(getActivity().getApplicationContext());
         mTopMenuBarFragment.setFragmentManager(this.getFragmentManager());
 
-        viewPager=(ViewPager)view.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new myTabHomeFragmentAdapter(getChildFragmentManager()));
 
         viewPager.addOnPageChangeListener(this);
@@ -83,14 +83,14 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     }
 
 
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
 
     /**
-     *Hàm sự lí sự kiện khi trượt view pager
+     * Hàm sự lí sự kiện khi trượt view pager
+     *
      * @param position
      */
     @Override
@@ -105,20 +105,21 @@ public class TabHomeFragment extends Fragment implements ViewPager.OnPageChangeL
     }
 
     @Override
-    public void onClick(View view){
+    public void onClick(View view) {
 
     }
 
     /**
      * Hàm sự lí sự kiện khi thay đổi vị trí giữa các tab (ở đâu, ăn gì)
+     *
      * @param index
      */
     @Override
     public void OnTopMenuBarChange(int index) {
         this.viewPager.setCurrentItem(index);
-        if(index==1){
+        if (index == 1) {
             whatToDoFragment.onVisible();
-        }else{
+        } else {
             whereToGoFragment.onVisible();
         }
     }

@@ -25,24 +25,25 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class RestaurantDetailActivity extends AppCompatActivity implements View.OnClickListener {
-    public RestaurantDetailActivity() {
-
-    }
-
     ImageView image_view_main;
     TextView text_view_num_of_comment;
     TextView text_view_num_of_photo;
     TextView text_view_rating_res;
-
+    TextView text_view_res_title;
+    TextView text_view_name_res;
     TextView text_view_address_res;
     TextView text_view_category_res;
     RestaurantController restaurantController;
     LinearLayout back_button;
-
     TextView text_view_open_or_close_res;
     TextView text_view_time_open;
     TextView text_view_cash;
+    String resID;
+    //Hàm khởi tạo
+    public RestaurantDetailActivity() {
 
+    }
+    //Hàm xử lí sự kiện Activity được khởi tạo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,27 +54,27 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
 
         displayInfo();
     }
-
+    //Iniit View
     private void initView() {
         back_button = (LinearLayout) findViewById(R.id.back_button);
         image_view_main = (ImageView) findViewById(R.id.image_view_main);
         text_view_num_of_comment = (TextView) findViewById(R.id.text_view_num_of_comment);
+        text_view_res_title = (TextView) findViewById(R.id.text_view_res_title);
+        text_view_name_res = (TextView) findViewById(R.id.text_view_name_res);
         text_view_num_of_photo = (TextView) findViewById(R.id.text_view_num_of_photo);
         text_view_rating_res = (TextView) findViewById(R.id.text_view_rating_res);
         text_view_address_res = (TextView) findViewById(R.id.text_view_address_res);
         text_view_category_res = (TextView) findViewById(R.id.text_view_category_res);
-        text_view_open_or_close_res=(TextView)findViewById(R.id.text_view_open_or_close_res);
-        text_view_time_open=(TextView)findViewById(R.id.text_view_time_open);
-        text_view_cash=(TextView)findViewById(R.id.text_view_cash);
+        text_view_open_or_close_res = (TextView) findViewById(R.id.text_view_open_or_close_res);
+        text_view_time_open = (TextView) findViewById(R.id.text_view_time_open);
+        text_view_cash = (TextView) findViewById(R.id.text_view_cash);
 
     }
-
+    //Init event
     private void initEvent() {
         this.back_button.setOnClickListener(this);
     }
-
-    String resID;
-
+    //Hiện thông tin chi tiết của nhà hàng lên  view
     private void displayInfo() {
 
         try {
@@ -86,6 +87,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
                 finish();
                 return;
             }
+            text_view_res_title.setText(res.getTitle());
+            text_view_name_res.setText(res.getTitle());
 
             if (res.getListComment() != null) {
                 text_view_num_of_comment.setText(res.getListComment().size() + "");
@@ -99,14 +102,14 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
             text_view_category_res.setText(res.getWhere_type() + "-" + res.getRes_type());
 
 
-            if(GlobalFunction.isRestaurantOpening(res.getOpenTime(),res.getCloseTime())){
+            if (GlobalFunction.isRestaurantOpening(res.getOpenTime(), res.getCloseTime())) {
                 text_view_open_or_close_res.setText(getString(R.string.RES_OPEN));
-            }else{
+            } else {
                 text_view_open_or_close_res.setText(getString(R.string.RES_CLOSE));
             }
 
-            text_view_time_open.setText(res.getOpenTime()+" - "+res.getCloseTime());
-            text_view_cash.setText(res.getMinCash()+" - "+res.getMaxCash() +"("+"Đồng"+")");
+            text_view_time_open.setText(res.getOpenTime() + " - " + res.getCloseTime());
+            text_view_cash.setText(res.getMinCash() + " - " + res.getMaxCash() + "(" + "Đồng" + ")");
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -116,7 +119,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
 
 
     }
-
+    //Sự kiện onClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

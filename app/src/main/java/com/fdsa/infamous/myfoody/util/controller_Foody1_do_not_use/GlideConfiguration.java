@@ -1,4 +1,4 @@
-package com.fdsa.infamous.myfoody.util.controller_F1;
+package com.fdsa.infamous.myfoody.util.controller_Foody1_do_not_use;
 
 import android.content.Context;
 

@@ -20,41 +20,48 @@ import java.util.concurrent.ExecutionException;
 public class MenuBarItemController {
     private String url;
     private Context context;
-    public MenuBarItemController(Context context,@Nullable int action){
-        this.context=context;
+    //Hàm khởi tạo
+    public MenuBarItemController(Context context, @Nullable int action) {
+        this.context = context;
 
-        if(action== APIAction.GET_CATEGORY_WHAT2DO){
-            url="api/menubar/get/category_what2do";
-        }else if(action==APIAction.GET_CATEGORY_WHERE2DO){
-            url="api/menubar/get/category_where2go";
-        }else{
-            url="";
+        if (action == APIAction.GET_CATEGORY_WHAT2DO) {
+            url = "api/menubar/get/category_what2do";
+        } else if (action == APIAction.GET_CATEGORY_WHERE2DO) {
+            url = "api/menubar/get/category_where2go";
+        } else {
+            url = "";
         }
     }
+    //hàm lấy danh sách Danh mục loại nhà hàng
     public List<MenuBarItemBean> getListMenuBar_Category() throws ExecutionException, InterruptedException {
-        JsonObject output=new MyFoodyGetMethod(null, context,null).execute(url).get();
-        List<MenuBarItemBean> menuBarItemList=null;
-        if(output.get("success").toString().equals("true")){
+        JsonObject output = new MyFoodyGetMethod(null, context, null).execute(url).get();
+        List<MenuBarItemBean> menuBarItemList = null;
+        if (output.get("success").toString().equals("true")) {
             Gson gson = new Gson();
-            menuBarItemList=gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>(){}.getType());
-        }
-       return menuBarItemList;
-    }
-    public List<MenuBarItemBean> getListMenuBar_WHERE() throws ExecutionException, InterruptedException {
-        JsonObject output=new MyFoodyGetMethod(null, context,null).execute("api/menubar/get/category_where2go").get();
-        List<MenuBarItemBean> menuBarItemList=null;
-        if(output.get("success").toString().equals("true")){
-            Gson gson = new Gson();
-            menuBarItemList=gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>(){}.getType());
+            menuBarItemList = gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>() {
+            }.getType());
         }
         return menuBarItemList;
     }
-    public List<MenuBarItemBean> getListMenuBar_WHHAT() throws ExecutionException, InterruptedException {
-        JsonObject output=new MyFoodyGetMethod(null, context,null).execute("api/menubar/get/category_what2do").get();
-        List<MenuBarItemBean> menuBarItemList=null;
-        if(output.get("success").toString().equals("true")){
+    //hàm lấy danh sách Danh mục loại nhà hàng bên ở đâu
+    public List<MenuBarItemBean> getListMenuBar_WHERE() throws ExecutionException, InterruptedException {
+        JsonObject output = new MyFoodyGetMethod(null, context, null).execute("api/menubar/get/category_where2go").get();
+        List<MenuBarItemBean> menuBarItemList = null;
+        if (output.get("success").toString().equals("true")) {
             Gson gson = new Gson();
-            menuBarItemList=gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>(){}.getType());
+            menuBarItemList = gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>() {
+            }.getType());
+        }
+        return menuBarItemList;
+    }
+    //hàm lấy danh sách Danh mục loại nhà hàng bên ăn gì
+    public List<MenuBarItemBean> getListMenuBar_WHHAT() throws ExecutionException, InterruptedException {
+        JsonObject output = new MyFoodyGetMethod(null, context, null).execute("api/menubar/get/category_what2do").get();
+        List<MenuBarItemBean> menuBarItemList = null;
+        if (output.get("success").toString().equals("true")) {
+            Gson gson = new Gson();
+            menuBarItemList = gson.fromJson(output.get("data"), new TypeToken<List<MenuBarItemBean>>() {
+            }.getType());
         }
         return menuBarItemList;
     }

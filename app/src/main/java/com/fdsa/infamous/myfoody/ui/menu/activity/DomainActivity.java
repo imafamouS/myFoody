@@ -79,6 +79,7 @@ public class DomainActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Hàm sự lí sự kiện khi click vào các view
+     *
      * @param v: view được click
      */
     @Override

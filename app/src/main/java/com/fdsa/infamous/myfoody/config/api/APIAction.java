@@ -18,12 +18,12 @@ public class APIAction {
      * GET METHOD
      **/
 
-    public static final int GET_CATEGORY_WHAT2DO    = 0;
-    public static final int GET_CATEGORY_WHERE2DO   = 1;
-    public static final int GET_PROVINCE            = 2;
-    public static final int GET_DISTRICT            = 3;
-    public static final int GET_RESTAURANT          = 4;
-    public static final int GET_FOOD                = 5;
+    public static final int GET_CATEGORY_WHAT2DO = 0;
+    public static final int GET_CATEGORY_WHERE2DO = 1;
+    public static final int GET_PROVINCE = 2;
+    public static final int GET_DISTRICT = 3;
+    public static final int GET_RESTAURANT = 4;
+    public static final int GET_FOOD = 5;
 
     /**
      * ERROR_OBJECT

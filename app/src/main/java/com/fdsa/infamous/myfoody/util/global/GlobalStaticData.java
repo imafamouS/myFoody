@@ -1,10 +1,11 @@
 package com.fdsa.infamous.myfoody.util.global;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 
 import com.fdsa.infamous.myfoody.MainActivity;
 import com.fdsa.infamous.myfoody.R;
-import com.fdsa.infamous.myfoody.common.bean_F1.MoreItem;
+import com.fdsa.infamous.myfoody.common.bean_Foody1_do_not_use.MoreItem;
 import com.fdsa.infamous.myfoody.common.bean_F2.MenuBarItemBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.ProvinceBean;
 import com.fdsa.infamous.myfoody.common.bean_F2.UserBean;
@@ -31,15 +32,17 @@ public class GlobalStaticData {
 
     public static int callFromFragment;
 
-    public static  boolean LOGINFLAG=false;
+    public static boolean LOGINFLAG = false;
 
     public static UserBean currentUser;
+    public static MainActivity mainActivity;
+    public static String SHARED_PREFERENCES_NAME = "my_shared_preferences";
+    public static Bitmap BACKGROUND_LOGIN;
+    private static Location MYLOCATION = null;
 
-    public static boolean isLogined(){
+    public static boolean isLogined() {
         return LOGINFLAG;
     }
-
-    public static MainActivity mainActivity;
 
     public static MainActivity getMainActivity() {
         return mainActivity;
@@ -56,7 +59,6 @@ public class GlobalStaticData {
     public static void setCurrentUser(UserBean currentUser) {
         GlobalStaticData.currentUser = currentUser;
     }
-    public static String SHARED_PREFERENCES_NAME="my_shared_preferences";
 
     //Hàm get tỉnh hiện tại
     public static ProvinceBean getCurrentProvinceBean() {
@@ -79,15 +81,15 @@ public class GlobalStaticData {
     }
 
     //Hàm get tỉnh mặc định (TPHCM)
-    public static ProvinceBean getDefaultProvince(){
-        return new ProvinceBean("vn1","TP.HCM",null);
+    public static ProvinceBean getDefaultProvince() {
+        return new ProvinceBean("vn1", "TP.HCM", null);
     }
 
     //Hàm get các item của MoreItemView
     public static List<MoreItem> getListMoreItem(int type) {
         List<MoreItem> list = new ArrayList<>();
 
-        if(type == MoreItemView.ITEM_DEFAULT){
+        if (type == MoreItemView.ITEM_DEFAULT) {
             list.add(new MoreItem("Gần tôi", MoreItemCode.NEARBY));
             list.add(new MoreItem("Coupon", MoreItemCode.COUPON));
             list.add(new MoreItem("Đặt chỗ ưu đãi", MoreItemCode.BOOK));
@@ -124,7 +126,7 @@ public class GlobalStaticData {
         List<MenuBarItemBean> items = new ArrayList<>();
 
         MenuBarItemBean item1 = new MenuBarItemBean("moinhat", "Mới nhất", "icon_tab_1_new", false);
-        MenuBarItemBean item2 = new MenuBarItemBean("gantoi", "Gần tôi", "icon_tab_1_near", false);
+        MenuBarItemBean item2 = new MenuBarItemBean("ganday", "Gần tôi", "icon_tab_1_near", false);
         MenuBarItemBean item3 = new MenuBarItemBean("phobien", "Phổ biến", "icon_tab_1_popular", false);
         MenuBarItemBean item4 = new MenuBarItemBean("dukhach", "Du khách", "icon_tab_1_tourist", false);
         MenuBarItemBean item5 = new MenuBarItemBean("ecard", "Ưu đãi E-card", "icon_tab_1_ecard", false);
@@ -151,7 +153,7 @@ public class GlobalStaticData {
 
 
         MenuBarItemBean item1 = new MenuBarItemBean("moinhat", "Mới nhất", "icon_tab_1_new", false);
-        MenuBarItemBean item2 = new MenuBarItemBean("gantoi", "Gần tôi", "icon_tab_1_near", false);
+        MenuBarItemBean item2 = new MenuBarItemBean("ganday", "Gần tôi", "icon_tab_1_near", false);
         MenuBarItemBean item3 = new MenuBarItemBean("phobien", "Xem nhiều", "icon_tab_1_popular", false);
         MenuBarItemBean item4 = new MenuBarItemBean("dukhach", "Du khách", "icon_tab_1_tourist", false);
 
@@ -164,8 +166,8 @@ public class GlobalStaticData {
 
 
     }
-
-    public static List<MenuBarItemBean> initMarryStatusData(){
+    //hàm khởi tạo danh sách tình trang hôn nhân
+    public static List<MenuBarItemBean> initMarryStatusData() {
         List<MenuBarItemBean> items = new ArrayList<>();
 
 
@@ -191,7 +193,8 @@ public class GlobalStaticData {
 
         return items;
     }
-    public static List<MenuBarItemBean> initGenderData(){
+    //Hàm khởi tạo danh sách giới tính
+    public static List<MenuBarItemBean> initGenderData() {
         List<MenuBarItemBean> items = new ArrayList<>();
 
 
@@ -203,9 +206,22 @@ public class GlobalStaticData {
 
         return items;
     }
-    public static Bitmap BACKGROUND_LOGIN;
-
-    public static final LatLng getDefaultMyLocation(){
+    //Hàm lấy địa điểm mặc định
+    public static final LatLng getDefaultMyLocation() {
         return new LatLng(10.851035, 106.772001);//
+    }
+    //Hàm lấy địa điểm hiện tại
+    public static Location getMYLOCATION() {
+        if (MYLOCATION == null) {
+            Location location = new Location("latlong");
+            location.setLatitude(10.851035);
+            location.setLongitude(106.772001);
+            return location;
+        }
+        return MYLOCATION;
+    }
+    //Hàm gán đia điểm hiện tại
+    public static void setMYLOCATION(Location MYLOCATION) {
+        GlobalStaticData.MYLOCATION = MYLOCATION;
     }
 }

@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.fdsa.infamous.myfoody.MapsActivity;
 import com.fdsa.infamous.myfoody.R;
@@ -63,24 +62,17 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnClickListener, IOnClickImage {
-    public AddNewPlaceActivity() {
-
-    }
-
     public static final int POPUP_CHOOSE_PROVINCE = 0;
     public static final int POPUP_CHOOSE_DISTRICT = 1;
     public static final int POPUP_CHOOSE_RESTYPE = 2;
     LinearLayout back_button_add_place;
-
     TextView text_view_choose_province;
     TextView text_view_choose_district;
     TextView text_view_done;
-
     EditText edit_text_name_res;
     LinearLayout linear_layout_choose_type_res;
     EditText edit_text_address_res;
     TextView text_view_res_type;
-
     LinearLayout linear_layout_map_location;
     TextView text_view_lat_long;
     LinearLayout linear_layout_phone_number;
@@ -89,40 +81,48 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
     EditText edit_text_max_cash;
     EditText edit_text_min_cash;
     EditText edit_text_short_descr;
-
     FrameLayout frame_layout_add_image;
-
     TimePickerDialog openTimePiker;
     TimePickerDialog closeTimePiker;
-
-
     GallerySelectedFileAdapter selectedFileAdapter;
     RecyclerView grid_view_file;
     TextView text_view_photo_count;
     int positionSelectedProvince = 0;
-
     int positionSelectedDistrict = 0;
     ListItemDialog dialogChooseProvince;
     DialogAdapter choosePronvinceDialogAdapter;
     ProvinceController provinceController;
-
     ListItemDialog dialogChooseDistrict;
     DialogAdapter chooseDistrictDialogAdapter;
     DistrictController districtController;
-
     ListItemDialogTypeRes dialogChooseResType;
     DialogAdapter chooseResTypeAdapter;
     MenuBarItemController menuBarItemController;
-
-
     String curDistrictID;
     String curProvinceID = GlobalStaticData.getCurrentProvinceBean().getId();
     List<MenuBarItemBean> selectedResType = new ArrayList<>();
     double lat = -1;
     double lng = -1;
     ArrayList<ImageGalleryBean> selectedImages = new ArrayList<>();
+    //Sự kiện khi chọn thời giangian mở cửa trên picker chọn thời
+    TimePickerDialog.OnTimeSetListener onOpenTimeSet = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            AddNewPlaceActivity.this.text_view_open_time.setText(hourOfDay + ":" + minute);
+        }
+    };
+    //Sự kiện khi chọn thời giangian đóng cửa trên picker chọn thời
+    TimePickerDialog.OnTimeSetListener onCloseTimeSet = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            AddNewPlaceActivity.this.text_view_close_time.setText(hourOfDay + ":" + minute);
+        }
+    };
 
+    public AddNewPlaceActivity() {
 
+    }
+    //hàm xứ lí sự kiện khi Activity được khởi tạo (khởi tạo view)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,21 +134,21 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         initPopup();
         setDefaultDisplay();
     }
-
+    //Hàm khởi tạo các Controller để thực hiện việc lấy dữ liệu
     private void initController() {
         provinceController = new ProvinceController(this.getApplicationContext(), "vietnam", false);
         districtController = new DistrictController(this.getApplicationContext());
         menuBarItemController = new MenuBarItemController(this.getApplicationContext(), APIAction.GET_CATEGORY_WHAT2DO);
     }
-
+    //Hàm khởi tạo các Popup
     private void initPopup() {
         buildPopup(POPUP_CHOOSE_PROVINCE);
         buildPopup(POPUP_CHOOSE_DISTRICT);
         buildPopup(POPUP_CHOOSE_RESTYPE);
     }
-
+    //hàm khởi tạo các view chính của layout
     private void initView() {
-        back_button_add_place=(LinearLayout)findViewById(R.id.back_button_add_place);
+        back_button_add_place = (LinearLayout) findViewById(R.id.back_button_add_place);
         text_view_done = (TextView) findViewById(R.id.text_view_done);
         text_view_choose_province = (TextView) findViewById(R.id.text_view_choose_province);
         text_view_choose_district = (TextView) findViewById(R.id.text_view_choose_district);
@@ -188,20 +188,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         grid_view_file.setAdapter(selectedFileAdapter);
 
     }
-
-    TimePickerDialog.OnTimeSetListener onOpenTimeSet = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            AddNewPlaceActivity.this.text_view_open_time.setText(hourOfDay + ":" + minute);
-        }
-    };
-    TimePickerDialog.OnTimeSetListener onCloseTimeSet = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            AddNewPlaceActivity.this.text_view_close_time.setText(hourOfDay + ":" + minute);
-        }
-    };
-
+    //hàm khởi tạo các sự kiện của các view
     private void initEvent() {
         back_button_add_place.setOnClickListener(this);
         text_view_choose_province.setOnClickListener(this);
@@ -213,13 +200,13 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         text_view_done.setOnClickListener(this);
         frame_layout_add_image.setOnClickListener(this);
     }
-
+    //Hàm hiện thông tin ban đầu lên Layout
     private void setDefaultDisplay() {
         addLayoutNewPhone();
-        text_view_choose_province.setText(GlobalStaticData.getCurrentProvinceBean().gettitle());
+        text_view_choose_province.setText("Tp. HCM");
     }
 
-
+    //Hàm thêm 1 view (add phonenumber)
     private void addLayoutNewPhone() {
         View v = View.inflate(this, R.layout.item_phone_layout, null);
         ImageView image_view_add_phone_number = (ImageView) v.findViewById(R.id.image_view_add_phone_number);
@@ -228,36 +215,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         image_view_add_phone_number.setOnClickListener(new OnClickAddNumber(this.getApplicationContext(), image_view_add_phone_number, v));
         this.linear_layout_phone_number.addView(v);
     }
-
-    class OnClickAddNumber implements View.OnClickListener {
-        Context context;
-        ImageView image_view_add_phone_number;
-        View layout;
-
-        public OnClickAddNumber(Context context, ImageView image_view_add_phone_number, View layout) {
-            this.context = context;
-            this.image_view_add_phone_number = image_view_add_phone_number;
-            this.layout = layout;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if ((Integer) image_view_add_phone_number.getTag() == 10) {
-                addLayoutNewPhone();
-                image_view_add_phone_number.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_minus_gray));
-                image_view_add_phone_number.setTag(100);
-                return;
-            }
-            AddNewPlaceActivity.this.linear_layout_phone_number.removeView(layout);
-            ImageView image_view_add_phone_number_last = (ImageView) AddNewPlaceActivity.this.linear_layout_phone_number
-                    .getChildAt(AddNewPlaceActivity.this.linear_layout_phone_number.getChildCount() - 1)
-                    .findViewById(R.id.image_view_add_phone_number);
-            image_view_add_phone_number_last.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_plus_blue));
-            image_view_add_phone_number_last.setTag(10);
-
-        }
-    }
-
+    //Hàm xự lí sự kiện nhận các giá trị trả về từ các Activity khác (Nhận hình ảnh, nhận vị trí lat_long từ google)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == AppConfig.RESULT_CODE_FROM_GALLERY_FOLDER) {
@@ -271,7 +229,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             updateLatLong();
         }
     }
-
+    //Hàm cập nhật số ảnh được chọn
     private void updateNumofPhoto() {
         if (this.selectedFileAdapter.imageSelected.size() > 0) {
             text_view_photo_count.setText("" + this.selectedFileAdapter.imageSelected.size());
@@ -281,7 +239,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             text_view_photo_count.setVisibility(View.GONE);
         }
     }
-
+    //hàm cập nhật text_view lat long
     private void updateLatLong() {
         if (lat == -1 || lng == -1) {
             text_view_lat_long.setText("Lat " + "0" + " - " + "Long " + "0");
@@ -289,8 +247,8 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         }
         text_view_lat_long.setText("Lat " + this.lat + " - " + "Long " + this.lng);
     }
-
-    private void sendData() {
+    //Hàm thực hiện việc gửi thông tin lên server
+    private synchronized  void sendData() {
         if (curDistrictID == null || curDistrictID.equals("")) {
             GlobalFunction.shakeView(this.getApplicationContext(), text_view_choose_district);
             return;
@@ -320,9 +278,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         JsonObject input = createJsonInput();
         new MyFoodyPostMethod(input, this.getApplicationContext(), new CallBackUploadRes()).execute("api/restaurant/post");
     }
-
-
-
+    //hàm tạo dữ liệu để gửi lên server (Nhà hàng)
     private JsonObject createJsonInput() {
         RestaurantBean res = new RestaurantBean();
         res.setAddress(edit_text_address_res.getText().toString().trim());
@@ -347,7 +303,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
 
         return gson.toJsonTree(res).getAsJsonObject();
     }
-
+    //Hàm xây dựng danh sách ảnh cho nhà hàng
     private List<MoreImageRestaurantBean> getListMoreItem(final String resid) {
         List<MoreImageRestaurantBean> list = new ArrayList<>();
         for (int i = 1; i < selectedImages.size(); i++) {
@@ -358,7 +314,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         }
         return list;
     }
-
+    //Hàm lấy số điện thoại từ tất cả các view AddPhoneNumber
     private String getAllPhoneNumber() {
         String result = "";
         for (int i = 0; i < this.linear_layout_phone_number.getChildCount(); i++) {
@@ -368,6 +324,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         }
         return result.substring(0, result.length() - 1);
     }
+    //Hàm cập naht65 text_view khi chọn loại nhà hàng
     private void updateTextResType() {
         this.text_view_res_type.setText("");
         String resType = "";
@@ -382,26 +339,8 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         resType = resType.substring(0, resType.length() - 2);
         this.text_view_res_type.setText(resType);
     }
-
-    class CallBackUploadRes implements ICallBackAsynsTask<JsonObject> {
-        @Override
-        public void onRunnin() {
-            Toast.makeText(AddNewPlaceActivity.this, "fsdfsadfdsafdsafsd", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onSuccess(JsonObject object) {
-            showAlert("Upload thành công");
-            finish();
-        }
-
-        @Override
-        public void onFail(JsonObject object) {
-            showAlert("Upload thất bại");
-        }
-    }
-
-    private void showAlert(String mess) {
+    //hàm hiện thông báo
+    private void showAlert(String mess,final boolean isSuccess) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 
@@ -411,11 +350,20 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
                 .setPositiveButton(getString(R.string.TEXT_ACTION_CLOSE), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+                       if(isSuccess) {
+                           finish();
+                       }
                     }
                 });
 
         alertDialogBuilder.show();
     }
+
+    /**
+     *   Hàm xây dựng các popup
+     *   Popup chọn tỉnh, chọn huyện và popup chọn loại nhà hàng
+     */
+
 
     private void buildPopup(int type) {
         if (type == POPUP_CHOOSE_PROVINCE) {
@@ -448,26 +396,33 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         }
 
     }
-
+    //Hàm tạo dữ liệu cho các popup
     private List<MenuBarItemBean> getDataDialog(int type) {
         List<MenuBarItemBean> list = new ArrayList<>();
         try {
             if (type == POPUP_CHOOSE_PROVINCE) {
                 List<ProvinceBean> provinceBeanList = provinceController.getListProvince();
-                for (ProvinceBean i : provinceBeanList) {
-                    list.add(new MenuBarItemBean(i.getId(), i.gettitle(), "", false));
+                if (provinceBeanList != null && provinceBeanList.size() > 0) {
+                    for (ProvinceBean i : provinceBeanList) {
+                        list.add(new MenuBarItemBean(i.getId(), i.gettitle(), "", false));
+                    }
+                    list.get(positionSelectedProvince).setSelected(true);
                 }
-                list.get(positionSelectedProvince).setSelected(true);
             } else if (type == POPUP_CHOOSE_DISTRICT) {
                 List<DistrictBean> distrctBeanList = districtController.getListDistrict(this.curProvinceID);
-                for (DistrictBean i : distrctBeanList) {
-                    list.add(new MenuBarItemBean(i.getId(), i.gettitle(), "", false));
+                if (distrctBeanList != null && distrctBeanList.size() > 0) {
+                    for (DistrictBean i : distrctBeanList) {
+                        list.add(new MenuBarItemBean(i.getId(), i.gettitle(), "", false));
+                    }
                 }
             } else if (type == POPUP_CHOOSE_RESTYPE) {
                 List<MenuBarItemBean> menuBarItemBeanList = menuBarItemController.getListMenuBar_WHERE();
-                for (int i = 1; i < 16; i++) {
-                    list.add(menuBarItemBeanList.get(i));
+                if (menuBarItemBeanList != null && menuBarItemBeanList.size() > 0) {
+                    for (int i = 1; i < 16; i++) {
+                        list.add(menuBarItemBeanList.get(i));
+                    }
                 }
+
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -482,14 +437,12 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
     public void onClickReviewImage(View v, int index) {
 
     }
-
+    //hàm xử lí sự kiện khi click vào các ảnh được chọn (xóa ảnh)
     @Override
     public void onClickImage(View v, final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //Cài đặt các thuộc tính
         builder.setTitle("Xóa");
         builder.setMessage("Bạn có muốn xóa ảnh?");
-        // Cài đặt button yes- logout
         builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 selectedFileAdapter.removeSelectedImage(index);
@@ -498,7 +451,6 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             }
         });
 
-        // Cài đặt button hủy Dismiss ẩn Dialog
         builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -507,7 +459,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
         AlertDialog alert = builder.create();
         alert.show();
     }
-
+    //Hàm xử lí sự kiện onLCick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -552,10 +504,49 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
                 break;
         }
     }
+    //Class thực hiện việc khi nhấn vào thêm 1 view addPhoneNumber
+    class OnClickAddNumber implements View.OnClickListener {
+        Context context;
+        ImageView image_view_add_phone_number;
+        View layout;
 
+        public OnClickAddNumber(Context context, ImageView image_view_add_phone_number, View layout) {
+            this.context = context;
+            this.image_view_add_phone_number = image_view_add_phone_number;
+            this.layout = layout;
+        }
 
+        @Override
+        public void onClick(View v) {
+            if ((Integer) image_view_add_phone_number.getTag() == 10) {
+                addLayoutNewPhone();
+                image_view_add_phone_number.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_minus_gray));
+                image_view_add_phone_number.setTag(100);
+                return;
+            }
+            AddNewPlaceActivity.this.linear_layout_phone_number.removeView(layout);
+            ImageView image_view_add_phone_number_last = (ImageView) AddNewPlaceActivity.this.linear_layout_phone_number
+                    .getChildAt(AddNewPlaceActivity.this.linear_layout_phone_number.getChildCount() - 1)
+                    .findViewById(R.id.image_view_add_phone_number);
+            image_view_add_phone_number_last.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_plus_blue));
+            image_view_add_phone_number_last.setTag(10);
 
+        }
+    }
+    //Class thực hiện việc call back lại kết quả từ việc upload nhà hàng
+    class CallBackUploadRes implements ICallBackAsynsTask<JsonObject> {
+        @Override
+        public void onSuccess(JsonObject object) {
+            showAlert("Upload thành công",true);
 
+        }
+
+        @Override
+        public void onFail(JsonObject object) {
+            showAlert("Upload thất bại",false);
+        }
+    }
+    //Class thực hiện việc khi nhấn nút xong trong popup chọn loại nhà hàng
     class OnDoneChooseResType implements View.OnClickListener {
 
         DialogAdapter adapter;
@@ -576,7 +567,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             dialogChooseResType.dismiss();
         }
     }
-
+    //Class thực hiện việc nhấn nút hủy trong popup
     class OnCancelDialogClick implements View.OnClickListener {
         Dialog dialog;
 
@@ -589,7 +580,7 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             this.dialog.dismiss();
         }
     }
-
+    //Class thực hiện việc click vào các item trên popup
     class OnItemInDialogClick implements AdapterView.OnItemClickListener {
         int type;
         DialogAdapter adapter;
@@ -638,32 +629,32 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             }
         }
     }
-
+    //Adapter cho các Popup
     class DialogAdapter extends BaseAdapter {
         Context context;
         List<MenuBarItemBean> data;
-
+        //Hàm khởi tạo
         public DialogAdapter(Context context, List<MenuBarItemBean> data) {
             super();
             this.context = context;
             this.data = data;
         }
-
+        //Hàm trả về số lượng Item trong adapter
         @Override
         public int getCount() {
             return data.size();
         }
-
+        //Hàm trả về item tương ứng với vị trí
         @Override
         public Object getItem(int position) {
             return data.get(position);
         }
-
+        //hàm trả về id của item
         @Override
         public long getItemId(int position) {
             return position;
         }
-
+        //Hàm hiện dữ liệu lên View
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -698,6 +689,8 @@ public class AddNewPlaceActivity extends BaseSlideActivity implements View.OnCli
             return position;
         }
 
+
+        //ViewHolder
         class ViewHolder {
             View v;
             TextView list_view_item_menu_tab_text;

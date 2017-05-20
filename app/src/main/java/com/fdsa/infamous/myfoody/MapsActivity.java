@@ -20,6 +20,7 @@ import com.fdsa.infamous.myfoody.common.myinterface.ICallBackAsynsTask;
 import com.fdsa.infamous.myfoody.config.AppConfig;
 import com.fdsa.infamous.myfoody.ui.menu.activity.BaseSlideActivity;
 import com.fdsa.infamous.myfoody.util.asynctask.MyDecodeLocationMethod;
+import com.fdsa.infamous.myfoody.util.global.GlobalFunction;
 import com.fdsa.infamous.myfoody.util.global.GlobalStaticData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,22 +35,28 @@ import static com.fdsa.infamous.myfoody.R.id.map;
 public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallback, View.OnClickListener {
 
 
+    private final float MAP_ZOOM = 15.0f;
+    Location myLocation = null;
+    Context context;
     private LinearLayout back_button_choose_location;
     private TextView text_view_select;
     private TextView text_view_name_location;
     private ProgressBar progress_bar;
     private LinearLayout linear_layout_my_location;
-
-
     private GoogleMap mMap;
     private double selectedLat;
     private double selectedLong;
     private LatLng selectedPosition;
-    private final float MAP_ZOOM = 15.0f;
-    Location myLocation = null;
+    //Sự kiện khi click lên map
+    GoogleMap.OnMapClickListener onMapClickListener = new GoogleMap.OnMapClickListener() {
+        @Override
+        public void onMapClick(LatLng latLng) {
+            MapsActivity.this.markLocation(latLng.latitude, latLng.longitude);
+        }
+    };
     private AsyncTask asyncTaskDecodeLocation;
-    Context context;
 
+    //hàm xử lí sự kiện khi Activity được khởi tạo (Khởi tạo view)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +85,7 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
         text_view_select.setOnClickListener(this);
 
     }
-
+    //Hàm khởi tạo fragment GoogleMap
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
@@ -99,7 +106,7 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
             markLocation(selectedLat, selectedLong);
         }
     }
-
+    //Hàm đánh dấu địa chỉ
     private void markLocation(double lat, double lng) {
         this.selectedLat = lat;
         this.selectedLong = lng;
@@ -107,7 +114,7 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
         this.selectedPosition = new LatLng(lat, lng);
         this.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, MAP_ZOOM), 100, null);
     }
-
+    //Hàm đánh dấu đia chỉ của mình
     private void markMyLocation() {
         myLocation = getMyLocation();
 
@@ -115,9 +122,10 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
             markLocation(GlobalStaticData.getDefaultMyLocation().latitude, GlobalStaticData.getDefaultMyLocation().longitude);
         } else {
             markLocation(myLocation.getLatitude(), myLocation.getLongitude());
+            GlobalStaticData.setMYLOCATION(myLocation);
         }
     }
-
+    //Hàm lấy vị trí hiện tại
     private Location getMyLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -128,15 +136,16 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
         }
         return location;
     }
-    private void sendData(){
-        Intent intent=new Intent();
-        intent.putExtra("lat",selectedLat);
-        intent.putExtra("long",selectedLong);
-        setResult(AppConfig.RESULT_CODE_CHOOSE_LOCATION,intent);
+    //hàm gửi data về các activity
+    private void sendData() {
+        Intent intent = new Intent();
+        intent.putExtra("lat", GlobalFunction.round(selectedLat, 5));
+        intent.putExtra("long", GlobalFunction.round(selectedLong, 5));
+        setResult(AppConfig.RESULT_CODE_CHOOSE_LOCATION, intent);
         finish();
 
     }
-
+    //Hàm lấy tọa độ chính xác ngay giữa map
     private void getCenterLocationMap() {
         if (this.mMap != null) {
             VisibleRegion visibleRegion = this.mMap.getProjection().getVisibleRegion();
@@ -147,6 +156,7 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
             markLocation(this.selectedLat, this.selectedLong);
         }
     }
+    //Sự kiện onClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -166,7 +176,7 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
                 break;
         }
     }
-
+    //Class thực hiện việc khi thay đổi vị trí trên google map (hiện thông tin tại vị trí đó)
     class onCameraChangeListener implements GoogleMap.OnCameraChangeListener {
         GoogleMap googleMap;
 
@@ -174,16 +184,19 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
             this.googleMap = googleMap;
         }
 
+        @Override
+        public void onCameraChange(CameraPosition cameraPosition) {
+            asyncTaskDecodeLocation = new MyDecodeLocationMethod(context, cameraPosition.target.latitude,
+                    cameraPosition.target.longitude, new CallBackAsynTask(cameraPosition)).execute();
+            text_view_name_location.setText("");
+            progress_bar.setVisibility(View.VISIBLE);
+        }
+
         class CallBackAsynTask implements ICallBackAsynsTask<String> {
             CameraPosition cameraPosition;
 
             public CallBackAsynTask(CameraPosition cameraPosition) {
                 this.cameraPosition = cameraPosition;
-            }
-
-            @Override
-            public void onRunnin() {
-
             }
 
             @Override
@@ -200,20 +213,5 @@ public class MapsActivity extends BaseSlideActivity implements OnMapReadyCallbac
                 progress_bar.setVisibility(View.GONE);
             }
         }
-
-        @Override
-        public void onCameraChange(CameraPosition cameraPosition) {
-            asyncTaskDecodeLocation = new MyDecodeLocationMethod(context, cameraPosition.target.latitude,
-                    cameraPosition.target.longitude, new CallBackAsynTask(cameraPosition)).execute();
-            text_view_name_location.setText("");
-            progress_bar.setVisibility(View.VISIBLE);
-        }
     }
-
-    GoogleMap.OnMapClickListener onMapClickListener = new GoogleMap.OnMapClickListener() {
-        @Override
-        public void onMapClick(LatLng latLng) {
-            MapsActivity.this.markLocation(latLng.latitude, latLng.longitude);
-        }
-    };
 }
